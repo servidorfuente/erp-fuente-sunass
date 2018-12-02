@@ -1,13 +1,18 @@
 package erp.realcoresystems.pe.controller.gestion;
 
+import erp.realcoresystems.pe.commons.TimeCommons;
+import erp.realcoresystems.pe.commons.UtilesCommons;
 import erp.realcoresystems.pe.controller.AbstractGenericBean;
 import erp.realcoresystems.pe.controller.InterfaceGenericBean;
 import erp.realcoresystems.pe.model.domain.Companyowner;
 import erp.realcoresystems.pe.model.domain.MaMiscelaneosdetalle;
+import erp.realcoresystems.pe.model.domain.SsControlperiodo;
 import erp.realcoresystems.pe.model.domain.SsPeriodoformulariodetalle;
 import erp.realcoresystems.pe.model.domain.vista.VwSsperiodoformulario;
 import erp.realcoresystems.pe.model.util.Constant;
 import erp.realcoresystems.pe.model.util.FacesUtil;
+import erp.realcoresystems.pe.model.util.Utiles;
+import erp.realcoresystems.pe.server.EntityGlobal;
 import erp.realcoresystems.pe.service.CompaniaOwnerService;
 import erp.realcoresystems.pe.service.MaMiscelaneosdetalleService;
 import erp.realcoresystems.pe.service.SsControlperiodoService;
@@ -17,7 +22,10 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @ManagedBean(name = "controlFormularioBean")
@@ -64,10 +72,7 @@ public class ControlFormularioBean extends AbstractGenericBean implements Interf
        // buscarPrincipal();
 
     }
-    @Override
-    public void cargarObjetoFiltros(int first, int pageSize, int counter) {
 
-    }
 
     @Override
     public void btnBuscar() {
@@ -89,29 +94,99 @@ public class ControlFormularioBean extends AbstractGenericBean implements Interf
 
     }
 
+
+
     @Override
     public void btnNuevo() {
-
+        MODO_ACTUAL = MODO_NEW;
+        setAtributosWindowsRegistro(MODO_ACTUAL);
     }
 
     @Override
     public void btnModificar() {
-
+        if (controlPeriodoSeleccion != null) {
+            MODO_ACTUAL = MODO_UPDATE;
+            setAtributosWindowsRegistro(MODO_ACTUAL);
+        }else{
+            FacesUtil.mensajeWarningPropiedades("MSJ_WARN_elementoNoSelecc");
+        }
     }
 
     @Override
     public void btnVer() {
-
+        if (controlPeriodoSeleccion != null) {
+            MODO_ACTUAL = MODO_VIEW;
+            setAtributosWindowsRegistro(MODO_VIEW);
+        } else {
+            FacesUtil.mensajeWarningPropiedades("MSJ_WARN_elementoNoSelecc");
+        }
     }
 
     @Override
     public void btnEliminar() {
+        if (controlPeriodoSeleccion != null) {
+            MODO_ACTUAL = MODO_DELETE;
+            setAtributosWindowsRegistro(MODO_ACTUAL);
+        } else {
+            FacesUtil.adicionarMensajeWarning(FacesUtil.getMSJProperty("MSJ_WARN_elementoNoSelecc"));
+        }
+    }
 
+
+    public void setAtributosWindowsRegistro(String modo){
+        super.setAtributosWindowsRegistro(modo);
+        if(modo.equals(MODO_NEW)){
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy");
+            String date = sdf.format(new Date());
+            System.out.println(date); //15/10/2013
+            Date today = new Date(); // Fri Jun 17 14:54:28 PDT 2016
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(today);
+
+        }
+
+        cargarCombos();
+
+    }
+    // Listados
+    public List<MaMiscelaneosdetalle> listarMiscelaneosDetalle(String valorcodigo1, String codigotabla) {
+        MaMiscelaneosdetalle filtro = new MaMiscelaneosdetalle();
+        filtro.setAplicacioncodigo(Constant.APLICACION_CODIGO);
+        filtro.setCompania(Constant.COMPANIA_999999);
+        filtro.setEstado(Constant.ACTIVO);
+        filtro.setValorcodigo1(valorcodigo1);
+        filtro.setCodigotabla(codigotabla);
+        return maMiscelaneosdetalleService.listarElementos(filtro);
+    }
+    public void cargarCombos(){
+        maMisDestalleTipoFrencuencia =listarMiscelaneosDetalle("","TIPOFRECUE");
+        maMisDestalleEstadoDocumento =listarMiscelaneosDetalle("","ESTADODOC");
     }
 
     @Override
     public void abrirRegistro() {
 
+    }
+    public void listarCompania() {
+        try{
+            if(listaCompanyowner!=null){
+                listaCompanyowner.clear();
+            }
+            if(UtilesCommons.noEsVacio(EntityGlobal.getInstance().getUsuario())){
+                Companyowner filtro = new Companyowner();
+                listaCompanyowner = companiaOwnerService.listarSeguridad(filtro, EntityGlobal.getInstance().getUsuario());
+            }
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+    }
+    @Override
+    public void cargarObjetoFiltros(int first, int pageSize, int counter) {
+
+        controlPeriodoFiltro.setOrdernable(true);
+        controlPeriodoFiltro.setAtributoOrdenacion("id.fechaCambio");
+        controlPeriodoFiltro.setInicio(first);
+        controlPeriodoFiltro.setNumeroFilas(pageSize);
     }
 
     public SsControlperiodoService getSsControlperiodoService() {

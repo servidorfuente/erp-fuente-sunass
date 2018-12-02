@@ -97,7 +97,7 @@
                             </p:column>
                             <p:column>
                                 <p:outputLabel for="itEstado" styleClass="estiloLabelForm"   value="#{lbv.CONTROLPERIODO_ESTADODOC}"/>
-                                <p:selectOneMenu id="itEstado"  autoWidth="false" value="#{controlFormularioBean.controlPeriodoRegistro.estadodocumento}"
+                                <p:selectOneMenu id="itEstado"  autoWidth="false" value="#{controlFormularioBean.ssPeriodoFormRegistro.estadodocumento}"
                                                  styleClass="required-field" >
                                     <f:selectItem itemLabel="#{lbv.CONTROLPERIODO_SELECCIONE}" noSelectionOption="true" />
                                     <f:selectItems value="#{controlFormularioBean.maMisDestalleEstadoDocumento}" var="item"
@@ -105,7 +105,7 @@
                                 </p:selectOneMenu>
                                 <p:outputLabel value="#{lbv.CONTROLPERIODO_FFIN_DESDE}"
                                                style="#{label.STYLE_LABELFORM}" />
-                                <p:calendar value="#{controlFormularioBean.controlPeriodoRegistro.fechainicio}" navigator="true"
+                                <p:calendar value="#{controlFormularioBean.ssPeriodoFormRegistro.fechainicio}" navigator="true"
                                             readonlyInput="#{controlFormularioBean.componentesReadonly}" placeholder="#{label.PATTERN_DATE}"
                                             maxdate="#{now}"
                                             widgetVar="fechaNacimiento"
@@ -113,13 +113,9 @@
                                     <p:ajax event="dateSelect" process="@form"/>
                                     <p:ajax event="blur" process="@form"/>
                                 </p:calendar>
-                                <h:outputText value="#{lbv.LBLPERIODO}" styleClass="estiloLabelForm" />
-                                <p:inputText id="itPeriodo" value="#{controlFormularioBean.controlPeriodoRegistro.periodo}"
-                                             readonly="#{controlFormularioBean.componentesReadonly}" maxlength="60"
-                                             style="text-transform:uppercase"  styleClass="required-field"  >
-                                </p:inputText>
+
                                 <p:outputLabel for="cmbEstadoReg" value="#{lbv.CONTROLPERIODO_PERFIL_ESTADO}" />
-                                <p:selectOneMenu id="cmbEstadoReg" autoWidth="false" value="#{controlFormularioBean.controlPeriodoRegistro.estado}">
+                                <p:selectOneMenu id="cmbEstadoReg" autoWidth="false" value="#{controlFormularioBean.ssPeriodoFormRegistro.estado}">
                                     <f:selectItem itemLabel="#{label.lblTodos}" noSelectionOption="true" />
                                     <f:selectItem itemLabel="#{label.ITEM_ACTIVO}" itemValue="#{constant.ACTIVO}" />
                                     <f:selectItem itemLabel="#{label.ITEM_INACTIVO}" itemValue="#{constant.INACTIVO}" />
