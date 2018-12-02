@@ -1,0 +1,188 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:p="http://primefaces.org/ui">
+
+	<style type="text/css">
+
+		.input-search-dark-t1{
+			box-shadow: none;
+			background-color: #374850;
+			border: 1px solid transparent;
+			height: 35px;
+			color: #999;
+			border-top-left-radius: 4px;
+			border-top-right-radius: 0;
+			border-bottom-right-radius: 0;
+			border-bottom-left-radius: 4px;
+		}
+
+		.buttom-search-dark-t1{
+			border-radius: 4px !important;
+			color: #999 !important;
+			border-top-left-radius: 0 !important;
+			border-top-right-radius: 4px !important;
+			border-bottom-right-radius: 4px !important;
+			border-bottom-left-radius: 0 !important;
+			box-shadow: none !important;
+			background-color: #374850 !important;
+			border: 1px solid transparent !important;
+			height: 35px !important;
+		}
+	</style>
+
+	<ul class="sidebar-menu tree" data-widget="tree">
+
+
+		<h:form id="formMenu" >
+
+			<p:remoteCommand  update="@form"  name="inicializarMenuBandeja"
+							  actionListener="#{bandejaPrincipalBean.eventoCargarPermisosMenu}"
+
+			>
+			</p:remoteCommand>
+
+			<p:remoteCommand id="eventoSelectMenu" name="eventoSelectMenu"  actionListener="#{bandejaPrincipalBean.onSelectMenu}"
+							 update="@form"
+			>
+			</p:remoteCommand>
+			<p:remoteCommand id="eventoSelectGroupMenu" name="eventoSelectGroupMenu"  actionListener="#{bandejaPrincipalBean.onSelectGroupMenu}"
+							 update="formMenu"
+			>
+			</p:remoteCommand>
+			<p:remoteCommand id="eventoSearchMenu" name="eventoSearchMenu"  actionListener="#{bandejaPrincipalBean.buscarPermisosMenuFiltro}"
+							 update="formMenu"
+			>
+			</p:remoteCommand>
+			<p:blockUI block="formMenu" widgetVar="blockElem" id="blockElem"
+					   trigger="eventoSearchMenu eventoSelectMenu eventoSelectGroupMenu"
+			>
+				#{mensaje.MSJ_BLOCKUI_Proceso}<br />
+				<p:graphicImage value="/resources/images/loader03.gif"/>
+			</p:blockUI>
+			<li class="header">
+				<div class="text-center">
+					<p:outputLabel style="color:#949494; font-size:16px; "
+					> #{lbv.MENUPRINCIPAL_CAP}
+					</p:outputLabel>
+				</div>
+			</li>
+			<li  style="padding-right:20px; padding-left:15px;">
+				<div class="input-group">
+					<p:inputText
+							styleClass="input-search-dark-t1"
+							placeholder="#{lbv.BUSCAR_CAP}..."
+							value="#{bandejaPrincipalBean.nombreOpcionFiltro}"
+					>
+					</p:inputText>
+					<span class="input-group-btn">
+				          	<p:commandButton
+									styleClass="buttom-search-dark-t1"
+									icon="fa fa-search"
+									process="@form"
+									actionListener="#{bandejaPrincipalBean.buscarPermisosMenuFiltro}"
+									update="formMenu"
+							>
+				          	</p:commandButton>
+			             
+			          </span>
+				</div>
+			</li>
+
+
+			<p:spacer height="5" width="10" ></p:spacer>
+			<!-- Search Results -->
+			<ul class="sidebar-menu tree" data-widget="tree">
+				<li  >
+					<p:link herf="#{facesContext.externalContext.requestContextPath}/vistas/inicio/dashboardAdminGen.jsf"
+							title="GS:@:CONCREP:@:/vistas/inicio/dashboardAdministracion.jsf:@:Dashboard Administración:@:00000"
+							onclick="eventoSelectMenu([{name:'dataSelect', value:title}]);"
+					>
+						<i class="fa fa-home"></i>
+						<span>INICIO</span>
+					</p:link>
+				</li>
+			</ul>
+
+
+			<p:repeat var="elem" value="#{bandejaPrincipalBean.listaPermisos}">
+				<ul class="sidebar-menu tree" data-widget="tree">
+					<li  >
+						<p:link href="javascript:void(0);" style="display: #{elem.tipodeObjeto eq 'C' ? 'block' :'none' };
+	                        		"
+								title="#{elem.grupo.trim()}:@:#{elem.concepto.trim()}"
+								onclick="eventoGroupMenu(title);"
+						>
+
+							<i class="fa fa-tasks"></i>
+							<span>#{elem.descripcionSegConcepto}</span>
+						</p:link>
+					</li>
+				</ul>
+				<ul id="#{elem.grupo.trim()}:@:#{elem.concepto.trim()}" class="treeview-menu"
+					style="display:#{
+                        	 bandejaPrincipalBean.getDisplayMenu(elem.grupo.trim(),elem.concepto.trim(),elem.tipodeObjeto)
+                        					};" >
+					<p:repeat
+							value="#{bandejaPrincipalBean.listaPermisos}"
+							var="elemSubMenu"
+					>
+						<li id="#{elemSubMenu.grupo.trim()}-#{elemSubMenu.concepto.trim()}-#{elemSubMenu.objeto}" class="#{ (
+			            				elemSubMenu.concepto.trim() eq bandejaPrincipalBean.conceptoActual
+			            				and elemSubMenu.grupo.trim() eq bandejaPrincipalBean.grupoActual
+			            			)
+			            			? 'menuSelected' :'' }"
+							style="display: #{ (elemSubMenu.tipodeObjeto eq 'A'
+			            				and elemSubMenu.conceptoPadre.trim() eq elem.concepto.trim()
+			            				and elemSubMenu.grupo.trim() eq elem.grupo.trim()
+			            			)
+			            			? 'block' :'none' } ; padding-left:10px; " >
+							<a href="#{facesContext.externalContext.requestContextPath}#{elemSubMenu.url}"
+							   name="#{elemSubMenu.grupo.trim()}:@:#{elemSubMenu.concepto.trim()}:@:#{elemSubMenu.url}:@:#{elemSubMenu.descripcionSegConcepto}:@:#{elem.concepto.trim()}"
+							   onclick="eventoSelectMenu([{name:'dataSelect', value:name}]);">
+
+								<i class="#{elemSubMenu.objetoWindow}"></i>
+								<strong>#{elemSubMenu.descripcionSegConcepto}
+								</strong>
+							</a>
+						</li>
+
+
+					</p:repeat>
+				</ul>
+			</p:repeat>
+		</h:form>
+
+
+
+
+
+
+
+
+	</ul>
+
+
+	<script type="text/javascript">
+        jQuery(document).ready(function() {
+            inicializarMenuBandeja();
+            //eventoSelectMenu([{name:'dataSelect', value:'GS:@:CONCREP:@:/vistas/inicio/dashboardAdministracion.jsf:@:Dashboard Administración:@:00000'}]);
+        });
+
+
+        function eventoGroupMenu(param) {
+            hideLoadElement(param);
+        }
+        function hideLoadElement(id) {
+            var x = document.getElementById(''+id);
+            if (x.style.display === 'none') {
+                eventoSelectGroupMenu([{name:'dataSelect', value:id}]);
+                x.style.display = 'block';
+            } else {
+                x.style.display = 'none';
+            }
+        }
+
+	</script>
+</ui:composition>
+

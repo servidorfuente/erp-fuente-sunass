@@ -1,0 +1,61 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+	<div class="ui-g">
+		<div class="ui-g-12 ui-g-nopad">
+			<div class="ui-fluid">
+				<div class="ui-g-12">
+					<i class="fa fa-caret-down"></i> <a
+						style="font-weight: bold; font-size: 14px;"
+						class="estiloLabelForm" href="#divTabDatoGeneralEmpleado"
+						data-toggle="collapse"> #{label.DATOS_GENERALES_CAP}</a>
+					<div id="divTabDatoGeneralEmpleado" class="ui-g collapse in">
+
+						<div class="ui-g-12 ui-g-nopad">
+							<div class="ui-fluid">
+								<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank"
+									columns="2" columnClasses="ui-grid-col-12">
+									<p:column>
+										<!-- AREA TRABAJO -->
+										 
+										<h:outputText value="#{label.PERSONA_AREA_TRABAJO}" class="estiloLabelForm" />
+										<p:panelGrid id="pgEmpleado" layout="grid"
+											styleClass="sinpadding ui-panelgrid-blank" columns="2"
+											columnClasses="ui-grid-col-10,ui-grid-col-2">
+											<p:column>
+												<p:inputText
+													value="#{saPersonaBean.registroEmpleado.organigrama.vdescripcion}"
+													readonly="true"
+													disabled="#{saPersonaBean.componentesReadonly}" />	 
+											</p:column>
+											<p:column>
+												<p:commandButton icon="fa fa-search" process="@this"
+												disabled="#{saPersonaBean.componentesReadonly}"
+												actionListener="#{saPersonaBean.btnBuscarOrganigrama}" />
+											</p:column>
+										</p:panelGrid>
+
+										<!-- RECEPTOR CORREO DEFECTO -->
+										<h:outputText value="#{label.PERSONA_RECEPTOR_CORREO_DEFECTO}"
+											class="estiloLabelForm" />
+										<p:selectBooleanCheckbox
+											value="#{saPersonaBean.esEnvioCorreoDefecto}"
+											disabled="#{saPersonaBean.componentesReadonly}">
+											<p:ajax event="change" process="@this"
+												listener="#{saPersonaBean.seleccionarCheckReceptorCorreoDefecto}" />
+										</p:selectBooleanCheckbox>
+
+									</p:column>
+								</p:panelGrid>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</ui:composition>

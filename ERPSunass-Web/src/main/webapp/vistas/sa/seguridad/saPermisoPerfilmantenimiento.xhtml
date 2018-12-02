@@ -1,0 +1,184 @@
+<ui:composition template="/template/TemplateGeneral.xhtml"
+				xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:f="http://java.sun.com/jsf/core"
+>
+	<ui:define name="contentBread">
+		<h:form id="FormHeader">
+			<li class="current" >
+				<i  class="icon-angle-right labelBreadCrumbNormal"></i>
+				<a  class="labelBreadCrumbNormal" href="#{facesContext.externalContext.requestContextPath}/vistas/sa/seguridad/saPermisoPerfilmantenimiento.xhtml">
+					#{label.PERFIL_PERMISO_PERFIL} 
+				</a>
+			</li>		
+			<li id="liRegistro" class="current" style="display: #{saPermisoPerfilBean.visibleRegistro ?'block':'none'} ;">
+				<i class="icon-angle-right labelBreadCrumbNormal"></i>
+				<a class="labelBreadCrumbDecor"  href="#">#{label.REGISTRO_CAP}: #{saPermisoPerfilBean.modoUpdate ? label.PERFIL_ASIGNAR_PERMISO : label.PERFIL_VER_PERMISO }</a>
+			</li>
+		</h:form>
+	</ui:define >
+	
+	<ui:define name="contentEspecifico"> 
+	
+		<h:form id="FormularioPermisoPerfil">
+			
+			<p:remoteCommand name="inicializar" update="FormularioPermisoPerfil" 
+					 />
+			<p:messages id="messages" globalOnly="true" autoUpdate="true" closable="true"  />
+			<p:blockUI block="FormularioPermisoPerfil" widgetVar="blockElem" id="blockElem"  trigger="btnBuscar" >
+				#{mensaje.MSJ_BLOCKUI_Proceso}<br />
+				<p:graphicImage value="/resources/images/loader03.gif"/>
+			</p:blockUI>
+			<div id="seccionMain" style="display: #{saPermisoPerfilBean.visibleRegistro ?'none':'block'} ;" >
+				<p:panel  toggleable="true" header="#{label.PERFIL_PERMISO_PERFIL}" collapsed="false"   >
+					<div class="customHr">.</div>
+					<div  class="row"  align="center"  >
+						<div class="ui-g-12 ui-g-nopad">
+							<div class="ui-fluid">
+								<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank" columns="3"
+								columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-6"
+								>
+									<p:column>
+										<p:panelGrid  layout="grid" styleClass="ui-panelgrid-blank" columns="1" 
+										columnClasses="ui-grid-col-12"
+										>
+											<p:commandButton value="Buscar" icon="ui-icon-search" 
+											id="btnBuscar" style=" height: 30px;"
+											actionListener="#{saPermisoPerfilBean.btnBuscar}"									
+											onstart="PF('dtElement').paginator.setPage(0);" update="dtElement"											
+											title="#{mensaje.MSJ_INFO_TIP_BUSCAR_MAIN}"
+											/>
+										</p:panelGrid>
+									</p:column>
+									<p:column>
+										<p:spacer width="10" ></p:spacer>
+									</p:column>							
+									<p:column>
+										<p:panelGrid  layout="grid" styleClass="ui-panelgrid-blank" columns="3" 
+										columnClasses="ui-grid-col-4,ui-grid-col-4,ui-grid-col-4"
+										>	
+											<p:column></p:column> 
+											<p:column>	
+												<p:commandButton value="#{label.PERFIL_ASIGNAR_PERMISO}" icon="fa fa-edit"
+												actionListener="#{saPermisoPerfilBean.btnModificar}"
+												rendered="true" style=" height: 30px;"
+												process="@form" type="submit"
+												update="@form, FormHeader"
+												title="#{mensaje.MSJ_INFO_TIP_MODIFICAR_MAIN}"
+												/>
+											</p:column>
+											<p:column>	 
+												<p:commandButton id="btnVer" value="#{label.PERFIL_VER_PERMISO}" icon="fa fa-eye"
+												actionListener="#{saPermisoPerfilBean.btnVer}"
+												rendered="true" style=" height: 30px;"
+												process="@form"
+												update="@form, FormHeader"
+												title="#{mensaje.MSJ_INFO_TIP_VER_MAIN}"
+												/> 
+											</p:column>
+											 
+											
+													
+										</p:panelGrid>
+									</p:column>		
+								</p:panelGrid>
+							</div>
+						</div>
+					</div>
+					<div class="customHr">.</div>	
+
+					<!--  FILTROS  -->
+					<div class="ui-g">
+						<div class="ui-g-12 ui-g-nopad">
+							<div class="ui-fluid">												
+								<p:spacer height="10" width="20" ></p:spacer>
+								<p:panelGrid id="pnlFiltros" layout="grid" styleClass="ui-panelgrid-blank" columns="4"
+								columnClasses="ui-grid-col-4,ui-grid-col-6,ui-grid-col-2"
+								>
+									<p:column>
+										<h:outputText value="#{label.PERFIL_NOMBRE_PERFIL}" styleClass="estiloLabelForm" />
+										<p:inputText value="#{saPermisoPerfilBean.filtro.usuario}" />
+									</p:column>									
+									<p:column>
+										<h:outputText value="#{label.PERFIL_DESCRIPCION}" styleClass="estiloLabelForm" />
+										<p:inputText value="#{saPermisoPerfilBean.filtro.nombre}" /> 
+									</p:column>
+									<p:column>
+										<h:outputText value="#{label.PERFIL_ESTADO}" styleClass="estiloLabelForm" />
+										<p:selectOneMenu autoWidth="false" value="#{saPermisoPerfilBean.filtro.estado}">
+											<f:selectItem itemLabel="#{label.lblTodos}" noSelectionOption="true" />
+											<f:selectItem itemLabel="#{label.ITEM_ACTIVO}" itemValue="#{constant.ACTIVO}" />
+											<f:selectItem itemLabel="#{label.ITEM_INACTIVO}" itemValue="#{constant.INACTIVO}" />
+				
+										</p:selectOneMenu>	
+									</p:column>
+								</p:panelGrid>
+							</div>
+						</div>
+					</div>
+				</p:panel> 
+	
+				<p:toolbar>
+					<f:facet name="left">
+						
+					</f:facet>
+					<f:facet name="right">		
+						<h:commandLink id="linkXls" title="#{mensaje.MSJ_TIP_GEN_DESCARGA_XLS}" actionListener="#{saSeccionBean.actionLinkDescarga(mensaje.MSJ_LINKDESCARGA_PERMISO_PERFIL)}">
+							<p:graphicImage value="/resources/images/icons/iconxls.png" />
+							<p:dataExporter type="xls" target="dtElement" fileName="#{mensaje.MSJ_LINKDESCARGA_PERMISO_PERFIL_FILENAME}" postProcessor="#{saSeccionBean.postProcessXLS_descarga}" />
+						</h:commandLink>						 
+						<h:commandLink id="linkPdf" title="#{mensaje.MSJ_TIP_GEN_DESCARGA_PDF}" actionListener="#{saSeccionBean.actionLinkDescarga(mensaje.MSJ_LINKDESCARGA_PERMISO_PERFIL)}">
+							<p:graphicImage value="/resources/images/icons/iconpdf.png" />
+							<p:dataExporter type="pdf" target="dtElement" fileName="#{mensaje.MSJ_LINKDESCARGA_PERMISO_PERFIL_FILENAME}" preProcessor="#{saSeccionBean.preProcessPDF_descarga}" encoding="ISO-8859-1"/>
+						</h:commandLink>						 
+					</f:facet>
+				</p:toolbar>
+				
+				<p:dataTable id="dtElement" widgetVar="dtElement" var="vElement" lazy="true"
+					value="#{saPermisoPerfilBean.dataModel}" paginator="true" reflow="true"
+					rows="#{saPermisoPerfilBean.parametroCantRows}" selectionMode="single"
+					selection="#{saPermisoPerfilBean.seleccion}"
+					rowKey="#{vElement.usuario}" paginatorPosition="bottom"
+					paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+					rowsPerPageTemplate="#{saPermisoPerfilBean.entradasVisualizadas}" rowIndexVar="index"
+					emptyMessage="#{mensaje.MSJ_WARN_busquedaVacia}">										
+					 
+					<p:column headerText="#{label.N_CAP}" >
+						<h:outputText value="#{index + 1}" />
+					</p:column>
+					
+					<p:column headerText="#{label.PERFIL_NOMBRE_PERFIL}">
+						<h:outputText value="#{vElement.usuario}" />
+					</p:column>
+					<p:column headerText="#{label.PERFIL_DESCRIPCION}" >
+						<h:outputText value="#{vElement.nombre}" />
+					</p:column>
+					<p:column headerText="#{label.PERFIL_POSEE_PERMISOS}" >
+						<p:graphicImage   value="#{vElement.cuentaconceptosadd gt 0 ? '/resources/images/icons/iconcheckgreen01.png':'/resources/images/icons/iconwaitting01.png'}"  style="float: center;"    />	
+						<h:outputText value="#{vElement.cuentaconceptosadd gt 0 ? 'Sí posee':'No Posee'}" rendered="true" style="opacity: 0.0;" />					 			 
+					</p:column>
+					<p:column headerText="#{label.PERFIL_ESTADO}" >
+						<h:outputText value="#{vElement.estado eq constant.ACTIVO ? 'Activo':'Inactivo'}"	
+						styleClass="#{vElement.estado eq constant.ACTIVO ? 'colTableEstadoActivo' :'colTableEstadoInactivo'}" />
+					</p:column>
+		
+				</p:dataTable>
+			
+			</div>
+			
+			<div id="seccionMain" style="display: #{saPermisoPerfilBean.visibleRegistro?'block':'none'} ;" >
+				
+				<p:outputPanel id="opSeccionReg" >					
+					<ui:include src="/vistas/sa/seguridad/saPermisoPerfilRegistro.xhtml"/>
+				</p:outputPanel>
+							
+			</div>	
+		</h:form>
+		
+		<script type="text/javascript">
+
+		</script>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,138 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:f="http://java.sun.com/jsf/core"
+>
+	
+	
+	
+	<h:form id="formDialogo" onkeypress="if (event.keyCode == 13){return false;}"  >
+		<p:remoteCommand name="inicializarBZonaPostal"
+			actionListener="#{dataSeleccionadorVwCwZonaPostalBean.inicializar}"
+			update="@form" oncomplete="PF('dtZonaPostalSel').unselectAllRows();"/>
+		
+		
+		<div class="ui-g">
+			<div class="ui-g-12 ui-g-nopad">
+				<div class="ui-fluid">
+					<p:toolbar id="toolbarBotonesSel">
+						<f:facet name="left">
+						</f:facet>
+						<f:facet name="right">
+							<p:commandButton id="btnAceptar" value="#{lbv.ACEPTAR_CAP}" type="push"
+								actionListener="#{dataSeleccionadorVwCwZonaPostalBean.btnAceptar}"
+								disabled="#{dataSeleccionadorVwCwZonaPostalBean.disableBtnAceptar}"
+								style="width:90px;" 
+								icon="ui-icon-check"  ajax="true" update="@form" 
+								title="#{mensaje.MSJ_INFO_TIP_ACEPTAR_MAIN}"
+							/>
+						</f:facet>
+					</p:toolbar>
+				</div>
+			</div>		
+		</div>
+		
+
+		<div class="ui-g">
+			<div class="ui-g-12 ui-g-nopad">
+				<div class="ui-fluid">
+					
+					<p:panelGrid id="pnlFiltros" layout="grid" styleClass="ui-panelgrid-blank" columns="4"
+						columnClasses="ui-grid-col-3,ui-grid-col-3,ui-grid-col-3 ,ui-grid-col-3"				
+					>
+						<p:column>
+							<p:outputLabel value="Departamento: " style="#{label.STYLE_LABELFORM}" />
+							<p:selectOneMenu id="cmbDepartamento" style="#{label.STYLE_LABELFORM}"   autoWidth="false" 
+								value="#{dataSeleccionadorVwCwZonaPostalBean.filtro.departamento}"
+							>
+								<p:ajax update="cmbProvincia cmbZona" process="@form" listener="#{dataSeleccionadorVwCwZonaPostalBean.seleccionaDepartamento}"/>
+								<f:selectItem itemLabel="#{label.RRHH_LBLSELECCIONE}" noSelectionOption="true"/>
+								<f:selectItems value="#{dataSeleccionadorVwCwZonaPostalBean.listaDepartamento}" var="value"
+								 	itemLabel="#{value.departamentoDescripcion}" itemValue="#{value.departamento}" 
+					          	/>
+					         </p:selectOneMenu>					         
+							
+						</p:column>
+						
+						<p:column>
+							<p:outputLabel value="Provincia: " style="#{label.STYLE_LABELFORM}" />
+							<p:selectOneMenu id="cmbProvincia" style="#{label.STYLE_LABELFORM}"   autoWidth="false" 
+								value="#{dataSeleccionadorVwCwZonaPostalBean.filtro.provincia}"
+							>
+								<p:ajax update="cmbZona" process="@form" listener="#{dataSeleccionadorVwCwZonaPostalBean.seleccionaProvincia}"/>
+														
+								<f:selectItem itemLabel="#{label.RRHH_LBLSELECCIONE}" noSelectionOption="true"/>
+								<f:selectItems value="#{dataSeleccionadorVwCwZonaPostalBean.listaProvincia}" var="value"
+								 	itemLabel="#{value.provinciaDescripcion}" itemValue="#{value.provincia}" 
+					          	/>
+					         </p:selectOneMenu>
+						</p:column>
+						
+						<p:column>
+							<p:outputLabel value="Zona: " style="#{label.STYLE_LABELFORM}" />
+							<p:selectOneMenu id="cmbZona" style="#{label.STYLE_LABELFORM}"   autoWidth="false" 
+								value="#{dataSeleccionadorVwCwZonaPostalBean.filtro.codigoPostal}"
+							>
+								
+								<f:selectItem itemLabel="#{label.RRHH_LBLSELECCIONE}" noSelectionOption="true"/>
+								<f:selectItems value="#{dataSeleccionadorVwCwZonaPostalBean.listaZona}"  var="value"
+						          	itemLabel="#{value.zonaPostalDescripcion}" itemValue="#{value.codigoPostal}" 
+						        />
+							</p:selectOneMenu>
+						</p:column>
+						
+						<p:column>
+							<p:spacer height="10" width="10"/>
+							<p:commandButton value="Buscar"  id="btnBuscar"
+								actionListener="#{dataSeleccionadorVwCwZonaPostalBean.btnBuscar}"
+								style="width: 100%; height: 30px;"
+								icon="fa fa-search" ajax="true" update="dtZonaPostalSel" 
+								onstart="PF('dtZonaPostalSel').paginator.setPage(0);"	
+							/>							
+						</p:column>																
+					</p:panelGrid>
+					
+				</div>
+		 	</div>
+		</div> 
+		<p:dataTable id="dtZonaPostalSel" widgetVar="dtZonaPostalSel"
+			value="#{dataSeleccionadorVwCwZonaPostalBean.lazyVwCwZonaPostal}" 
+			lazy="true" var="vZonaPostal"
+			rowKey="#{vZonaPostal.id}" paginator="true" 
+			paginatorPosition="bottom"
+			selectionMode="single"
+			selection="#{dataSeleccionadorVwCwZonaPostalBean.selected}"
+			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rows="5" rowIndexVar="index" reflow="true"
+			emptyMessage="#{mensaje.MSJ_WARN_busquedaVacia}"
+		>
+			<p:ajax event="rowSelect" process="@this" update="@form" listener="#{dataSeleccionadorVwCwZonaPostalBean.clickRegistro}" />
+			<p:ajax event="rowDblselect" listener="#{dataSeleccionadorVwCwZonaPostalBean.doubleClick}" />
+
+
+
+
+			<p:column headerText="Nº" style="width:16px;text-align:center" width="5%">
+				<h:outputText value="#{index + 1}" />
+			</p:column>
+			
+			<p:column headerText="Departamento" style="text-align:center;" width="10%" >
+				<h:outputText value="#{vZonaPostal.departamentoDescripcion}" />
+			</p:column>
+				
+			<p:column headerText="Provincia" width="25%" >
+				<h:outputText value="#{vZonaPostal.provinciaDescripcion}" />
+			</p:column>
+			
+			<p:column headerText="Zona" width="25%" >
+				<h:outputText value="#{vZonaPostal.zonaPostalDescripcion}" />
+			</p:column>
+				
+			
+		</p:dataTable>
+		
+		
+	</h:form>	
+	
+</ui:composition>

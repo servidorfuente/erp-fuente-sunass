@@ -1,0 +1,283 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+			
+			
+        <style type="text/css">
+	
+			.nuevoNodo {
+				color: #EF3434;		
+				font-style: italic;					    			  
+			}	
+			.perfilNodo {
+				color: #284A89;							    			  
+			}
+			.usuarioNodo {
+				color: #097718;							    			  
+			}			
+        </style>
+        			
+			<p:blockUI block="FormPermisosPerfilReg" 
+					trigger="#{p:component('btnGuardar')} #{p:component('btnCancelar')} 
+					#{p:component('btnGuardarEliminar')} #{p:component('btnGuardarInactivar')}" >
+				#{mensaje.MSJ_BLOCKUI_Proceso}<br />
+				<p:graphicImage value="/resources/images/loader03.gif"/>
+			</p:blockUI>					
+        						
+	<p:outputPanel id="FormPermisosPerfilReg" style="width:auto;" >
+	
+            <p:toolbar id="toolbarBotones">
+                <f:facet name="left">
+					<p:outputLabel style="" 
+					value="Permiso de Perfil: #{saSeguridadConcepto.MODO_ACTUAL}" >
+					</p:outputLabel>                
+                </f:facet>
+                <f:facet name="right">
+					<p:commandButton id="btnGuardar" value="Guardar" icon="ui-icon-disk"
+						rendered="#{saSeguridadConcepto.btnGuardarVisible}"
+						actionListener="#{saSeguridadConcepto.btnGuardar}" process="@form"
+						style=" height: 30px;"
+						update="@form, FormHeader"
+					>
+					</p:commandButton>	
+					<p:commandButton id="btnGuardarInactivar" value="Ocultar" icon="ui-icon-disk"
+						rendered="#{saSeguridadConcepto.btnGuardarInactivarVisible}"
+						actionListener="#{saSeguridadConcepto.btnGuardar}" process="@form"
+						style=" height: 30px;"
+						update="@form, FormHeader"
+					>														
+					</p:commandButton>	
+                    <p:commandButton id="btnAceptar" value="Aceptar"
+                    	icon="ui-icon-check"
+                        update="@form, FormHeader"
+                       	rendered="#{saSeguridadConcepto.btnAceptarVisible}"
+                        actionListener="#{saSeguridadConcepto.btnAceptar}" 
+                        style=" height: 30px;"
+                        />
+                    <p:commandButton id="btnGuardarEliminar" value="Eliminar"
+                        icon="fa fa-trash"
+                        rendered="#{saSeguridadConcepto.btnGuardarEliminarVisible}"
+                        actionListener="#{saSeguridadConcepto.btnGuardar}" 
+                        style=" height: 30px;" 
+                        update="@form, FormHeader"
+                    />
+					<p:commandButton id="btnCancelar" value="Cancelar"
+						icon="ui-icon-cancel"
+						update="@form, FormHeader"
+						rendered="#{saSeguridadConcepto.btnCancelarVisible}"
+						actionListener="#{saSeguridadConcepto.btnCancelar}" 
+						style=" height: 30px;"
+					/>
+                </f:facet>
+            </p:toolbar>
+
+		<p:outputPanel>
+			<i class="fa fa-caret-down"></i>
+			<a style="font-weight: bold; font-size: 14px;"
+				class="estiloLabelForm" href="#divInfoGen" data-toggle="collapse">
+				Información General</a>
+			<div id="divInfoGen" class="ui-g collapse in">
+				<div class="ui-g-12 ui-g-nopad">
+					<div class="ui-fluid">
+						<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank"
+							columns="5"
+							columnClasses="ui-grid-col-2,ui-grid-col-3,ui-grid-col-2,ui-grid-col-4,ui-grid-col-1">
+							<p:column>
+								<p:outputLabel styleClass="estiloLabelForm" value="Tipo de Concepto: "
+									 />
+							</p:column>
+							<p:column>
+								<p:outputLabel value="#{saSeguridadConcepto.objPermisoRegistro.tipodeobjeto eq saSeguridadConcepto.tipooCarpetaDb ? 'Directorio - Menú': 
+										(saSeguridadConcepto.objPermisoRegistro.tipodeobjeto eq saSeguridadConcepto.tipooArchivoDb ? 'Opción - Menú':
+											(saSeguridadConcepto.objPermisoRegistro.tipodeobjeto eq saSeguridadConcepto.tipooObjetoDb ? 'Operación':
+												('--')
+											)
+										)
+									}" 
+									styleClass="#{saSeguridadConcepto.objPermisoRegistro.tipodeobjeto eq saSeguridadConcepto.tipooCarpetaDb ? '': 
+										(saSeguridadConcepto.objPermisoRegistro.tipodeobjeto eq saSeguridadConcepto.tipooArchivoDb ? 'colTableStyleGreen01':
+											(saSeguridadConcepto.objPermisoRegistro.tipodeobjeto eq saSeguridadConcepto.tipooObjetoDb ? 'colTableStyleOrange01':
+												('--')
+											)
+										)
+									}"
+									style="font-weight:bold;"	
+								/>
+							</p:column>
+							<p:column>
+								<p:outputLabel styleClass="estiloLabelForm" value="Concepto Padre:"
+									rendered="#{saSeguridadConcepto.objPermisoRegistro.tipodeobjeto ne saSeguridadConcepto.tipooCarpetaDb ? true:false}"
+									 />
+							</p:column>
+							<p:column>
+								<p:outputLabel  
+									rendered="#{saSeguridadConcepto.objPermisoRegistro.tipodeobjeto ne saSeguridadConcepto.tipooCarpetaDb ? true:false}"
+									value="#{saSeguridadConcepto.objPermisoPadreSeleccion.descripcion}"
+									style="font-weight:bold;"	
+									 />
+							</p:column>
+																					
+							<p:column>
+								<p:spacer height="2" width="20"></p:spacer>
+
+							</p:column>
+						</p:panelGrid>
+						
+						<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank"
+							columns="3"
+							columnClasses="ui-grid-col-6,ui-grid-col-4,ui-grid-col-2">
+							<p:column>
+								<p:outputLabel styleClass="estiloLabelForm" value="Grupo "
+									 />								
+								<p:selectOneMenu autoWidth="false" value="#{saSeguridadConcepto.objPermisoRegistro.grupo}"
+									style="#{((saSeguridadConcepto.objPermisoRegistro.tipodeobjeto ne saSeguridadConcepto.tipooCarpetaDb) 
+										or saSeguridadConcepto.componentesReadonly) 
+										? 'pointer-events: none; cursor: default ;':''}"									
+									styleClass="required-field"
+									>								
+									<f:selectItem itemLabel="#{label.lblSeleccione}" noSelectionOption="true" />
+									<f:selectItems value="#{saSeguridadConcepto.listaSeguridadGrupo}" 
+										var="elem" itemLabel="#{elem.grupo} - #{elem.descripcion}" itemValue="#{elem.grupo}"										 
+											>
+									</f:selectItems>
+					
+								</p:selectOneMenu>																							
+							</p:column>
+							<p:column>
+								<p:outputLabel styleClass="estiloLabelForm" 
+									value="Código Concepto Padre"
+									rendered="#{saSeguridadConcepto.objPermisoRegistro.tipodeobjeto ne saSeguridadConcepto.tipooCarpetaDb ? true:false}" 
+									/>
+									
+								<p:inputText  value="#{saSeguridadConcepto.objPermisoPadreSeleccion.concepto}"
+									readonly="true"
+									rendered="#{saSeguridadConcepto.objPermisoRegistro.tipodeobjeto ne saSeguridadConcepto.tipooCarpetaDb ? true:false}" 
+								></p:inputText>
+							</p:column>
+							<p:column>
+								<p:spacer height="2" width="20"></p:spacer>
+
+							</p:column>
+						</p:panelGrid>
+												
+					</div>
+				</div>
+			</div>
+		</p:outputPanel>
+		
+		<p:outputPanel>
+			<i class="fa fa-caret-down"></i>
+			<a style="font-weight: bold; font-size: 14px;"
+				class="estiloLabelForm" href="#divInfoEspec" data-toggle="collapse">
+				Información Específica</a>
+			<div id="divInfoEspec" class="ui-g collapse in">
+				<div class="ui-g-12 ui-g-nopad">
+					<div class="ui-fluid">
+						<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank"
+							columns="3"
+							columnClasses="ui-grid-col-6,ui-grid-col-4,ui-grid-col-2">
+							<p:column>
+								<p:outputLabel styleClass="estiloLabelForm" 
+									value="Código Concepto" 									
+									/>
+									
+								<p:inputText  value="#{saSeguridadConcepto.objPermisoRegistro.concepto}"
+									maxlength="10"
+									readonly="#{saSeguridadConcepto.componentesReadonly or !saSeguridadConcepto.modoNew}"								 
+								></p:inputText>							
+								<p:outputLabel styleClass="estiloLabelForm" value="Descripción "
+									 />
+								<p:inputText  value="#{saSeguridadConcepto.objPermisoRegistro.descripcion}" 
+								 	maxlength="500" readonly="#{saSeguridadConcepto.componentesReadonly}"
+									styleClass="required-field"
+								></p:inputText>
+							
+								<p:outputLabel styleClass="estiloLabelForm" 
+									rendered="#{saSeguridadConcepto.objPermisoRegistro.tipodeobjeto eq saSeguridadConcepto.tipooArchivoDb ? true:false}"
+									value="Url" />
+								<p:inputText  value="#{saSeguridadConcepto.objPermisoRegistro.url}" maxlength="2000"
+									readonly="#{saSeguridadConcepto.componentesReadonly}"
+									rendered="#{saSeguridadConcepto.objPermisoRegistro.tipodeobjeto eq saSeguridadConcepto.tipooArchivoDb ? true:false}" 
+								></p:inputText>
+								
+								
+								<p:outputLabel value="Ícono" styleClass="estiloLabelForm" />
+								<br />
+								<i style="font-size:16px;" class="#{saSeguridadConcepto.objPermisoRegistro.objetowindow}" ></i>
+								
+																		
+							</p:column>
+							<p:column>
+
+								
+								<p:outputLabel value="Concepto Visible" styleClass="estiloLabelForm" />
+								<p:selectOneMenu autoWidth="false" value="#{saSeguridadConcepto.objPermisoRegistro.visibleflag}"
+									disabled="#{saSeguridadConcepto.componentesReadonly}"
+									>
+									<f:selectItem itemLabel="#{label.lblTodos}" noSelectionOption="true" />
+									<f:selectItem itemLabel="Visible" itemValue="S" />
+									<f:selectItem itemLabel="Oculto" itemValue="N" />
+					
+								</p:selectOneMenu>	
+																
+								<p:outputLabel value="Tipo de Acceso" styleClass="estiloLabelForm" />
+								<p:selectOneMenu autoWidth="false" value="#{saSeguridadConcepto.objPermisoRegistro.tipodeacceso}"
+									style="pointer-events: none; cursor: default ;"
+									>
+									<f:selectItem itemLabel="#{label.lblseleccione}" noSelectionOption="true" />
+									<f:selectItem itemLabel="Menú" itemValue="#{constant.SEGURIDAD_OPCION_TIPO_MENU}" />
+									<f:selectItem itemLabel="Árbol" itemValue="#{constant.SEGURIDAD_OPCION_TIPO_TREE}" />
+					
+								</p:selectOneMenu>	
+								<p:outputLabel styleClass="estiloLabelForm" 
+									value="Orden de Aparición" />
+								<p:inputNumber   value="#{saSeguridadConcepto.objPermisoRegistro.orden}"
+									readonly="#{saSeguridadConcepto.componentesReadonly}" 
+									decimalPlaces="0" decimalSeparator="." thousandSeparator="," ></p:inputNumber>
+
+																
+							</p:column>
+							<p:column>
+								<p:spacer height="2" width="20"></p:spacer>
+
+							</p:column>
+						</p:panelGrid>					
+					</div>
+				</div>
+			</div>
+		</p:outputPanel>		
+					
+					
+
+		<p:outputPanel>				
+			<i class="fa fa-caret-down"></i> 
+			<a style="font-weight:bold; font-size:14px;" class="estiloLabelForm" href="#divGeneral" data-toggle="collapse"> 
+				Información Referencial</a>
+			<div id="divInfoRef" class="ui-g collapse in" >	
+				<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank" columns="3"
+					columnClasses="ui-grid-col-3,ui-grid-col-2,ui-grid-col-8"
+						>
+					<h:outputLabel value="Modificación: " />
+					<h:outputLabel
+						value="#{saSeguridadConcepto.objPermisoRegistro.ultimousuario} | " />
+					<h:outputLabel
+							value="#{saSeguridadConcepto.objPermisoRegistro.ultimafechamodif}">
+							<f:convertDateTime pattern="#{label.PATTERN_DATETIME}" />
+						</h:outputLabel>
+				</p:panelGrid> 			
+			</div>			
+		</p:outputPanel>
+
+
+
+
+	</p:outputPanel>
+			
+	<script type="text/javascript">
+	</script>
+	
+
+</ui:composition>

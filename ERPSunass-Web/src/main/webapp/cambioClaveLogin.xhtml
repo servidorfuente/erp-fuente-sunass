@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html
+		lang="es" class="no-js"
+		xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:p="http://primefaces.org/ui"
+>
+<h:head>
+        <title>#{label.TITLE}</title>
+        <link rel="shortcut icon" type="image/x-icon" href="#{resource['favicon/favicon.ico']}"/>
+        <link rel="shortcut icon" type="image/x-icon" href="#{resource['favicon/favicon-16x16.png']}" sizes="16x16"/>
+        <link rel="shortcut icon" type="image/x-icon" href="#{resource['favicon/favicon-32x32.png']}" sizes="32x32"/>
+        <link rel="shortcut icon" type="image/x-icon" href="#{resource['favicon/favicon-96x96.png']}" sizes="96x96"/>
+        <link rel="shortcut icon" type="image/x-icon" href="#{resource['favicon/favicon-144x144.png']}" sizes="144x144"/>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+        <meta name="mobile-web-app-capable" content="yes"/>
+        
+		<!--=== CSS ===-->				       
+        <link href="#{request.contextPath}/resources/css/showcase.css" rel="stylesheet" type="text/css" />       
+        <link href="#{request.contextPath}/resources/css/prism.css" rel="stylesheet" type="text/css" />        
+        
+        
+        <meta name="theme-color" content="#444"/>
+
+        <style type="text/css">
+
+            /* below css hides growls in small screens and makes messages visible */
+            @media (max-width: 768px) {
+                
+                body div.ui-growl {
+                    display: none;
+                }
+                
+               body div.ui-messages {
+                    display: block;
+                }
+
+            }
+            /* below css hides messages in medium/big devices and makes growl visible in such devices */
+            @media (min-width: 769px) {
+              body div.ui-growl {
+                    display: block;
+                }
+
+              body div.ui-messages {
+                    display: none;
+                }
+            }
+
+
+            body.login-page {
+                background-color: transparent;
+            }
+
+            html {
+                background: url(#{resource[ 'images:login-bg.jpg' ]}) no-repeat center center fixed;
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
+            }
+
+        </style>
+   
+
+	<!--=== CUSTOM RS ===-->
+	<link href="#{request.contextPath}/resources/melon/custom/customRS.css" rel="stylesheet" type="text/css" />
+
+	<ui:insert name="headCont"></ui:insert>
+
+</h:head>
+<h:body  >
+	<f:metadata>
+		<f:viewParam name="login" />
+	</f:metadata>
+
+	<div class="wrapper">
+		<div id="navbar">
+			<div class="navigation-example">
+				<nav class="navbar navbar-info">
+					<div class="container">
+
+						<div align="left" style="float: left;">
+							<p:graphicImage value="#{label.PATH_IMAGE_SHOW}" height="45px" />
+						</div>
+
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-info">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+							<a class="navbar-brand" href="#pablo"></a>
+						</div>
+
+						<div class="collapse navbar-collapse" id="example-navbar-info">
+							<ul class="nav navbar-nav navbar-right">
+					
+								<li>
+									<p:spacer  height="10" width="10" ></p:spacer>
+								</li>
+						
+								<li style="display:none;" >
+									<a href="#pablo">
+										Perfil
+									</a>
+								</li>
+								<li style="display:none;">
+									<a href="#pablo">
+										Configuraciones
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</nav>
+			</div>
+			<div class="section  section-basic">
+				<p:messages id="messages" globalOnly="false" autoUpdate="false" closable="true" />
+				<p:tooltip/>
+				
+				<div class="container">
+					<div class="row">
+						<div class="col-md-8 col-md-offset-2">
+							<div class="card card-signup">
+								<h:form id="cambioClaveForm" >
+									<p:remoteCommand name="inicializar" update="cambioClaveForm"
+										actionListener="#{preferenciasBeans.eventoActivarCambioClave}" />  
+									<div class="col-md-12 text-center">
+										<p:outputPanel>					
+											<h:outputLabel 
+												style="font-weight:bold; padding-top:5px; font-size:16px; color: #5A5D61;" 
+												value="Cambio de Clave" />					
+											
+											<div class="form-group">
+												<div class="row"  align="center" >
+													<p:outputLabel  id="messagesCambioClave" value="Es necesario el cambio de la Contraseña"
+															style="width: 50%; font-size: 11px; color: red;"> </p:outputLabel>
+												</div>
+											</div>			
+											<div class="form-group">						
+												<div class="input-group">
+													<span class="input-group-addon">
+														<span class="fa fa-user"/>
+													</span>
+													<p:inputText maxlength="20" id="j_username"
+														value="#{preferenciasBeans.usuarioActual}" 
+														styleClass="form-control"																												
+														readonly="true" >
+													</p:inputText>
+												</div>
+											</div>
+											<div class="form-group">
+												<div class="input-group">
+													<span class="input-group-addon">
+														<span class="fa fa-lock"/>								
+													</span>
+													<p:password id="j_pw_past"
+															maxlength="20"
+															 value="#{preferenciasBeans.claveOriginal}"
+															styleClass="form-control" 											
+															placeholder="INGRESE SU CONTRASEÑA ORIGNAL"
+															onkeypress="if (event.keyCode == 13) {eventoPreCambioClave();} "
+															/>
+												</div>								
+											</div>
+											<div class="form-group">
+												<div class="input-group">
+													<span class="input-group-addon">
+														<span class="fa fa-lock"/>								
+													</span>
+														<p:password id="j_pw_new"
+															maxlength="20" 
+															value="#{preferenciasBeans.claveNueva}"
+															styleClass="form-control" 											 
+															placeholder="INGRESE LA CONTRASEÑA NUEVA"
+															onkeypress="if (event.keyCode == 13) {eventoPreCambioClave();} "
+															/>
+												</div>								
+											</div>
+											<div class="form-group">
+												<div class="input-group">
+													<span class="input-group-addon">
+														<span class="fa fa-lock"/>								
+													</span>
+														<p:password id="j_pw_new_repeat"
+															maxlength="20"
+															value="#{preferenciasBeans.claveNuevaRepeticion}"
+															styleClass="form-control" 											 
+															placeholder="REPITA LA CONTRASEÑA NUEVA"
+															onkeypress="if (event.keyCode == 13) {eventoPreCambioClave();} "
+															/>
+												</div>								
+											</div>	
+											<p:spacer></p:spacer>		
+
+									<div class="ui-g">
+										<div class="ui-g-12 ui-g-nopad">
+											<div class="ui-fluid">
+											<div class="col-md-12 text-center" >
+												<p:panelGrid layout="grid" columns="2" styleClass="ui-panelgrid-blank"  
+													columnClasses="ui-grid-col-6,ui-grid-col-6" 
+													>
+													<p:commandButton id="btnPreCambioClave" value="Aceptar y Guardar"
+														styleClass="btn btn-raised btn-primary" 
+														update="messages"
+														process="@all"														
+														actionListener="#{preferenciasBeans.btnPreCambioClave}"														
+														iconPos="right"																																	
+														>									
+													</p:commandButton>									
+													<p:button value="Cancelar"
+														styleClass="btn btn-raised btn-primary"
+													 	outcome="logout"/>
+												</p:panelGrid>											
+											</div>												
+											</div>
+										</div>
+									</div>										
+																						
+										
+																																									
+										</p:outputPanel>
+									</div>
+									
+									<p:remoteCommand name="eventoAceptarCambioClave"
+										action="#{preferenciasBeans.aceptarCambioClave}"
+										update="messages"									
+									></p:remoteCommand>
+																					
+								</h:form>
+
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<footer class="footer">
+			<div class="container">
+				<nav class="pull-left">
+					<ul>
+						<li>
+							<a target="_blank" href="http://www.creative-tim.com">
+								Equipo de Trabajo
+							</a>
+						</li>
+						<li>
+							<a target="_blank" href="http://presentation.creative-tim.com">
+								Acerca de
+							</a>
+						</li>
+						<li>
+							<a target="_blank" href="http://blog.creative-tim.com">
+								Blog
+							</a>
+						</li>
+						<li>
+							<a target="_blank" href="http://www.creative-tim.com/license">
+								Licencias
+							</a>
+						</li>
+					</ul>
+				</nav>
+				<div class="copyright pull-right">
+
+				</div>
+			</div>
+		</footer>
+	</div>
+	
+ 
+		<!-- SCRITPS JS -->
+		<script type="text/javascript" src="#{request.contextPath}/resources/js/admin-lte/prism.js"></script>
+		<script type="text/javascript" src="#{request.contextPath}/resources/js/admin-lte/admintemplate.js"></script>	
+			
+	<script type="text/javascript">
+
+		jQuery(document).ready(function($) {
+			inicializar();
+		});
+		
+	
+		function eventoPreCambioClave() {
+			$('#btnPreCambioClave').click();						  							  			
+		}
+      	//<![CDATA[
+	        $(document).on("keydown", function (event) {
+	       	  if (event.which === 8 && !$(event.target).is("input, textarea")) {
+	       	   event.preventDefault();
+	       	  }
+	        });
+    	//]]>			
+	</script>
+
+
+</h:body>
+
+</html>

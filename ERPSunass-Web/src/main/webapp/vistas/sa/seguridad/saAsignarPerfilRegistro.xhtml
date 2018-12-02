@@ -1,0 +1,129 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" >
+	
+	<p:toolbar id="toolbarBotonesAsigPerfil">
+
+		<f:facet name="left"> </f:facet>
+		<f:facet name="right">
+
+			<p:commandButton id="btnGuardarAsigPerfil" value="Guardar"
+				icon="ui-icon-disk" update="@form, FormHeader"
+				rendered="#{saPermisoUsuarioBean.btnGuardarVisible}"
+				actionListener="#{saPermisoUsuarioBean.btnGuardar}"					
+				style=" height: 30px;"/>
+
+				<p:commandButton id="btnAceptaAsigPerfil" value="Aceptar"
+				icon="ui-icon-check" update="@form, FormHeader"
+				rendered="#{saPermisoUsuarioBean.btnAceptarVisible}"
+				actionListener="#{saPermisoUsuarioBean.btnAceptar}"
+				style=" height: 30px;" />
+			 
+				<p:commandButton id="btnCancelarAsigPerfil" value="Cancelar"
+				icon="ui-icon-cancel" update="@form, FormHeader"
+				rendered="#{saPermisoUsuarioBean.btnCancelarVisible}"
+				actionListener="#{saPermisoUsuarioBean.btnCancelar}"
+				style=" height: 30px;"  />
+			
+
+		</f:facet>
+	</p:toolbar>
+	
+	<div class="ui-g-12">
+		<div class="ui-g-12 ui-g-nopad">
+			<div class="ui-fluid"> 
+				<i class="fa fa-caret-down"></i> 
+				<a style="font-weight:bold; font-size:14px;" class="estiloLabelForm" href="#divGeneralAsigPerfil" data-toggle="collapse"> 
+					#{label.DATOS_GENERALES_CAP}</a>
+				<div id="divGeneralAsigPerfil" class="ui-g-12 ui-g-nopad ui-fluid collapse in" >	
+					<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank" 
+					columns="2" columnClasses="ui-grid-col-3,ui-grid-col-5,ui-grid-col-4">
+						<p:column>
+							<h:outputText value="#{label.USUARIO_USUARIO}" styleClass="estiloLabelForm" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{saPermisoUsuarioBean.registro.nombre}" styleClass="estiloValueForm" />
+						</p:column>
+						<p:column>
+						
+						</p:column>
+					</p:panelGrid>
+				</div> 
+			</div>
+		</div>  
+	</div>
+	
+	<div class="ui-g-12">
+		<div class="ui-g-12 ui-g-nopad">
+			<div class="ui-fluid"> 
+				<i class="fa fa-caret-down"></i> 
+				<a style="font-weight:bold; font-size:14px;" class="estiloLabelForm" href="#divAgregarAsigPerfilReg" data-toggle="collapse"> 
+					#{label.USUARIO_AGREGAR_DETALLE}</a>
+				<div id="divAgregarAsigPerfilReg" class="ui-g-12 ui-g-nopad ui-fluid collapse in" >	
+					<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank" columns="4"
+					columnClasses="ui-grid-col-3,ui-grid-col-3,ui-grid-col-2,ui-grid-col-4"
+					>											
+						<p:column>
+							<h:outputText value="#{label.USUARIO_INSTITUCION}" styleClass="estiloLabelForm" />
+							<p:selectOneMenu autoWidth="false" value="#{saPermisoUsuarioBean.perfilReg}">
+								<f:selectItem itemLabel="#{label.lblSeleccione}" itemValue="#{null}" noSelectionOption="true" />
+								<f:selectItems value="#{saPermisoUsuarioBean.listadoPerfilReg}" var="item" 
+								itemLabel="#{item.usuario}" itemValue="#{item.usuario}" />
+		
+							</p:selectOneMenu>
+						</p:column>						
+						<p:column>
+							<p:spacer/>
+							<p:commandButton id="btnAgregarPerfil" type="submit" ajax="true" 
+							update="dtElementAsigPerfil"
+							actionListener="#{saPermisoUsuarioBean.btnAgregarPerfil()}"
+							value="Agregar" icon="ui-icon-plus"/>
+						</p:column>
+						<p:column>
+							  
+						</p:column>
+						<p:column>
+						
+						</p:column>
+						
+					</p:panelGrid>
+				</div>
+					 
+			</div>
+		</div>  
+	</div>
+	
+	 <div class="ui-g-12">
+		<div class="ui-g-12 ui-g-nopad">
+			<div class="ui-fluid"> 
+				<p:dataTable id="dtElementAsigPerfil" reflow="true"
+				value="#{saPermisoUsuarioBean.listaDataModelPerfilReg}"
+				var="vElement" emptyMessage="#{mensaje.MSJ_WARN_busquedaVacia}">
+					
+			  		<p:column headerText="#{label.USUARIO_USUARIO}">
+			               <h:outputText value="#{vElement.usuario}" />
+			         </p:column>
+			          <p:column headerText="#{label.USUARIO_PERFIL}">
+			              <h:outputText value="#{vElement.perfil}" />
+			          </p:column>
+			          <p:column headerText="#{label.USUARIO_ESTADO}">
+			              <p:selectOneMenu value="#{vElement.estado}">
+			              	<f:selectItem itemLabel="#{label.ITEM_ACTIVO}" itemValue="#{constant.ACTIVO}"/>
+			              	<f:selectItem itemLabel="#{label.ITEM_INACTIVO}" itemValue="#{constant.INACTIVO}"/>
+			              </p:selectOneMenu>
+			          </p:column>
+			          <p:column headerText="#{label.ELIMINAR_CAP}">
+			              <p:commandButton ajax="true" icon="ui-icon-trash" update="dtElementAsigPerfil"
+			              	actionListener="#{saPermisoUsuarioBean.btnRemoverPerfil(vElement)}">
+			              </p:commandButton>
+			          </p:column>
+				</p:dataTable>	
+			</div>
+		</div>
+	</div>
+	
+	
+	 
+</ui:composition>
