@@ -1,18 +1,17 @@
-package erp.realcoresystems.pe.controller.gestion;
+package erp.realcoresystems.pe.controller.formularios;
 
 import erp.realcoresystems.pe.commons.UtilesCommons;
 import erp.realcoresystems.pe.controller.AbstractGenericBean;
 import erp.realcoresystems.pe.controller.InterfaceGenericBean;
 import erp.realcoresystems.pe.model.domain.Companyowner;
 import erp.realcoresystems.pe.model.domain.MaMiscelaneosdetalle;
-import erp.realcoresystems.pe.model.domain.SsPeriodoformulariodetalle;
-import erp.realcoresystems.pe.model.domain.vista.VwSsperiodoformulario;
+import erp.realcoresystems.pe.model.domain.SsFormcom01A;
 import erp.realcoresystems.pe.model.util.Constant;
 import erp.realcoresystems.pe.model.util.FacesUtil;
 import erp.realcoresystems.pe.server.EntityGlobal;
 import erp.realcoresystems.pe.service.CompaniaOwnerService;
 import erp.realcoresystems.pe.service.MaMiscelaneosdetalleService;
-import erp.realcoresystems.pe.service.SsControlperiodoService;
+import erp.realcoresystems.pe.service.SsFormcom01AService;
 import org.primefaces.model.LazyDataModel;
 
 import javax.annotation.PostConstruct;
@@ -25,12 +24,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-@ManagedBean(name = "controlFormularioBean")
+
+@ManagedBean(name = "sSFORMCOM01ABean")
 @ViewScoped
-public class ControlFormularioBean extends AbstractGenericBean implements InterfaceGenericBean {
+public class SSFORMCOM01ABean extends AbstractGenericBean implements InterfaceGenericBean {
     // Service
-    @ManagedProperty(value = "#{ssControlperiodoService}")
-    private SsControlperiodoService ssControlperiodoService;
+    @ManagedProperty(value="#{ssFormcom01AService}")
+    private SsFormcom01AService ssFormcom01AService;
 
     @ManagedProperty(value="#{companiaOwnerService}")
     private CompaniaOwnerService companiaOwnerService;
@@ -41,13 +41,13 @@ public class ControlFormularioBean extends AbstractGenericBean implements Interf
     private List<MaMiscelaneosdetalle> maMisDestalleTipoFrencuencia;
 
     private List<MaMiscelaneosdetalle> maMisDestalleEstadoDocumento;
-    private LazyDataModel<VwSsperiodoformulario> listaVwSsperiodoformularioModel;
-    private List<VwSsperiodoformulario> listaVwSsperiodoformulario;
+    private LazyDataModel<SsFormcom01A> listaSsFormcom01AModel;
+    private List<SsFormcom01A> listaSsFormcom01A;
 
     // Entity
-    private VwSsperiodoformulario controlPeriodoFiltro = new VwSsperiodoformulario();
-    private VwSsperiodoformulario controlPeriodoSeleccion = new VwSsperiodoformulario();
-    private SsPeriodoformulariodetalle ssPeriodoFormRegistro = new SsPeriodoformulariodetalle();
+    private SsFormcom01A ssFormcom01AFiltro = new SsFormcom01A();
+    private SsFormcom01A ssFormcom01ASeleccion = new SsFormcom01A();
+    private SsFormcom01A ssFormcom01ARegistro = new SsFormcom01A();
 
     // Variables
     private boolean chkEstado;
@@ -57,16 +57,16 @@ public class ControlFormularioBean extends AbstractGenericBean implements Interf
     public void iniciar() {
         FacesUtil.putSessionMap("namedBeanSingleton", "controlFormularioBean");
         super.initComponentes();
-        ssPeriodoFormRegistro = new SsPeriodoformulariodetalle();
-        controlPeriodoSeleccion = new VwSsperiodoformulario();
-        controlPeriodoFiltro = new VwSsperiodoformulario();
-        controlPeriodoFiltro.setEstado(Constant.ACTIVO);
+        ssFormcom01ARegistro = new SsFormcom01A();
+        ssFormcom01ASeleccion = new SsFormcom01A();
+        ssFormcom01AFiltro = new SsFormcom01A();
+        ssFormcom01AFiltro.setCresEstado(Constant.ACTIVO);
         maMisDestalleTipoFrencuencia = new ArrayList<>();
         maMisDestalleEstadoDocumento = new ArrayList<>();
         listaCompanyowner = new ArrayList<>();
 
         //listarCompania();
-       // buscarPrincipal();
+        // buscarPrincipal();
 
     }
 
@@ -101,7 +101,7 @@ public class ControlFormularioBean extends AbstractGenericBean implements Interf
 
     @Override
     public void btnModificar() {
-        if (controlPeriodoSeleccion != null) {
+        if (ssFormcom01ASeleccion != null) {
             MODO_ACTUAL = MODO_UPDATE;
             setAtributosWindowsRegistro(MODO_ACTUAL);
         }else{
@@ -111,7 +111,7 @@ public class ControlFormularioBean extends AbstractGenericBean implements Interf
 
     @Override
     public void btnVer() {
-        if (controlPeriodoSeleccion != null) {
+        if (ssFormcom01ASeleccion != null) {
             MODO_ACTUAL = MODO_VIEW;
             setAtributosWindowsRegistro(MODO_VIEW);
         } else {
@@ -121,7 +121,7 @@ public class ControlFormularioBean extends AbstractGenericBean implements Interf
 
     @Override
     public void btnEliminar() {
-        if (controlPeriodoSeleccion != null) {
+        if (ssFormcom01ASeleccion != null) {
             MODO_ACTUAL = MODO_DELETE;
             setAtributosWindowsRegistro(MODO_ACTUAL);
         } else {
@@ -180,18 +180,10 @@ public class ControlFormularioBean extends AbstractGenericBean implements Interf
     @Override
     public void cargarObjetoFiltros(int first, int pageSize, int counter) {
 
-        controlPeriodoFiltro.setOrdernable(true);
-        controlPeriodoFiltro.setAtributoOrdenacion("id.fechaCambio");
-        controlPeriodoFiltro.setInicio(first);
-        controlPeriodoFiltro.setNumeroFilas(pageSize);
-    }
-
-    public SsControlperiodoService getSsControlperiodoService() {
-        return ssControlperiodoService;
-    }
-
-    public void setSsControlperiodoService(SsControlperiodoService ssControlperiodoService) {
-        this.ssControlperiodoService = ssControlperiodoService;
+        ssFormcom01AFiltro.setOrdernable(true);
+        ssFormcom01AFiltro.setAtributoOrdenacion("id.fechaCambio");
+        ssFormcom01AFiltro.setInicio(first);
+        ssFormcom01AFiltro.setNumeroFilas(pageSize);
     }
 
     public CompaniaOwnerService getCompaniaOwnerService() {
@@ -226,38 +218,21 @@ public class ControlFormularioBean extends AbstractGenericBean implements Interf
         this.maMisDestalleEstadoDocumento = maMisDestalleEstadoDocumento;
     }
 
-    public LazyDataModel<VwSsperiodoformulario> getListaVwSsperiodoformularioModel() {
-        return listaVwSsperiodoformularioModel;
+    public LazyDataModel<SsFormcom01A> getListaSsFormcom01AModel() {
+        return listaSsFormcom01AModel;
     }
 
-    public void setListaVwSsperiodoformularioModel(LazyDataModel<VwSsperiodoformulario> listaVwSsperiodoformularioModel) {
-        this.listaVwSsperiodoformularioModel = listaVwSsperiodoformularioModel;
+    public void setListaSsFormcom01AModel(LazyDataModel<SsFormcom01A> listaSsFormcom01AModel) {
+        this.listaSsFormcom01AModel = listaSsFormcom01AModel;
     }
 
-    public List<VwSsperiodoformulario> getListaVwSsperiodoformulario() {
-        return listaVwSsperiodoformulario;
+    public List<SsFormcom01A> getListaSsFormcom01A() {
+        return listaSsFormcom01A;
     }
 
-    public void setListaVwSsperiodoformulario(List<VwSsperiodoformulario> listaVwSsperiodoformulario) {
-        this.listaVwSsperiodoformulario = listaVwSsperiodoformulario;
+    public void setListaSsFormcom01A(List<SsFormcom01A> listaSsFormcom01A) {
+        this.listaSsFormcom01A = listaSsFormcom01A;
     }
-
-    public VwSsperiodoformulario getControlPeriodoFiltro() {
-        return controlPeriodoFiltro;
-    }
-
-    public void setControlPeriodoFiltro(VwSsperiodoformulario controlPeriodoFiltro) {
-        this.controlPeriodoFiltro = controlPeriodoFiltro;
-    }
-
-    public VwSsperiodoformulario getControlPeriodoSeleccion() {
-        return controlPeriodoSeleccion;
-    }
-
-    public void setControlPeriodoSeleccion(VwSsperiodoformulario controlPeriodoSeleccion) {
-        this.controlPeriodoSeleccion = controlPeriodoSeleccion;
-    }
-
     public boolean isChkEstado() {
         return chkEstado;
     }
@@ -274,11 +249,35 @@ public class ControlFormularioBean extends AbstractGenericBean implements Interf
         this.listaCompanyowner = listaCompanyowner;
     }
 
-    public SsPeriodoformulariodetalle getSsPeriodoFormRegistro() {
-        return ssPeriodoFormRegistro;
+    public SsFormcom01A getSsFormcom01AFiltro() {
+        return ssFormcom01AFiltro;
     }
 
-    public void setSsPeriodoFormRegistro(SsPeriodoformulariodetalle ssPeriodoFormRegistro) {
-        this.ssPeriodoFormRegistro = ssPeriodoFormRegistro;
+    public void setSsFormcom01AFiltro(SsFormcom01A ssFormcom01AFiltro) {
+        this.ssFormcom01AFiltro = ssFormcom01AFiltro;
+    }
+
+    public SsFormcom01A getSsFormcom01ASeleccion() {
+        return ssFormcom01ASeleccion;
+    }
+
+    public void setSsFormcom01ASeleccion(SsFormcom01A ssFormcom01ASeleccion) {
+        this.ssFormcom01ASeleccion = ssFormcom01ASeleccion;
+    }
+
+    public SsFormcom01A getSsFormcom01ARegistro() {
+        return ssFormcom01ARegistro;
+    }
+
+    public void setSsFormcom01ARegistro(SsFormcom01A ssFormcom01ARegistro) {
+        this.ssFormcom01ARegistro = ssFormcom01ARegistro;
+    }
+
+    public SsFormcom01AService getSsFormcom01AService() {
+        return ssFormcom01AService;
+    }
+
+    public void setSsFormcom01AService(SsFormcom01AService ssFormcom01AService) {
+        this.ssFormcom01AService = ssFormcom01AService;
     }
 }
