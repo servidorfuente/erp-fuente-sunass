@@ -1,11 +1,9 @@
 package erp.realcoresystems.pe.model.dao.impl;
 
 import erp.realcoresystems.pe.commons.UtilesCommons;
-import erp.realcoresystems.pe.model.dao.CompaniaOwnerDao;
 import erp.realcoresystems.pe.model.dao.SsControlperiodoDao;
 import erp.realcoresystems.pe.model.domain.SsControlperiodo;
 import org.hibernate.Criteria;
-import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;

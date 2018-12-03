@@ -4,20 +4,26 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "SS_CONTROLPERIODO")
+@Table(name = "SS_CONTROLPERIODO" )
 @IdClass(SsControlperiodoPK.class)
-public class SsControlperiodo   extends Entidad {
+public class SsControlperiodo  extends Entidad{
     private String companyowner;
-    private String periodo;
+    private String sucursal;
     private String tipofrecuencia;
-    private Integer anno;
+    private Integer ffanno;
+    private Integer formularioid;
+    private String periodo;
+    private Integer secuencia;
     private Integer mes;
     private Date fechainicio;
     private Date fechafin;
-    private String sucursal;
-    private Integer proyectoid;
-    private Integer sectorid;
     private String descripcion;
+    private String observaciones;
+    private Integer proyectoid;
+    private String creacionusuario;
+    private Date creacionfecha;
+    private String ultimousuario;
+    private Date ultimafechamodif;
     private Integer estadodocumento;
     private String estado;
 
@@ -31,14 +37,14 @@ public class SsControlperiodo   extends Entidad {
         this.companyowner = companyowner;
     }
 
-    @Id
-    @Column(name = "PERIODO")
-    public String getPeriodo() {
-        return periodo;
+    @Basic
+    @Column(name = "SUCURSAL")
+    public String getSucursal() {
+        return sucursal;
     }
 
-    public void setPeriodo(String periodo) {
-        this.periodo = periodo;
+    public void setSucursal(String sucursal) {
+        this.sucursal = sucursal;
     }
 
     @Id
@@ -51,14 +57,44 @@ public class SsControlperiodo   extends Entidad {
         this.tipofrecuencia = tipofrecuencia;
     }
 
-    @Basic
-    @Column(name = "ANNO")
-    public Integer getAnno() {
-        return anno;
+    @Id
+    @Column(name = "FFANNO")
+    public Integer getFfanno() {
+        return ffanno;
     }
 
-    public void setAnno(Integer anno) {
-        this.anno = anno;
+    public void setFfanno(Integer ffanno) {
+        this.ffanno = ffanno;
+    }
+
+    @Id
+    @Column(name = "FORMULARIOID")
+    public Integer getFormularioid() {
+        return formularioid;
+    }
+
+    public void setFormularioid(Integer formularioid) {
+        this.formularioid = formularioid;
+    }
+
+    @Id
+    @Column(name = "PERIODO")
+    public String getPeriodo() {
+        return periodo;
+    }
+
+    public void setPeriodo(String periodo) {
+        this.periodo = periodo;
+    }
+
+    @Id
+    @Column(name = "SECUENCIA")
+    public Integer getSecuencia() {
+        return secuencia;
+    }
+
+    public void setSecuencia(Integer secuencia) {
+        this.secuencia = secuencia;
     }
 
     @Basic
@@ -92,13 +128,23 @@ public class SsControlperiodo   extends Entidad {
     }
 
     @Basic
-    @Column(name = "SUCURSAL")
-    public String getSucursal() {
-        return sucursal;
+    @Column(name = "DESCRIPCION")
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setSucursal(String sucursal) {
-        this.sucursal = sucursal;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    @Basic
+    @Column(name = "OBSERVACIONES")
+    public String getObservaciones() {
+        return observaciones;
+    }
+
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
     }
 
     @Basic
@@ -112,23 +158,43 @@ public class SsControlperiodo   extends Entidad {
     }
 
     @Basic
-    @Column(name = "SECTORID")
-    public Integer getSectorid() {
-        return sectorid;
+    @Column(name = "CREACIONUSUARIO")
+    public String getCreacionusuario() {
+        return creacionusuario;
     }
 
-    public void setSectorid(Integer sectorid) {
-        this.sectorid = sectorid;
+    public void setCreacionusuario(String creacionusuario) {
+        this.creacionusuario = creacionusuario;
     }
 
     @Basic
-    @Column(name = "DESCRIPCION")
-    public String getDescripcion() {
-        return descripcion;
+    @Column(name = "CREACIONFECHA")
+    public Date getCreacionfecha() {
+        return creacionfecha;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setCreacionfecha(Date creacionfecha) {
+        this.creacionfecha = creacionfecha;
+    }
+
+    @Basic
+    @Column(name = "ULTIMOUSUARIO")
+    public String getUltimousuario() {
+        return ultimousuario;
+    }
+
+    public void setUltimousuario(String ultimousuario) {
+        this.ultimousuario = ultimousuario;
+    }
+
+    @Basic
+    @Column(name = "ULTIMAFECHAMODIF")
+    public Date getUltimafechamodif() {
+        return ultimafechamodif;
+    }
+
+    public void setUltimafechamodif(Date ultimafechamodif) {
+        this.ultimafechamodif = ultimafechamodif;
     }
 
     @Basic
@@ -158,18 +224,29 @@ public class SsControlperiodo   extends Entidad {
 
         SsControlperiodo that = (SsControlperiodo) o;
 
-        if (proyectoid != that.proyectoid) return false;
+        if (ffanno != that.ffanno) return false;
+        if (formularioid != that.formularioid) return false;
+        if (secuencia != that.secuencia) return false;
         if (companyowner != null ? !companyowner.equals(that.companyowner) : that.companyowner != null) return false;
-        if (periodo != null ? !periodo.equals(that.periodo) : that.periodo != null) return false;
+        if (sucursal != null ? !sucursal.equals(that.sucursal) : that.sucursal != null) return false;
         if (tipofrecuencia != null ? !tipofrecuencia.equals(that.tipofrecuencia) : that.tipofrecuencia != null)
             return false;
-        if (anno != null ? !anno.equals(that.anno) : that.anno != null) return false;
+        if (periodo != null ? !periodo.equals(that.periodo) : that.periodo != null) return false;
         if (mes != null ? !mes.equals(that.mes) : that.mes != null) return false;
         if (fechainicio != null ? !fechainicio.equals(that.fechainicio) : that.fechainicio != null) return false;
         if (fechafin != null ? !fechafin.equals(that.fechafin) : that.fechafin != null) return false;
-        if (sucursal != null ? !sucursal.equals(that.sucursal) : that.sucursal != null) return false;
-        if (sectorid != null ? !sectorid.equals(that.sectorid) : that.sectorid != null) return false;
         if (descripcion != null ? !descripcion.equals(that.descripcion) : that.descripcion != null) return false;
+        if (observaciones != null ? !observaciones.equals(that.observaciones) : that.observaciones != null)
+            return false;
+        if (proyectoid != null ? !proyectoid.equals(that.proyectoid) : that.proyectoid != null) return false;
+        if (creacionusuario != null ? !creacionusuario.equals(that.creacionusuario) : that.creacionusuario != null)
+            return false;
+        if (creacionfecha != null ? !creacionfecha.equals(that.creacionfecha) : that.creacionfecha != null)
+            return false;
+        if (ultimousuario != null ? !ultimousuario.equals(that.ultimousuario) : that.ultimousuario != null)
+            return false;
+        if (ultimafechamodif != null ? !ultimafechamodif.equals(that.ultimafechamodif) : that.ultimafechamodif != null)
+            return false;
         if (estadodocumento != null ? !estadodocumento.equals(that.estadodocumento) : that.estadodocumento != null)
             return false;
         if (estado != null ? !estado.equals(that.estado) : that.estado != null) return false;
@@ -180,16 +257,22 @@ public class SsControlperiodo   extends Entidad {
     @Override
     public int hashCode() {
         int result = companyowner != null ? companyowner.hashCode() : 0;
-        result = 31 * result + (periodo != null ? periodo.hashCode() : 0);
+        result = 31 * result + (sucursal != null ? sucursal.hashCode() : 0);
         result = 31 * result + (tipofrecuencia != null ? tipofrecuencia.hashCode() : 0);
-        result = 31 * result + (anno != null ? anno.hashCode() : 0);
+        result = 31 * result + (int) (ffanno ^ (ffanno >>> 32));
+        result = 31 * result + (int) (formularioid ^ (formularioid >>> 32));
+        result = 31 * result + (periodo != null ? periodo.hashCode() : 0);
+        result = 31 * result + (int) (secuencia ^ (secuencia >>> 32));
         result = 31 * result + (mes != null ? mes.hashCode() : 0);
         result = 31 * result + (fechainicio != null ? fechainicio.hashCode() : 0);
         result = 31 * result + (fechafin != null ? fechafin.hashCode() : 0);
-        result = 31 * result + (sucursal != null ? sucursal.hashCode() : 0);
-        result = 31 * result + (int) (proyectoid ^ (proyectoid >>> 32));
-        result = 31 * result + (sectorid != null ? sectorid.hashCode() : 0);
         result = 31 * result + (descripcion != null ? descripcion.hashCode() : 0);
+        result = 31 * result + (observaciones != null ? observaciones.hashCode() : 0);
+        result = 31 * result + (proyectoid != null ? proyectoid.hashCode() : 0);
+        result = 31 * result + (creacionusuario != null ? creacionusuario.hashCode() : 0);
+        result = 31 * result + (creacionfecha != null ? creacionfecha.hashCode() : 0);
+        result = 31 * result + (ultimousuario != null ? ultimousuario.hashCode() : 0);
+        result = 31 * result + (ultimafechamodif != null ? ultimafechamodif.hashCode() : 0);
         result = 31 * result + (estadodocumento != null ? estadodocumento.hashCode() : 0);
         result = 31 * result + (estado != null ? estado.hashCode() : 0);
         return result;

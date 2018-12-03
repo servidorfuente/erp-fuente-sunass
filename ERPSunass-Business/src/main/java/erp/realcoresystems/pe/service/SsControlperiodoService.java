@@ -1,6 +1,5 @@
 package erp.realcoresystems.pe.service;
 
-import erp.realcoresystems.pe.model.domain.SsControlperiodo;
 import erp.realcoresystems.pe.model.domain.SsPeriodoformulario;
 import erp.realcoresystems.pe.model.domain.SsPeriodoformulariodetalle;
 import erp.realcoresystems.pe.model.domain.vista.VwSsperiodoformulario;
