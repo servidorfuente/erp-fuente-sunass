@@ -1,0 +1,154 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:f="http://java.sun.com/jsf/core"
+>	
+
+	<h:form id="FormSeleccionarFlujoCaja" onkeypress="if (event.keyCode == 13) {rcBuscarMain();} "  >
+	
+		<p:remoteCommand name="inicializarSeleccionadorCashFlow" 
+			actionListener="#{dataSeleccionadorAcCashFlowMstBean.inicializar}" 
+			update="@form" oncomplete="PF('dtElementSelecc').unselectAllRows();"/>
+	
+		<div class="ui-g">
+			<div class="ui-g-12 ui-g-nopad">
+				<div class="ui-fluid">
+					<p:toolbar id="toolbarBotonesSel">
+						<f:facet name="left">
+						</f:facet>
+						<f:facet name="right">
+							<p:commandButton id="btnAceptar" value="#{lbv.ACEPTAR_CAP}" type="push"
+								actionListener="#{dataSeleccionadorAcCashFlowMstBean.btnAceptar}"
+								disabled="#{dataSeleccionadorAcCashFlowMstBean.disableBtnAceptar}"
+								style="width:90px;"   styleClass="btn-primary"
+								icon="ui-icon-check"  ajax="true" update="@form" 
+								title="#{mensaje.MSJ_INFO_TIP_ACEPTAR_MAIN}"
+							/>
+						</f:facet>
+					</p:toolbar>
+				</div>
+			</div>		
+		</div>
+		
+		<div class="ui-g">
+			<div class="ui-g-12 ui-g-nopad">
+				<div class="ui-fluid">
+					<p:panelGrid id="pnlFiltros" layout="grid" styleClass="ui-panelgrid-blank" columns="4"
+						columnClasses="ui-grid-col-3,ui-grid-col-5,ui-grid-col-1,ui-grid-col-3"				
+					>
+						<p:column>
+							<p:outputLabel  value="Tipo de Transacción" styleClass="estiloLabelForm" />
+							<p:selectOneMenu autoWidth="false" 											
+								value="#{dataSeleccionadorAcCashFlowMstBean.filtro.tipoRegistroFlag}"																
+											>
+								<f:selectItem itemLabel="#{label.lblTodos}" noSelectionOption="true" />																											
+								<f:selectItem itemLabel="Ingreso"  itemValue="#{constant.VOUCHER_FLUJOCAJA_TIPOTRANSACCION_INGRESO}"/>
+								<f:selectItem itemLabel="Egreso"  itemValue="#{constant.VOUCHER_FLUJOCAJA_TIPOTRANSACCION_EGRESO}"/>
+								<f:selectItem itemLabel="Transferencia"  itemValue="#{constant.VOUCHER_FLUJOCAJA_TIPOTRANSACCION_TRANSFERENCIA}"/>
+									
+							</p:selectOneMenu>	
+							
+							<p:outputLabel  value="Flujo de Efectivo" styleClass="estiloLabelForm" />
+							<p:selectOneMenu autoWidth="false" 											
+								value="#{dataSeleccionadorAcCashFlowMstBean.filtro.tipoOperacionFlag}"																
+											>
+								<f:selectItem itemLabel="#{label.lblTodos}" noSelectionOption="true" />																											
+								<f:selectItem itemLabel="Operación"  itemValue="#{constant.VOUCHER_FLUJOCAJA_FLUJOEFECTIVO_OPERACION}"/>
+								<f:selectItem itemLabel="Financiamiento"  itemValue="#{constant.VOUCHER_FLUJOCAJA_FLUJOEFECTIVO_FINANCIAMIENTO}"/>
+							<f:selectItem itemLabel="Inversión"  itemValue="#{constant.VOUCHER_FLUJOCAJA_FLUJOEFECTIVO_INVERSION}"/>
+									
+							</p:selectOneMenu>	
+														
+						</p:column>
+						
+						<p:column>
+																	
+							<p:outputLabel  value="Grupo del FLujo" styleClass="estiloLabelForm" />
+                            <p:inputText id="itCtaDescricion" 
+									value="#{dataSeleccionadorAcCashFlowMstBean.filtro.localNameFlowGroup}"							
+									 style="width:100%;"																	
+								/>					
+							<p:outputLabel  value="Desc. FLujo de Caja"  styleClass="estiloLabelForm" />
+							<p:inputText id="itElemento" 
+									value="#{dataSeleccionadorAcCashFlowMstBean.filtro.localName}"							
+									style="width:100%;"	
+									disabled="false"																
+								/>	
+						
+						</p:column>						
+						<p:column>	
+						</p:column>						
+						<p:column>
+							<h:panelGrid columns="1" >
+								<p:outputLabel value="" style="color: transparent;"/>
+							</h:panelGrid>
+							<h:panelGrid columns="1" width="100%"
+								columnClasses="ui-grid-col-12"
+							>
+								<p:commandButton value="#{lbv.BUSCAR_CAP}"  id="btnBuscarSelecc" widgetVar="btnBuscarSelecc"
+									actionListener="#{dataSeleccionadorAcCashFlowMstBean.btnBuscar}"
+									style="width:100%;"  styleClass="btn-primary"
+									icon="fa fa-search" ajax="true" update="dtElementSelecc" 
+									onstart="PF('dtElementSelecc').paginator.setPage(0);"	
+								/>
+								
+								<p:remoteCommand  name="rcBuscarMain" update="dtElementSelecc" 
+									process="@form"
+									actionListener="#{dataSeleccionadorAcCashFlowMstBean.btnBuscar}"	>
+								
+								</p:remoteCommand>
+							</h:panelGrid>
+						</p:column>
+					</p:panelGrid>
+				</div>
+			</div>
+		</div>
+
+	
+		<p:dataTable id="dtElementSelecc" widgetVar="dtElementSelecc"
+			value="#{dataSeleccionadorAcCashFlowMstBean.lazyModel}" 
+			lazy="true" var="vVwCwCuentas"
+			rowKey="#{vVwCwCuentas.cashFlowCode}" paginator="true" 
+			paginatorPosition="bottom"
+			selectionMode="single"
+			selection="#{dataSeleccionadorAcCashFlowMstBean.selected}"
+			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rows="5" rowIndexVar="index" reflow="true"
+			emptyMessage="#{mensaje.MSJ_WARN_busquedaVacia}"
+			style="font-size:12px;"	 
+			tableStyle="width:auto"
+		>
+			<p:ajax event="rowSelect" process="@this" update="FormSeleccionarFlujoCaja:btnAceptar" listener="#{dataSeleccionadorAcCashFlowMstBean.clickRegistro}" />
+			<p:ajax event="rowDblselect" listener="#{dataSeleccionadorAcCashFlowMstBean.doubleClick}" />
+		
+	    
+                <p:column headerText="Código" style="text-align:center; font-weight:bold; " >
+                        <h:outputText value="#{vVwCwCuentas.cashFlowCode}"  />
+                </p:column>                    
+                <p:column headerText="Desc. FLujo de Caja" width="40%"
+                	style="text-align:center; font-weight:bold; "  >
+                   <h:outputText value="#{vVwCwCuentas.localName}" />
+                </p:column>
+  
+                <p:column headerText="Tipo de Transacción" >
+                   <h:outputText value="
+                   	#{vVwCwCuentas.tipoRegistroFlag eq constant.VOUCHER_FLUJOCAJA_TIPOTRANSACCION_INGRESO ? 'Ingreso':
+                   		vVwCwCuentas.tipoRegistroFlag eq constant.VOUCHER_FLUJOCAJA_TIPOTRANSACCION_EGRESO ? 'Egreso':
+                   		vVwCwCuentas.tipoRegistroFlag eq constant.VOUCHER_FLUJOCAJA_TIPOTRANSACCION_TRANSFERENCIA  ? 'Transferencia':''	
+                   			}" />
+                </p:column>                                      
+                <p:column headerText="Flujo de Efectivo" >
+                   <h:outputText value="
+                   	#{vVwCwCuentas.tipoOperacionFlag eq constant.VOUCHER_FLUJOCAJA_FLUJOEFECTIVO_OPERACION  ? 'Operación':
+                   		vVwCwCuentas.tipoOperacionFlag eq constant.VOUCHER_FLUJOCAJA_FLUJOEFECTIVO_FINANCIAMIENTO  ? 'Financiamiento':
+                   		vVwCwCuentas.tipoOperacionFlag eq constant.VOUCHER_FLUJOCAJA_FLUJOEFECTIVO_INVERSION  ? 'Inversión':''	
+                   			}" />
+                </p:column>   				
+				<p:column headerText="Grupo de Flujo"  width="35%" >
+                   <h:outputText value="#{vVwCwCuentas.localNameFlowGroup}"  />
+                </p:column>
+		</p:dataTable>
+	
+	</h:form>
+</ui:composition>

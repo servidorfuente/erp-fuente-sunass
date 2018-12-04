@@ -1,0 +1,131 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <div class="ui-g">
+        <div class="ui-g-12 ui-g-nopad">
+            <div class="ui-fluid">
+                <div class="ui-g-12">
+                    <i class="fa fa-caret-down"></i>
+                    <a style="font-weight: bold; font-size: 14px;"
+                       class="estiloLabelForm" href="#divInfoPersonaDireccion"
+                       data-toggle="collapse"> Información de la Experiencia Laboral</a>
+                    <div id="divInfoPersonaDireccion" class="ui-g collapse in">
+                        <div class="ui-g-12 ui-g-nopad">
+                            <div class="ui-fluid">
+                                <p:spacer height="10" width="20"></p:spacer>
+                                <div class="customHr">.</div>
+                                <p:panelGrid layout="grid" styleClass="ui-panelgrid-blank"
+                                             columns="3"
+                                             columnClasses="ui-grid-col-6,ui-grid-col-4,ui-grid-col-2">
+                                    <p:column>
+                                        <p:panelGrid layout="grid" styleClass="ui-panelgrid-blank"
+                                                     columns="3"
+                                                     columnClasses="ui-grid-col-10,ui-grid-col-2">
+                                            <h:outputText
+                                                    value="Cantidad de Registros de Experiencias Laborales: "
+                                                    style="font-weight:bold;">
+                                            </h:outputText>
+                                            <h:outputText
+                                                    value="#{hrPersonaBean.listadoDireccion.size()}"
+                                                    style="font-weight:bold;">
+                                            </h:outputText>
+                                        </p:panelGrid>
+                                    </p:column>
+                                    <p:column>
+                                        <p:spacer width="10"></p:spacer>
+                                    </p:column>
+                                    <p:column>
+                                        <p:panelGrid layout="grid" styleClass="ui-panelgrid-blank"
+                                                     columns="2" columnClasses="ui-grid-col-4,ui-grid-col-8">
+                                            <p:spacer width="10"></p:spacer>
+                                            <p:commandButton value="Agregar"
+                                                             style="height:30px;"
+                                                             actionListener="#{hrPersonaBean.btnAgregarDireccion}"
+                                                             update="@form" icon="ui-icon-circle-plus">
+                                            </p:commandButton>
+                                        </p:panelGrid>
+                                    </p:column>
+                                </p:panelGrid>
+                                <div class="customHr">.</div>
+                                <p:remoteCommand name="eventDelete" id="rcDelete" update="@form"
+                                                 actionListener="#{hrPersonaBean.btnEliminarDireccion}" />
+
+                                <ui:repeat
+                                        value="#{hrPersonaBean.listadoDireccion}"
+                                        var="elem">
+                                    <p:panel id="panelID#{elem.id.secuencia}"
+                                             collapsed="#{ (elem.accion eq 'I' or elem.accion eq 'U') ? false : true}"
+                                             header="Experiencia: #{elem.id.secuencia lt 0 ? (elem.string1) :'' }  #{elem.direccion} "
+                                             toggleable="true" toggleSpeed="300"
+                                             widgetVar="panelID#{elem.id.secuencia}">
+
+                                        <p:ajax event="toggle" process="@form"
+                                                listener="#{hrPersonaBean.eventToggleExpLaboral(elem)}">
+                                        </p:ajax>
+
+                                        <p:panelGrid layout="grid" styleClass="ui-panelgrid-blank"
+                                                     columns="3"
+                                                     columnClasses="ui-grid-col-1,ui-grid-col-10,ui-grid-col-1">
+                                            <p:column>
+                                                <p:spacer width="1" height="20"></p:spacer>
+                                                <p:graphicImage
+                                                        rendered="#{elem.accion eq 'I' ? true : false}"
+                                                        value="/resources/images/icons/iconcirclegreen01.png" />
+                                                <p:graphicImage
+                                                        rendered="#{elem.accion eq 'I' ? false : true}"
+                                                        value="/resources/images/icons/iconcircleyellow01.png" />
+                                            </p:column>
+                                            <p:column>
+                                                <p:panelGrid layout="grid" styleClass="ui-panelgrid-blank"
+                                                             columns="2" columnClasses="ui-grid-col-6,ui-grid-col-6">
+                                                    <p:column>
+                                                        <p:outputLabel styleClass="estiloLabelForm"  value="Empresa -  Institución" />
+                                                        <p:inputText id="itEmpresa" styleClass="required-field"
+                                                                     maxlength="100" value="#{elem.direccion}"
+                                                                     required="#{param['FormularioPersonaReg:tabDireccion:btnAgregarDireccion']!=null}"
+                                                                     requiredMessage="Debe especificar el nombre de la Empresa"
+                                                                     readonly="#{hrPersonaBean.componentesReadonly}"
+                                                        >
+                                                        </p:inputText>
+                                                    </p:column>
+
+                                                    <p:column>
+
+                                                    </p:column>
+                                                </p:panelGrid>
+                                            </p:column>
+                                            <p:column>
+                                                <p:spacer height="20" width="20"></p:spacer>
+                                                <p:commandButton id="btnDel"
+                                                                 actionListener="#{hrPersonaBean.btnEliminarDireccion(elem)}"
+                                                                 update="@form" ajax="true" icon="fa fa-trash">
+                                                </p:commandButton>
+
+                                                <p:spacer height="10" width="20"></p:spacer>
+                                                <p:commandButton id="btnSave" process="@form"
+                                                                 actionListener="#{hrPersonaBean.btnGuardarDireccion(elem)}"
+                                                                 update="@form" ajax="true" icon="fa fa-save">
+                                                </p:commandButton>
+                                                <p:tooltip for="btnDel"
+                                                           value="Quita el Registro Actual (Se completará la eliminación con el botón 'Guardar' de la Parte superior.')"></p:tooltip>
+                                                <p:tooltip for="btnSave"
+                                                           value="Guarda los cambios del Registro Actual"></p:tooltip>
+                                            </p:column>
+                                        </p:panelGrid>
+
+                                    </p:panel>
+                                </ui:repeat>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</ui:composition>
+
+

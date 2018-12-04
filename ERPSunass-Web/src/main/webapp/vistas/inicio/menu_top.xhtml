@@ -1,0 +1,141 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+>
+    <style type="text/css">
+
+        .textToolMain {
+            text-align: right;
+            margin-right: 10px;
+            color: white;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 11px;
+
+        }
+        .displayNone{
+        	display: none;
+        }
+          
+    </style>
+
+	<h:form id="formHeaderPanelNavegacion">
+             	
+         <p:remoteCommand  name="eventoMenuTopSelectMEstudio"  
+         		actionListener="#{panelHeaderBeans.onSelectMenuTopMEstudio}"
+                update="formMenu"
+             >
+         </p:remoteCommand>              	
+    <header class="header navbar navbar-fixed-top" role="banner">
+        <!-- Top Navigation Bar -->
+
+        <div class="container">
+
+            <!-- Only visible on smartphones, menu toggle -->
+            <ul class="nav navbar-nav"  >
+                <li class="nav-toggle"><a href="javascript:void(0);" title=""><i class="icon-reorder"></i></a></li>
+            </ul>
+
+            <!-- Logo -->
+            <a class="navbar-brand" href="#" style="width:410px;">
+                <img style="padding-right:10px; padding-left:0px; " src="#{facesContext.externalContext.requestContextPath}#{label.PATH_IMAGE_SHOW}" alt="logo"   />
+                <strong  >#{label.NOMBRE_SISTEMA}</strong>
+            </a>
+
+            <!-- /logo -->
+
+            <!-- Sidebar Toggler -->
+            <a href="#" class="toggle-sidebar bs-tooltip" data-placement="bottom" data-original-title="Menú">
+                <i class="icon-reorder"></i>
+
+            </a>
+            <!-- /Sidebar Toggler -->
+
+            <!-- Top Left Menu -->
+            <ul class="nav navbar-nav navbar-left hidden-xs hidden-sm"  >
+                <li style="display:none;" class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        Trámites
+                        <i class="icon-caret-down small"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#"><i class="icon-user"></i> Reservar  #1</a></li>
+                        <li><a href="#"><i class="icon-calendar"></i> Queja #2</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#"><i class="icon-tasks"></i> Notas #3</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- /Top Left Menu -->
+
+            <!-- Top Right Menu -->
+
+            <ul class="nav navbar-nav navbar-right">
+
+                <li>
+                    <a style="padding-top:2px;padding-bottom:2px; font-size:12px;"  >Compañía: #{panelHeaderBeans.lbCompaniaDesc}</a>
+	                <a  class="dropdown-toggle" data-toggle="dropdown"  style="padding-top:2px;padding-bottom:2px;  font-size:12px;" >
+	                	Locación: #{panelHeaderBeans.lbModalidadEstudioDesc}
+	                	 <b class="caret"></b>
+	                </a>
+                    <ul class="dropdown-menu" style="width: 100%">
+	                    <p:repeat var="" value=""  >	                    
+	                    </p:repeat>                 
+
+                    </ul>	                
+                </li>
+                
+                <li class="dropdown" style="margin-top: -15px;">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding-bottom:28px;"  >
+ 					<span class="username" style="font-size: 11px;">#{lbv.USUARIO_CAP}: #{panelHeaderBeans.nombreTipoUsuario}</span>
+                	<p:outputPanel id="pnlHeaderDatosCajero" style="display: inline;">
+                    </p:outputPanel>
+                    <b class="caret"></b>
+                </a>
+                    <ul class="dropdown-menu" style="width: 100%">
+                        <li><a href="#"><i class="icon-tasks"></i>Actividades</a></li>
+                        <li class="divider"></li>
+                        <li><a  href="#{facesContext.externalContext.requestContextPath}/j_spring_security_logout">
+                        	<i class="icon-key"  ></i>Salir</a>
+                        </li>                                                
+                    </ul>
+                </li>
+            </ul>
+
+            <!-- /Top Right Menu -->
+        </div>
+        <!-- /top navigation bar -->
+
+        <!--=== Project Switcher ===-->
+        <div id="project-switcher" class="container project-switcher">
+            <div id="scrollbar">
+                <div class="handle"></div>
+            </div>
+
+            <div id="frame" >
+
+            </div> <!-- /#frame -->
+        </div> <!-- /#project-switcher -->
+    </header> <!-- /.header -->
+    	
+    	<p:remoteCommand name="refreshPanelHeaderNavegacion"
+    		update="#{p:component('pnlHeaderDatosCajero')}"
+    	/>
+    	
+    </h:form>
+	
+	    	
+    <script type="text/javascript">
+		function cerrarPanelOpciones(){
+			console.log("tiene la clase: "+jQuery("#dropdownOpciones").hasClass("open"));
+			if(jQuery("#dropdownOpciones").hasClass("open")){
+				jQuery("#dropdownOpciones").removeClass("open").dropdown("toggle");
+				
+			}
+		}
+    </script>
+
+</ui:composition>
+

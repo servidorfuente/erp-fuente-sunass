@@ -1,0 +1,76 @@
+<ui:composition template="/template/TemplateGeneral.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+>
+
+	<ui:define name="contentBread">
+		<h:form id="FormHeader">
+			<li class="current" >
+				<i  class="icon-angle-right labelBreadCrumbNormal"></i>
+				<a  class="labelBreadCrumbNormal" 
+					href="#{facesContext.externalContext.requestContextPath}/vistas/rrhh/organizacion/definicionOrganigrama.xhtml"					
+					>Definición del Organigrama
+				</a>
+			</li>		
+			<li id="liRegistro" class="current" style="display: #{definicionOrganigramaBean.visibleRegistro ?'block':'none'} ;">
+				<i class="icon-angle-right labelBreadCrumbNormal"></i>
+				<a class="labelBreadCrumbDecor"  href="#">#{label.REGISTRO_CAP}: #{definicionOrganigramaBean.MODO_ACTUAL}
+				</a>
+			</li>
+		</h:form>
+	</ui:define >
+
+	<ui:define name="contentEspecifico">
+			
+		<style type="text/css">
+	        
+			.ui-growl {			    
+			    top: 100px !important;
+			    right: 20px !important;			    
+			}
+			
+		</style>			
+		<h:form id="FormularioBecaConv">
+		
+			<p:blockUI block="FormularioBecaConv"  trigger="#{p:component('tabView')}" >
+				#{mensaje.MSJ_BLOCKUI_Proceso}<br />
+				<p:graphicImage value="/resources/images/loader03.gif"/>
+			</p:blockUI>
+				
+			<p:remoteCommand name="inicializar" update="FormularioBecaConv" actionListener="#{definicionOrganigramaBean.inicializar()}" />
+			<p:messages globalOnly="true"  autoUpdate="true" closable="true" />			 
+			<p:growl id="msgGrowlFormInsc" globalOnly="true" autoUpdate="true" closable="true" sticky="false" rendered="true"  />
+			<div id="seccionMain" style="display: #{definicionOrganigramaBean.visibleRegistro ?'none':'block'} ;" >
+				
+				<p:tabView id="tabView" widgetVar="tabView" activeIndex="#{definicionOrganigramaBean.activeIndex}">
+					<p:ajax event="tabChange" process="@form" listener="#{definicionOrganigramaBean.onTabChange}" update="tabView" />
+					
+					<p:tab id="tabCreacionModifOrganigrama" title="Definición de Organigrama">
+						 <ui:include src="/vistas/rrhh/organizacion/organigramaTabCreacion.xhtml"/>
+					</p:tab>					
+					<p:tab id="tabAddEmpleados" title="Opciones de Empleado" 
+						 >
+						
+					</p:tab>
+														
+				</p:tabView>				
+			</div> 
+			
+			<div id="seccionMainReg" style="display: #{definicionOrganigramaBean.visibleRegistro?'block':'none'} ;" >
+		
+			
+			</div>	
+		</h:form>
+		
+	
+		
+		<script>
+			jQuery(document).ready(function() {
+				//inicializar();
+			}); 
+	    </script>    	
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,396 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+			<p:blockUI block="#{p:component('opDefOrganMain')}"  trigger="#{p:component('tabView')} 
+				#{p:component('cmbCompaniaFiltro')} #{p:component('cmbHistoricoFiltro')}  #{p:component('treeOpciones')}" >
+				#{mensaje.MSJ_BLOCKUI_Proceso}<br />
+				<p:graphicImage value="/resources/images/loader03.gif"/>
+			</p:blockUI>
+			
+	<p:outputPanel id="opDefOrganMain" >
+		<div class="customHr">.</div>
+		<div class="row" align="center">
+			<div class="ui-g-12 ui-g-nopad">
+				<div class="ui-fluid">
+					<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank"
+						columns="3"
+						columnClasses="ui-grid-col-2,ui-grid-col-5,ui-grid-col-5">
+						<p:column>
+							<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank"
+								columns="1"
+								columnClasses="ui-grid-col-12">
+								<p:column>
+									<p:commandButton value="Buscar" icon="fa fa-search"
+										id="btnBuscar" style=" height: 30px;"  styleClass="btn-primary"
+										actionListener="#{definicionOrganigramaBean.btnBuscar}"
+										update="#{p:component('opDefOrganMain')}"
+										title="#{mensaje.MSJ_INFO_TIP_BUSCAR_MAIN}" />
+								</p:column>
+								
+							</p:panelGrid>
+						</p:column>
+						<p:column>
+							<p:spacer width="10"></p:spacer>
+						</p:column>
+						<p:column>							 
+							<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank"
+							columns="2"
+							columnClasses="ui-grid-col-6,ui-grid-col-6">
+														
+								<p:commandButton icon="ui-icon-disk" type="submit"  styleClass="btn-primary"
+									style=" height: 30px;" value="Finalizar Contrucción"
+									actionListener="#{definicionOrganigramaBean.btnGuardar}" rendered="true"
+									process="@form" update="@form, FormHeader"
+									title="Permite guardar y dar por terminado el Organigrama en contrucción." 
+								/>
+
+								<p:commandButton icon="ui-icon-cancel" value="Cancelar"  styleClass="btn-primary"
+									actionListener="#{definicionOrganigramaBean.btnCancelar}" rendered="true"
+									style=" height: 30px;" process="@form" type="submit"
+									update="@form, FormHeader"
+									title="#{mensaje.MSJ_INFO_TIP_MODIFICAR_MAIN}" />
+
+							</p:panelGrid>
+								  
+							
+						</p:column>
+					</p:panelGrid>
+				</div>
+			</div>
+		</div>
+		<div class="customHr">.</div>
+		<i class="fa fa-caret-down"></i> 
+		<a style="font-weight: bold; font-size: 14px;" class="estiloLabelForm" href="#divOrganFiltro" 
+			data-toggle="collapse"> 
+			Filtros</a>
+		<div id="divOrganFiltro" class="ui-g collapse in">																				
+			<div class="ui-g-12 ui-g-nopad">
+				<div class="ui-fluid">					
+					<p:panelGrid id="pnlbecaConvFiltros" layout="grid"
+						styleClass="ui-panelgrid-blank" columns="4"
+						columnClasses="ui-grid-col-3,ui-grid-col-2,ui-grid-col-4,ui-grid-col-3">
+						<p:column>
+							
+							<p:outputLabel for="cmbCompaniaFiltro" value="Compañía" />	
+							<p:selectOneMenu autoWidth="false" id="cmbCompaniaFiltro"
+								value="#{definicionOrganigramaBean.companiaOrganActual}"																
+								>
+								<f:selectItem itemLabel="#{label.lblTodos}" noSelectionOption="true" />																											
+								<f:selectItems  value="#{definicionOrganigramaBean.listaCompaniaSocio}"  
+											var="elem" itemValue="#{elem.companyowner}"  itemLabel="#{elem.description}"
+											 />												
+								<p:ajax event="change" process="@form" 						
+				              			listener="#{definicionOrganigramaBean.onEventoCambioCompania}"
+										update="#{p:component('opDefOrganMain')}" />		
+							</p:selectOneMenu>	
+													
+							
+				
+						</p:column>
+						<p:column>
+							<h:outputText value="Año" styleClass="estiloLabelForm"/>
+							<p:inputNumber value="#{definicionOrganigramaBean.agnoOrganActual}" 
+								decimalPlaces="0" decimalSeparator="" thousandSeparator="" 	> 
+							</p:inputNumber>
+							
+						</p:column>
+						<p:column>
+							<h:outputText value="Historial" styleClass="estiloLabelForm"/>
+							<p:selectOneMenu autoWidth="false" id="cmbHistoricoFiltro"
+								value="#{definicionOrganigramaBean.secuenciaOrganActualFiltro}"																
+								>								
+								<f:selectItem itemLabel="-- NO SELECCIONADO HISTÓRICO --" 
+											noSelectionOption="true" />
+											
+								<f:selectItem itemLabel="-- ÚLTIMO CONCLUIDO O EN CONSTRUCCIÓN --" 
+											itemValue="#{definicionOrganigramaBean.codigoIndicaUltimoOrganigrama}" />																												
+								<f:selectItems  value="#{definicionOrganigramaBean.listaOrganHistoricoHeader}"  
+											var="elemHist" itemValue="#{elemHist.secuencia}"  
+											itemLabel="#{elemHist.secuencia} - #{definicionOrganigramaBean.mostrarFormatoFecha(elemHist.fecha)}"
+											 />												
+								<p:ajax event="change" process="@form" 						
+				              			listener="#{definicionOrganigramaBean.onEventoCambioOrganHistorico}"
+										update="#{p:component('opDefOrganMain')}" />
+
+							</p:selectOneMenu>	
+
+						</p:column>
+						<p:column>
+						</p:column>
+						
+					</p:panelGrid>
+
+				</div>
+			</div>
+		</div>
+		<div class="customHr">.</div>
+		<i class="fa fa-caret-down"></i> 
+		<a style="font-weight: bold; font-size: 14px;" class="estiloLabelForm" href="#divOrganGenerar" 
+			data-toggle="collapse"> 
+			Generación</a>
+		<div id="divOrganGenerar" class="ui-g collapse in">																				
+			<div class="ui-g-12 ui-g-nopad">
+				<div class="ui-fluid">					
+					<p:panelGrid layout="grid"
+						styleClass="ui-panelgrid-blank" columns="4"
+						columnClasses="ui-grid-col-3,ui-grid-col-3,ui-grid-col-3,ui-grid-col-3">
+						<p:column>
+							<p:commandButton icon="fa fa-plus-square-o" type="submit"  styleClass="btn-primary"
+								value="Crear Nuevo (Vacío)"
+								actionListener="#{definicionOrganigramaBean.btnNuevo}" rendered="true"
+								process="@form"
+								title="Permite crear un Nuevo Árbol de Organigrama" />						
+						</p:column>		
+						<p:column>
+							<p:commandButton icon="fa fa-plus-square" type="submit"  styleClass="btn-primary"
+								value="Crear Copia de Actual"
+								actionListener="#{definicionOrganigramaBean.btnNuevo}" rendered="true"
+								process="@form"
+								title="Permite crear un Nuevo Árbol como copia del Actual" />						
+						</p:column>
+						<p:column>	
+							<p:outputLabel value="#{mensaje.MSJ_WARNING_ORGANIGRAMA_ACTUAL_CONSTRUCCION}"
+								rendered="#{definicionOrganigramaBean.indicaOrganigramaEnConstruccion}" 
+								style= "font-weight:bold;  color:#990000;">
+							</p:outputLabel>
+						</p:column>												
+						<p:column>
+								<p:commandButton icon="fa fa-trash" type="submit"
+								value="Eliminar el Organigrama"  styleClass="btn-warning"
+								actionListener="#{definicionOrganigramaBean.btnEliminar}" 
+								disabled="#{!definicionOrganigramaBean.indicaOrganigramaEnConstruccion}"
+								process="@form"
+								title="Permite eliminar el Organigrama actual" />							
+						</p:column>							
+					</p:panelGrid>
+
+				</div>
+			</div>
+		</div>							
+		<div class="customHr">.</div>
+		
+	
+		<div id="divOrganGenerar" class="ui-g collapse in">																		
+			<div class="ui-g-12 ui-g-nopad">
+				<div class="ui-fluid">					
+					<p:panelGrid  id="pgOrganigrama" layout="grid"
+						styleClass="sinpadding ui-panelgrid-blank" columns="2"
+						columnClasses="ui-grid-col-5,ui-grid-col-7">
+						<p:column>
+							<p:panel id="pnElementosOrganigramaAdd"  header="Buscar por" toggleable="true" collapsed="false"  >		
+							<!-- 
+					        <f:facet name="actions">
+					        
+					            <h:commandLink styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default"		
+					            	onclick="rmToogleComponOrganHide();"			            	
+					             	 >
+					           	 <h:outputText styleClass="ui-icon ui-icon-minusthick" />
+					           	</h:commandLink>
+					            
+					        </f:facet>
+					         -->												
+								<p:accordionPanel activeIndex="#{definicionOrganigramaBean.activeIndexElemOrgan}" >
+									<p:ajax event="tabChange"  listener="#{definicionOrganigramaBean.onEventoCambioElemOrganigrama}"
+									update="#{p:component('pgOrganigrama')}" />
+									<p:tab title="Unidad del Organigrama" 
+										titleStyle="font-weight: bold;
+										#{definicionOrganigramaBean.activeIndexElemOrgan eq 0 ? 'background-color:#284A89; color:white;':''}" >
+
+										<p:panelGrid layout="grid"
+											styleClass="ui-panelgrid-blank" columns="2"
+													columnClasses="ui-grid-col-10,ui-grid-col-2">
+											<p:inputText  placeholder="BUSCAR"  value="#{definicionOrganigramaBean.posicionDescripcionFiltro}" 
+												onkeypress="if (event.keyCode == 13){return rmBuscarPosicion();}"
+													 >													
+											</p:inputText>		
+									  		<p:commandButton icon="fa fa-search"   process="@form" 
+									              	update="#{p:component('dtElementAsociados')}"	styleClass="btn-primary"
+									              	title="Permite buscar en el listado de Puestos"			
+									              	actionListener="#{definicionOrganigramaBean.buscarPosicionAgregar}"					              	          
+									              	>
+									    	</p:commandButton>
+					              			<p:remoteCommand name="rmBuscarPosicion" process="@form" styleClass="btn-primary"
+									    				update="#{p:component('dtElementAsociados')}"	  
+									    				actionListener="#{definicionOrganigramaBean.buscarPosicionAgregar}"
+									    		>
+									    	</p:remoteCommand>										    										           
+										</p:panelGrid>	
+										
+										<p:dataTable id="dtElementAsociados" reflow="true"
+											value="#{definicionOrganigramaBean.listaPosicionEmpresa}"
+											var="vElemAsociado" emptyMessage="#{mensaje.MSJ_WARN_busquedaVacia}"
+											rowKey="#{vElemAsociado.companyOwner}-#{vElemAsociado.codigoPosicion}"
+											rowIndexVar="index"  paginator="true"
+											paginatorPosition="bottom"  rows="5"																	
+											rowsPerPageTemplate="#{definicionOrganigramaBean.entradasVisualizadas}"
+											paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink} "
+										
+											>																																							
+									         <p:column headerText="Descripción" width="60%" >							         	
+												<h:outputText value="#{vElemAsociado.descripcion}" 	
+																											
+												/>
+									         </p:column>																									         	   
+									         <p:column headerText="Sub" >	
+									         	<p:panelGrid   layout="grid"
+													styleClass="sinpadding ui-panelgrid-blank" columns="2"
+													columnClasses="ui-grid-col-6,ui-grid-col-6">
+									              <p:commandButton ajax="true" icon="fa fa-align-left" 
+									              	update="#{p:component('pnOrganigramaReg')}"	 styleClass="btn-primary"
+									              	title="Permite agregar un elemento Posición como Subordinado de uno Seleccionado"								              	          
+									              	actionListener="#{definicionOrganigramaBean.btnAddPosicionSubordinado(vElemAsociado)}">
+									              </p:commandButton>
+									              <p:commandButton ajax="true" icon="fa fa-align-justify" 
+									              	update="#{p:component('pnOrganigramaReg')}"	 styleClass="btn-primary"
+									              	title="Permite agregar un elemento no subordinado."								              	          
+									              	actionListener="#{definicionOrganigramaBean.btnAddPosicionLibre(vElemAsociado)}">
+									              </p:commandButton>
+												              													
+												</p:panelGrid>					         	
+												
+									         </p:column>							          							        
+									         									        
+										</p:dataTable>	
+									
+								   	</p:tab>
+							
+								 	<p:tab   title="Puesto" titleStyle="font-weight: bold; 
+								 			#{definicionOrganigramaBean.activeIndexElemOrgan eq 1 ? 'background-color:#284A89; color:white;':''}" >
+										
+										<p:panelGrid layout="grid"
+											styleClass="ui-panelgrid-blank" columns="2"
+													columnClasses="ui-grid-col-10,ui-grid-col-2">
+											<p:inputText  placeholder="BUSCAR"  value="#{definicionOrganigramaBean.puestoDescripcionFiltro}" 
+												 onkeypress="if (event.keyCode == 13){return rmBuscarPuesto();}" >
+												
+											</p:inputText>		
+									  		<p:commandButton  icon="fa fa-search" 
+									              	update="#{p:component('dtElementPuesto')}"	
+									              	title="Permite buscar en el listado de Puestos"			
+									              	actionListener="#{definicionOrganigramaBean.buscarPuestoAgregar}"					              	          
+									              	>
+									    	</p:commandButton>		
+									    	<p:remoteCommand name="rmBuscarPuesto" process="@form"
+									    		update="#{p:component('dtElementPuesto')}"	  
+									    		actionListener="#{definicionOrganigramaBean.buscarPuestoAgregar}"
+									    		>
+									    	</p:remoteCommand>							           
+										</p:panelGrid>											  		
+								  		
+										<p:dataTable id="dtElementPuesto" reflow="true"
+											value="#{definicionOrganigramaBean.listaPuestoEmpresa}"
+											var="vElemPuesto" emptyMessage="#{mensaje.MSJ_WARN_busquedaVacia}"
+											rowKey="#{vElemAsociado.codigoPuesto}"
+											rowIndexVar="index"  paginator="true"
+											paginatorPosition="bottom"  rows="5"																	
+											rowsPerPageTemplate="#{definicionOrganigramaBean.entradasVisualizadas}"
+											paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink} "
+										
+											>																																							
+									         <p:column headerText="Descripción" width="80%" >							         	
+												<h:outputText value="#{vElemPuesto.descripcion}" 																
+												/>
+									         </p:column>																									         	   
+									         <p:column headerText="Agregar: (#{definicionOrganigramaBean.selectedNode ne null ? definicionOrganigramaBean.selectedNode.data.ordenOrganigramaDescripcion : 'No Selección'})"  
+												width="20%"  >	
+									         	<p:panelGrid  layout="grid"
+													styleClass="sinpadding ui-panelgrid-blank" columns="2"
+													columnClasses="ui-grid-col-6,ui-grid-col-6">
+									              <p:commandButton ajax="true" icon="fa fa-align-left" 
+									              	update="#{p:component('pnOrganigramaReg')}"	 styleClass="btn-primary"
+									              	title="Permite agregar un elemento Puesto como Subordinado de una Posición seleccionada"								              	          
+									              	actionListener="#{definicionOrganigramaBean.btnAddPuestoSubordinado(vElemPuesto)}">
+									              </p:commandButton>									           
+												</p:panelGrid>					         													
+									         </p:column>
+										</p:dataTable>
+								   	</p:tab>
+								</p:accordionPanel>
+    							
+							</p:panel>
+						
+						</p:column>		
+						<p:column>
+							<p:panel  id="pnOrganigramaReg" header="Oganigrama" toggleable="true" collapsed="false" >
+								<p:panelGrid   layout="grid"
+									styleClass="ui-panelgrid-blank" columns="3"
+									columnClasses="ui-grid-col-6,ui-grid-col-3,ui-grid-col-3">
+									<p:column>	
+										<h:outputText value="Compañía" styleClass="estiloLabelForm"/>
+										<br />
+										<h:outputText value="#{definicionOrganigramaBean.companiaOrganActualDesc}" 
+												styleClass="estiloValueForm" style="font-size:14px; color: #284A89;" />
+									</p:column>	
+									<p:column>	
+										<h:outputText value="Año" styleClass="estiloLabelForm"/>
+										<br />
+										<h:outputText value="#{definicionOrganigramaBean.agnoOrganActual}" 
+												styleClass="estiloValueForm" style="font-size:14px; color: #284A89;" />
+									</p:column>	
+									<p:column>	
+										<h:outputText value="Secuencia" styleClass="estiloLabelForm"/>
+										<br />
+										<h:outputText value="#{definicionOrganigramaBean.secuenciaOrganActualRegistro}" 
+												styleClass="estiloValueForm" style="font-size:14px; color: #284A89;" />
+									</p:column>	
+								</p:panelGrid>	
+								<div class="customHr">.</div>
+								<p:treeTable id="treeOpciones" value="#{definicionOrganigramaBean.root}" 
+									widgetVar="treeOpciones" scrollWidth="true"
+									resizableColumns="true"
+									var="document" selectionMode="single" selection="#{definicionOrganigramaBean.selectedNode}" >
+									<p:ajax event="select" process="@this" update="#{p:component('pnElementosOrganigramaAdd')}"
+										listener="#{definicionOrganigramaBean.eventoTreeSeleccion}" />
+									
+									<p:column width="70%" style="with:70% !important;"   priority="1" >
+										<f:facet name="header">Posición y Puesto del Oranigrama</f:facet>
+										<p:graphicImage styleClass="ui-treetable-toggler ui-icon #{document.iconOrgan}" rendered="true" />						
+												
+										<p:outputLabel value="#{document.ordenOrganigramaDescripcion}"  
+											 style="color : #{document.colorOrgan};											 
+											 #{document.tipo eq constant.ORGAN_CODIGO_TIPO_POSICION_EMPRESA  ? 'font-weight:bold;':''} "  />
+									</p:column>
+								
+									<p:column headerText="Orden" width="30%" rendered="true" priority="2" 
+											style="width: 110px;" >
+										<p:outputLabel value="#{document.orden}"
+										 />
+									</p:column>													
+									<p:column headerText="Acciones" width="30%" rendered="true" priority="2" 
+											style="width: 90px;" >
+										<p:panelGrid  id="pgOrganigrama" layout="grid"
+													styleClass="sinpadding ui-panelgrid-blank" columns="2"
+													columnClasses="ui-grid-col-6,ui-grid-col-6">
+											<p:spacer rendered="#{!(document.tipo eq constant.ORGAN_CODIGO_TIPO_POSICION_EMPRESA ? false :true)}" ></p:spacer>
+									      	<p:commandButton ajax="true" icon="fa fa-cog" 
+									      			rendered="#{document.tipo eq constant.ORGAN_CODIGO_TIPO_POSICION_EMPRESA ? false :true}"
+									              	update="#{p:component('pgOrganigrama')}"	styleClass="btn-primary"
+									              	title="Permite establecer el puesto Como principal"								              	          
+									              	actionListener="#{definicionOrganigramaBean.btnSetComoPuestoPrincipal(document)}">
+									      	</p:commandButton>
+									      	<p:commandButton ajax="true" icon="fa fa-trash" 
+									              	update="#{p:component('opDefOrganMain')}"	styleClass="btn-primary"
+									              	title="Permite eliminar un elemento del Organigrama"								              	          
+									              	actionListener="#{definicionOrganigramaBean.btnRemoveElemOrganigrama(document)}" >
+									  		</p:commandButton>
+										</p:panelGrid>	
+									</p:column>				
+								</p:treeTable>
+								
+							</p:panel>
+						</p:column>	
+						
+					</p:panelGrid>
+
+				</div>
+			</div>
+		</div>
+		
+	</p:outputPanel>
+
+	 
+</ui:composition>

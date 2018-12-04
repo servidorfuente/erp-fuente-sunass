@@ -1,0 +1,23 @@
+{
+	  "claseA": "erp.realcoresystems.pe.model.generales.domain.Personamast",
+	  "claseB": "erp.realcoresystems.pe.erpcomercialrest.model.PersonaMastJson",
+	  
+	  "listaFieldsMapper": 
+		  	[	
+		  	
+		  		{
+		  			"fieldA" :"apellidomaterno",
+		  			"fieldB" :"apellidoMaterno"
+		  		},	  	
+		  		{
+		  			"fieldA" :"apellidopaterno",
+		  			"fieldB" :"apellidoPaterno"
+		  		},	  	
+		  		{
+		  			"fieldA" :"nombrecompleto",
+		  			"fieldB" :"nombreCompleto"
+		  		}	  		
+
+	  		]
+}
+

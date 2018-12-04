@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui">
+<f:metadata>
+		<f:event listener="#{redireccionaBeans.inicializar}" type="preRenderView"  />
+</f:metadata>
+
+<h:head>
+    <h:head>
+        <title>#{label.TITLE}</title>
+        <link rel="shortcut icon" type="image/x-icon" href="#{resource['favicon/favicon.ico']}"/>
+        <link rel="shortcut icon" type="image/x-icon" href="#{resource['favicon/favicon-16x16.png']}" sizes="16x16"/>
+        <link rel="shortcut icon" type="image/x-icon" href="#{resource['favicon/favicon-32x32.png']}" sizes="32x32"/>
+        <link rel="shortcut icon" type="image/x-icon" href="#{resource['favicon/favicon-96x96.png']}" sizes="96x96"/>
+        <link rel="shortcut icon" type="image/x-icon" href="#{resource['favicon/favicon-144x144.png']}" sizes="144x144"/>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+        <meta name="mobile-web-app-capable" content="yes"/>
+        
+		<!--=== CSS ===-->				       
+        <link href="#{request.contextPath}/resources/css/showcase.css" rel="stylesheet" type="text/css" />       
+        <link href="#{request.contextPath}/resources/css/prism.css" rel="stylesheet" type="text/css" />        
+        
+        
+        <meta name="theme-color" content="#444"/>
+
+        <style type="text/css">
+
+            /* below css hides growls in small screens and makes messages visible */
+            @media (max-width: 768px) {
+                
+                body div.ui-growl {
+                    display: none;
+                }
+                
+               body div.ui-messages {
+                    display: block;
+                }
+
+            }
+            /* below css hides messages in medium/big devices and makes growl visible in such devices */
+            @media (min-width: 769px) {
+              body div.ui-growl {
+                    display: block;
+                }
+
+              body div.ui-messages {
+                    display: none;
+                }
+            }
+
+
+            body.login-page {
+                background-color: transparent;
+            }
+
+            html {
+                background: url(#{resource[ 'images:login-bg.jpg' ]}) no-repeat center center fixed;
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
+            }
+
+        </style>
+    </h:head>
+</h:head>
+<h:body>
+	<div class="container-fluid" align="center">
+		<div class="container">
+			<section class="col-sm-12">		
+				<h:form id="preferenciasForm">					
+				
+					<div class="col-sm-6 col-sm-offset-3">
+						<p:fieldset styleClass="panel-principal">
+							<p:messages id="messages" globalOnly="false" autoUpdate="true" closable="true" />
+							<legend>Preferencias SERVIR (Módulo Educativo)</legend>
+
+							<p:spacer></p:spacer>
+							<div class="form-group">
+								<div class="row" align="right">
+									<p:commandButton value="Aceptar" 
+										styleClass="btn btn-primary"
+										action="#{redireccionaBeans.ingresar}" 
+										type="submit"/>
+									<p:button value="Cancelar"
+										styleClass="btn btn-primary"   
+									 	outcome="logout"/>
+								</div>
+							</div>
+						</p:fieldset>
+					</div>
+				</h:form>
+			</section>
+		</div>
+	</div>
+	
+ 
+		<!-- SCRITPS JS -->
+		<script type="text/javascript" src="#{request.contextPath}/resources/js/admin-lte/prism.js"></script>
+		<script type="text/javascript" src="#{request.contextPath}/resources/js/admin-lte/admintemplate.js"></script>	
+			
+	<script type="text/javascript">
+	  	//<![CDATA[
+		    $(document).on("keydown", function (e) {
+		      var regex = /INPUT|SELECT|TEXTAREA/i;
+		   	  if (e.which === 8 && (!regex.test(e.target.tagName) || e.target.disabled || e.target.readOnly)) {
+		   	   	e.preventDefault();
+		   	  }
+		    });
+		//]]>	   			
+	</script>
+</h:body>
+
+</html>

@@ -1,0 +1,103 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:f="http://java.sun.com/jsf/core"
+>	
+	
+	<h:form id="seleccionarAcCostCenterMst" onkeypress="if (event.keyCode == 13){rcBuscarMain();}"  >
+	
+		<p:remoteCommand name="inicializarBCentroCosto" 
+			actionListener="#{dataSeleccionadorAcCostCenterMstBean.inicializar}" 
+			update="@form" oncomplete="PF('dtAcCostCenterMstSel').unselectAllRows();"/>
+	
+		<p:toolbar id="toolbarBotonesSel">
+			<f:facet name="left">
+			</f:facet>
+			<f:facet name="right">
+				<p:commandButton id="btnAceptar" value="#{lbv.ACEPTAR_CAP}" title="Aceptar" type="push"
+					actionListener="#{dataSeleccionadorAcCostCenterMstBean.btnAceptarServicioGrupo}"
+					disabled="#{dataSeleccionadorAcCostCenterMstBean.disableBtnAceptar}" styleClass="btn-primary"
+					style="width:90px;" 
+					icon="ui-icon-check"  ajax="true" update="@form" 
+				/>
+			</f:facet>
+		</p:toolbar>	
+		
+		
+		<div class="ui-g">
+			<div class="ui-g-12 ui-g-nopad">
+				<div class="ui-fluid">
+					<p:panelGrid id="pnlFiltros" layout="grid" styleClass="ui-panelgrid-blank" columns="3"
+						columnClasses="ui-grid-col-5,ui-grid-col-5,ui-grid-col-2"				
+					>
+						<p:column>							
+							<p:outputLabel value="Centro de Costo: "  styleClass="estiloLabelForm" />
+							<p:inputText value="#{dataSeleccionadorAcCostCenterMstBean.filtro.costCenter}" style="width: 100%;"/>
+						</p:column>
+						<p:column>
+							<p:outputLabel value="Descripción: " styleClass="estiloLabelForm" />
+							<p:inputText value="#{dataSeleccionadorAcCostCenterMstBean.filtro.localName}" style="width: 100%;"/>
+						</p:column>	
+						<p:column>
+							<p:spacer height="10" width="10"/>
+							<p:commandButton value="#{lbv.BUSCAR_CAP}"  id="btnBuscar"
+								actionListener="#{dataSeleccionadorAcCostCenterMstBean.btnBuscar}"
+								style="width:100%;" styleClass="btn-primary"
+								icon="fa fa-search" ajax="true" update="dtAcCostCenterMstSel" 
+								onstart="PF('dtAcCostCenterMstSel').paginator.setPage(0);"	
+							/>	
+							<p:remoteCommand  name="rcBuscarMain"  update="dtAcCostCenterMstSel" 
+								actionListener="#{dataSeleccionadorAcCostCenterMstBean.btnBuscar}"  >
+							</p:remoteCommand>
+						</p:column>	
+					</p:panelGrid>
+				</div>
+			</div>
+		</div>
+
+	
+		<p:dataTable id="dtAcCostCenterMstSel" widgetVar="dtAcCostCenterMstSel"
+			value="#{dataSeleccionadorAcCostCenterMstBean.lazyAcCostCenterMst}" 
+			lazy="true" var="vAcCostCenterMst"
+			rowKey="#{vAcCostCenterMst.costCenter}" paginator="true" 
+			paginatorPosition="bottom"
+			selectionMode="single"
+			selection="#{dataSeleccionadorAcCostCenterMstBean.selected}"
+			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rows="5" rowIndexVar="index" reflow="true"
+			style="font-size:12px;"	
+			emptyMessage="#{mensaje.MSJ_WARN_busquedaVacia}"
+		>
+			<p:ajax event="rowSelect" process="@form" update="seleccionarAcCostCenterMst:btnAceptar" listener="#{dataSeleccionadorAcCostCenterMstBean.clickRegistro}" />
+			<p:ajax event="rowDblselect" listener="#{dataSeleccionadorAcCostCenterMstBean.doubleClick}" />
+		
+			<p:column headerText="Centro de Costo" width="10%" style="text-align: center" >
+				<h:outputText value="#{vAcCostCenterMst.costCenter}" />
+			</p:column>
+				
+			<p:column headerText="Descripción" width="25%" >
+				<h:outputText value="#{vAcCostCenterMst.localName}" />
+			</p:column>
+			
+			<p:column headerText="Adm" width="5%"  style="text-align: center" >
+				<p:selectBooleanCheckbox value="#{vAcCostCenterMst.expenseAdministrativeFlag eq 'Y' ? true : false}" disabled="true" readonly="true"/>
+			</p:column>
+			
+			<p:column headerText="Fin" width="5%"  style="text-align: center">
+				<p:selectBooleanCheckbox value="#{vAcCostCenterMst.expenseFinanceFlag eq 'Y' ? true : false}" disabled="true" readonly="true"/>
+			</p:column>
+			
+			<p:column headerText="Vta" width="5%"  style="text-align: center">
+				<p:selectBooleanCheckbox value="#{vAcCostCenterMst.expenseSalesFlag eq 'Y' ? true : false}" disabled="true" readonly="true"/>
+			</p:column>
+			
+			<p:column headerText="Prod" width="5%"  style="text-align: center">
+				<p:selectBooleanCheckbox value="#{vAcCostCenterMst.expenseProductionFlag eq 'Y' ? true : false}" disabled="true" readonly="true"/>
+			</p:column>
+			
+		
+		</p:dataTable>
+	
+	</h:form>
+</ui:composition>

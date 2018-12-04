@@ -1,0 +1,336 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+	
+	<style type="text/css">
+		.ui-spinner {
+		    display: inline-block !important;
+		    overflow: visible !important;
+		    padding: 0 !important;
+		    position: relative !important;
+		    vertical-align: middle !important;
+		    
+		}
+		.ui-spinner-input {
+		    vertical-align: middle !important;
+		    text-align: right !important;
+		    padding-right: 20px !important;
+		    width: 93% !important;
+		}
+		.ui-spinner-button {
+		    cursor: default !important;
+		    display: block !important; 
+		    font-size: 0.5em !important;
+		    height: 50% !important;
+		    margin: 0 !important;
+		    overflow: hidden !important;
+		    padding: 0 !important;
+		    position: absolute !important;
+		    right: 0 !important;
+		    text-align: center !important;
+		    vertical-align: middle !important;
+		    width: 16px !important;
+		    z-index: 100 !important;
+		}
+		.ui-spinner .ui-icon {
+		    left: 0 !important;
+		    margin-top: -8px !important;
+		    position: absolute !important;
+		    top: 50% !important;
+		}
+		.ui-spinner-up {
+		    top: 0 !important;
+		}
+		.ui-spinner-down {
+		    bottom: 0 !important;
+		}
+		.ui-spinner .ui-icon-triangle-1-s {
+		    background-position: -65px -16px v
+		}
+		
+		.ui-spinner .ui-icon-triangle-1-n {
+		    margin-top: -9px !important;
+		}
+		
+		.ui-spinner-input::-ms-clear {
+		    display: none !important;
+		}
+	</style>
+	 
+	<p:outputPanel id="FormularioParametroReg" style="width:auto;" >
+		 <p:toolbar id="toolbarBotones">
+			<f:facet name="left">
+				
+			</f:facet>
+			<f:facet name="right">
+				<p:commandButton id="btnGuardarParametro" value="Guardar"
+				icon="ui-icon-disk" update="@form, FormHeader"
+				rendered="#{saParametroBean.btnGuardarVisible}"
+				actionListener="#{saParametroBean.btnGuardar}"					
+				style=" height: 30px;"/>
+
+				<p:commandButton id="btnAceptaParametro" value="Aceptar"
+				icon="ui-icon-check" update="@form, FormHeader"
+				rendered="#{saParametroBean.btnAceptarVisible}"
+				actionListener="#{saParametroBean.btnAceptar}"
+				style=" height: 30px;" />
+				
+				<p:commandButton id="btnInactivarParametro" value="Inactivar"
+				icon="ui-icon-circle-close"  update="@form, FormHeader"
+				rendered="#{saParametroBean.btnGuardarInactivarVisible}"
+				actionListener="#{saParametroBean.btnGuardar}"
+				style=" height: 30px;" />
+
+				<p:commandButton id="btnEliminarParametro" value="Eliminar"
+				icon="ui-icon-trash"  update="@form, FormHeader"
+				rendered="#{saParametroBean.btnGuardarEliminarVisible}"
+				actionListener="#{saParametroBean.btnGuardar}"
+				style=" height: 30px;" />		
+				
+				<p:commandButton id="btnCancelarParametro" value="Cancelar"
+				icon="ui-icon-cancel" update="@form, FormHeader"
+				rendered="#{saParametroBean.btnCancelarVisible}"
+				actionListener="#{saParametroBean.btnCancelar}"
+				style=" height: 30px;"  />
+			
+
+			</f:facet>
+		</p:toolbar>
+		
+		<div class="ui-g-12">		
+			<i class="fa fa-caret-down"></i> 
+			<a style="font-weight:bold; font-size:14px;" class="estiloLabelForm" href="#divGeneralParametro" data-toggle="collapse"> 
+				#{label.DATOS_GENERALES_CAP}</a>
+			<div id="divGeneralParametro" class="ui-g collapse in" >	
+			
+				<div class="ui-g-12 ui-g-nopad">
+					<div class="ui-fluid">
+						<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank" columns="2"
+						columnClasses="ui-grid-col-6,ui-grid-col-6"
+						>
+							<p:column>
+								<!-- APLICACION -->
+								<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank" columns="2"
+								columnClasses="ui-grid-col-4,ui-grid-col-8" >
+									<p:column>
+										<h:outputText value="#{label.PARAMETRO_APLICACION}" styleClass="estiloLabelForm"/>
+									</p:column>
+									<p:column>
+										<p:selectOneMenu  autoWidth="false" value="#{saParametroBean.registro.id.aplicacioncodigo}"
+										styleClass="required-field"
+										disabled="#{saParametroBean.componentesReadonly or saParametroBean.modoUpdate}">
+											<f:selectItems value="#{saParametroBean.listadoAplicacion}" var="item" 
+											itemLabel="#{item.descripcioncorta}" itemValue="#{item.aplicacioncodigo}"/>
+										</p:selectOneMenu>										
+									</p:column>
+								</p:panelGrid>
+								
+								<!-- COMPANIA -->
+								<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank" columns="2"
+								columnClasses="ui-grid-col-4,ui-grid-col-8" >
+									<p:column>
+										<h:panelGrid columns="2">
+											<h:outputText value="#{label.PARAMETRO_COMPANIA}" styleClass="estiloLabelForm"/>
+											<h:selectBooleanCheckbox  value="#{saParametroBean.checkCompania}" rendered="#{saParametroBean.modoNew}">
+												<p:ajax event="change" process="@this" update="#{p:component('somCompaniaReg')}" listener="#{saParametroBean.seleccionarCompania}" />
+											</h:selectBooleanCheckbox> 
+										</h:panelGrid>
+									</p:column>
+									<p:column>
+										<p:selectOneMenu id="somCompaniaReg"  autoWidth="false" value="#{saParametroBean.registro.id.companiacodigo}"
+										disabled="#{saParametroBean.checkCompania}"
+										styleClass="required-field"
+										readonly="#{saParametroBean.componentesReadonly or saParametroBean.modoUpdate}">
+											<f:selectItem itemLabel="#{label.ITEM_COMPANIA_DEFAULT}" itemValue="#{constant.APP_COMPANIA}"/>
+											<f:selectItems value="#{saParametroBean.listadoCompania}" var="item" 
+											itemLabel="#{item.descripcioncorta}" itemValue="#{item.companiacodigo}"/>
+										</p:selectOneMenu>										
+									</p:column>
+								</p:panelGrid>
+								
+								
+								<!-- PARAMETRO -->
+								<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank" columns="2"
+								columnClasses="ui-grid-col-4,ui-grid-col-8" >
+									<p:column>
+										<h:outputText value="#{label.PARAMETRO_HEADER}" styleClass="estiloLabelForm"/>
+									</p:column>
+									<p:column>
+										<p:inputText value="#{saParametroBean.registro.id.parametroclave}"
+										 readonly="#{saParametroBean.componentesReadonly  or saParametroBean.modoUpdate}"
+										 disabled="#{saParametroBean.componentesReadonly or saParametroBean.modoUpdate}"
+										 maxlength="10" styleClass="required-field"
+										 style="text-transform: uppercase;"/>										
+									</p:column>
+								</p:panelGrid>
+								
+								<!-- COMUN FINANZA -->
+								<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank" columns="2"
+								columnClasses="ui-grid-col-4,ui-grid-col-8" >
+									<p:column>
+										<p:outputLabel  value="#{label.PARAMETRO_CHECK_COMUN_FINANZAS}" styleClass="estiloLabelForm"/>
+									</p:column>
+									<p:column>
+										<p:selectBooleanCheckbox value="#{saParametroBean.esFinanzaComun}" 
+										disabled="#{saParametroBean.componentesReadonly}"/>													
+									</p:column>
+								</p:panelGrid>
+								
+								<!-- DESCRIPCION -->
+								<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank" columns="2"
+								columnClasses="ui-grid-col-4,ui-grid-col-8" >
+									<p:column>
+										<p:outputLabel  value="#{label.PARAMETRO_DESCRIPCION}" styleClass="estiloLabelForm"/>
+									</p:column>
+									<p:column>
+										<p:inputTextarea  value="#{saParametroBean.registro.descripcionparametro}"
+										 readonly="#{saParametroBean.componentesReadonly}"
+										 disabled="#{saParametroBean.componentesReadonly}"
+										 maxlength="60"  styleClass="required-field"
+										 style="text-transform: uppercase;"/>												
+									</p:column>
+								</p:panelGrid>
+								
+								<!-- EXPLICACION -->
+								<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank" columns="2"
+								columnClasses="ui-grid-col-4,ui-grid-col-8" >
+									<p:column>
+										<p:outputLabel  value="#{label.PARAMETRO_EXPLICACION}" styleClass="estiloLabelForm"/>
+									</p:column>
+									<p:column>
+										<p:inputTextarea value="#{saParametroBean.registro.explicacion}"
+										 readonly="#{saParametroBean.componentesReadonly}"
+										  disabled="#{saParametroBean.componentesReadonly}"
+										 maxlength="150" />
+									</p:column>
+								</p:panelGrid>
+								
+								
+							</p:column>
+							<p:column>
+								<div class="ui-g-12">		
+									<i class="fa fa-caret-down"></i> 
+									<a style="font-weight:bold; font-size:14px;" class="estiloLabelForm" href="#divValorParametro" data-toggle="collapse"> 
+										#{label.PARAMETRO_VALOR_PARAMETRO}</a>
+									<div id="divValorParametro" class="ui-g collapse in" >	
+									
+										<div class="ui-g-12 ui-g-nopad">
+											<div class="ui-fluid">
+												<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank" columns="2"
+												columnClasses="ui-grid-col-12"
+												>
+													<p:column>
+														<p:outputPanel id="pnlValorParametro" layout="custom">
+															<p:selectOneRadio id="valorParametro" value="#{saParametroBean.registro.tipodedatoflag}" layout="custom" disabled="#{saParametroBean.componentesReadonly}">
+																<p:ajax update="#{p:component('pnlValorParametro')}" process="@form" listener="#{saParametroBean.seleccionarTipoParametro}"/>
+																<f:selectItem itemLabel="#{label.ITEM_PARAMETRO_TEXTO}" itemValue="#{constant.PARAMETRO_TIPO_TEXTO}" />
+																<f:selectItem itemLabel="#{label.ITEM_PARAMETRO_NUMERO}" itemValue="#{constant.PARAMETRO_TIPO_NUMERICO}"/>
+																<f:selectItem itemLabel="#{label.ITEM_PARAMETRO_FECHA}" itemValue="#{constant.PARAMETRO_TIPO_FECHA}"/>
+																
+															</p:selectOneRadio>
+														
+															 
+																<h:panelGrid  columns="3" width="100%"> 
+																	<p:outputLabel for="opTexto" value="#{label.PARAMETRO_TEXTO}" styleClass="estiloLabelForm"/>
+																	<p:radioButton id="opTexto" for="valorParametro" itemIndex="0"/>
+																	<p:inputText id="valorTexto" value="#{saParametroBean.registro.texto}" maxlength="200"
+																	 styleClass="#{saParametroBean.esParametroTexto() ? 'required-field' : ''} "
+																	 readonly="#{saParametroBean.componentesReadonly}"																 
+																	 disabled="#{saParametroBean.disableValorTexto}">
+																	 	<p:ajax event="change" process="@this"/>
+																	 </p:inputText>
+										
+																	<p:outputLabel for="opNumero" value="#{label.PARAMETRO_NUMERO}" styleClass="estiloLabelForm"/>
+																	<p:radioButton id="opNumero" for="valorParametro" itemIndex="1"/>
+																	<p:spinner id="valorNumero" value="#{saParametroBean.registro.numero}"
+																   	styleClass="#{saParametroBean.esParametroNumerico() ? 'required-field' : ''} "
+																    readonly="#{saParametroBean.componentesReadonly}"															    
+																    disabled="#{saParametroBean.disableValorNumerico}">
+																    	<p:ajax event="change" process="@this"/>
+																    </p:spinner>
+										
+																	<p:outputLabel for="opFecha" value="#{label.PARAMETRO_FECHA}" styleClass="estiloLabelForm"/>
+																	<p:radioButton id="opFecha" for="valorParametro" itemIndex="2"/>
+																	<p:calendar id="valorFecha" value="#{saParametroBean.registro.fecha}"
+																	pattern="#{label.PATTERN_DATE}" mask="true"
+																	navigator="true" locale="es"
+																	styleClass="#{saParametroBean.esParametroFecha() ? 'required-field' : ''} "
+																	rendered="#{not saParametroBean.modoView}"																
+																	disabled="#{saParametroBean.disableValorFecha}">
+																		<p:ajax event="dateSelect" process="@this"/>
+																	</p:calendar>
+																	
+																	<p:inputText id="itFecha" value="#{saParametroBean.registro.fecha}"
+																	readonly="#{saParametroBean.componentesReadonly}"
+																	styleClass="#{saParametroBean.esParametroFecha() ? 'required-field' : ''} "
+																	rendered="#{saParametroBean.modoView}"
+																	disabled="#{saParametroBean.disableValorFecha}">
+																		<f:convertDateTime pattern="#{label.PATTERN_DATE}"/>
+																	</p:inputText>
+																</h:panelGrid>
+															 
+														</p:outputPanel>
+													</p:column>
+													 
+												</p:panelGrid>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								
+							
+							</p:column>
+						</p:panelGrid>
+						
+						<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank" columns="2"
+						columnClasses="ui-grid-col-6,ui-grid-col-6"
+						>
+							<p:column>
+								<!-- ESTADO -->
+								<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank" columns="2"
+								columnClasses="ui-grid-col-4,ui-grid-col-8" >
+									<p:column>
+										<h:outputText value="#{label.PARAMETRO_ESTADO}" class="estiloLabelForm"/>
+									</p:column>
+									<p:column>
+										<p:selectOneMenu autoWidth="false" value="#{saParametroBean.registro.estado}">
+											<f:selectItem itemLabel="#{label.ITEM_ACTIVO}" itemValue="#{constant.ACTIVO}" />
+											<f:selectItem itemLabel="#{label.ITEM_INACTIVO}" itemValue="#{constant.INACTIVO}" />
+
+										</p:selectOneMenu>
+									</p:column>
+								</p:panelGrid>
+							</p:column>
+						</p:panelGrid>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="ui-g-12">				
+			<i class="fa fa-caret-down"></i> 
+			<a style="font-weight:bold; font-size:14px;" class="estiloLabelForm" href="#divInfoRefParametro" data-toggle="collapse"> 
+				#{label.INFORMACION_REFERENCIAL_CAP}</a>
+			<div id="divInfoRefParametro" class="ui-g collapse in" >
+				
+				<div class="ui-g-12 ui-g-nopad">
+					<div class="ui-fluid">
+						 
+						<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank" columns="3"
+							columnClasses="ui-grid-col-3,ui-grid-col-2,ui-grid-col-8">
+							<h:outputLabel value="#{label.MODIFICACION_CAP}" class="estiloLabelForm" style="font-weight: bold;"/>
+							<h:outputLabel value="#{saParametroBean.registro.ultimousuario} | " />
+							<h:outputLabel value="#{saParametroBean.registro.ultimafechamodif}">
+								<f:convertDateTime pattern="#{label.PATTERN_DATETIME}" />
+							</h:outputLabel>
+						</p:panelGrid> 	
+					</div>
+				</div>		
+			</div>			
+		</div>	
+	</p:outputPanel>
+</ui:composition>

@@ -1,0 +1,404 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <div class="ui-g">
+        <div class="ui-g-12 ui-g-nopad">
+            <div class="ui-fluid">
+                <div class="ui-g-12">
+                    <i class="fa fa-caret-down"></i> <a
+                        style="font-weight: bold; font-size: 14px;" class="estiloLabelForm"
+                        href="#divTabAdicional" data-toggle="collapse">
+                    #{label.RRHH_ADICIONAL_DATFISICO}</a>
+                    <div id="divTabAdicional" class="ui-g-12 collapse in">
+                        <div class="ui-g-12 ui-g-nopad">
+                            <div class="ui-fluid">
+                                <p:panelGrid id="pgTabAdicional"  layout="grid" styleClass="ui-panelgrid-blank" columns="2" columnClasses="ui-grid-col-6,ui-grid-col-6">
+                                    <p:column>
+                                        <h:outputText value="#{label.RRHH_ADICIONAL_DATFISICO_ESTATURA}" styleClass="estiloLabelForm"  />
+                                        <p:inputText   value="#{hrPersonaBean.registroHrEmpleado.talla}"
+                                                       disabled="#{hrPersonaBean.componentesReadonly}"
+                                                       maxlength="30" style="text-transform:uppercase" >
+                                            <p:ajax event="blur" process="@this"/>
+                                        </p:inputText>
+                                        <h:outputText value="#{label.RRHH_ADICIONAL_DATFISICO_PESO}" styleClass="estiloLabelForm"  />
+                                        <p:inputText   value="#{hrPersonaBean.registroHrEmpleado.peso}"
+                                                       disabled="#{hrPersonaBean.componentesReadonly}"
+                                                       maxlength="30" style="text-transform:uppercase" >
+                                            <p:ajax event="blur" process="@this"/>
+                                        </p:inputText>
+                                        <h:outputText value="#{label.RRHH_ADICIONAL_DATFISICO_IMPFISICO}" styleClass="estiloLabelForm"  />
+                                        <p:inputText   value="#{hrPersonaBean.registroHrEmpleado.impedimentos}"
+                                                       disabled="#{hrPersonaBean.componentesReadonly}"
+                                                       maxlength="30" style="text-transform:uppercase" >
+                                            <p:ajax event="blur" process="@this"/>
+                                        </p:inputText>
+
+                                    </p:column>
+
+                                    <p:column>
+                                        <h:outputText value="#{label.RRHH_ADICIONAL_DATFISICO_GRUPOSANG}" style="#{label.STYLE_LABELFORM}"/>
+                                        <p:selectOneMenu
+                                                value="#{hrPersonaBean.registroHrEmpleado.grupoSanguineo}"
+                                                disabled="#{hrPersonaBean.componentesReadonly}"
+                                        >
+                                            <p:ajax event="change" process="@this"/>
+                                            <f:selectItem itemLabel="#{label.RRHH_LBLSELECCIONE}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{hrPersonaBean.listaGrupoSangre}"  var="value"
+                                                           itemLabel="#{value.descripcionlocal}" itemValue="#{value.codigoelemento}"
+                                            />
+                                        </p:selectOneMenu>
+                                        <h:outputText value="#{label.RRHH_ADICIONAL_DATFISICO_DONANTEORG}" styleClass="estiloLabelForm"  />
+                                        <h:selectBooleanCheckbox  styleClass="chkEstado"
+                                                                  value="#{hrPersonaBean.chkDonacion}"
+                                                                  disabled="#{hrPersonaBean.componentesReadonly}"
+                                        >
+                                            <p:ajax event="change" process="@this"/>
+                                        </h:selectBooleanCheckbox>
+                                    </p:column>
+                                </p:panelGrid>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <i class="fa fa-caret-down"></i> <a
+                        style="font-weight: bold; font-size: 14px;" class="estiloLabelForm"
+                        href="#divTabDatPersonal" data-toggle="collapse">
+                    #{label.RRHH_ADICIONAL_DATPERSONAL}</a>
+                    <div id="divTabDatPersonal" class="ui-g-12 collapse in">
+                        <div class="ui-g-12 ui-g-nopad">
+                            <div class="ui-fluid">
+                                <p:panelGrid id="pgTabDatPersonal"  layout="grid" styleClass="ui-panelgrid-blank" columns="2" columnClasses="ui-grid-col-6,ui-grid-col-6">
+                                    <p:column>
+                                        <h:outputText value="#{label.RRHH_ADICIONAL_DATPERSONAL_ESTADOCIVIL}" styleClass="estiloLabelForm"  />
+                                        <p:selectOneMenu
+                                                value="#{hrPersonaBean.registroPersona.estadoCivil}"
+                                                readonly="#{hrPersonaBean.componentesReadonly}"
+                                                disabled="#{hrPersonaBean.componentesReadonly}"
+                                        >
+                                            <p:ajax event="change" process="@this"/>
+                                            <f:selectItem itemLabel="#{label.RRHH_LBLSELECCIONE}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{hrPersonaBean.listaEstadoCivil}" var="value"
+                                                           itemLabel="#{value.descripcionlocal}" itemValue="#{value.codigoelemento}"
+                                            />
+                                        </p:selectOneMenu>
+                                        <h:outputText value="#{label.RRHH_ADICIONAL_DATPERSONAL_TIPOVIVIENDA}" styleClass="estiloLabelForm"  />
+                                        <p:selectOneMenu
+                                                value="#{hrPersonaBean.registroHrEmpleado.tipoVivienda}"
+                                                readonly="#{hrPersonaBean.componentesReadonly}"
+                                                disabled="#{hrPersonaBean.componentesReadonly}"
+                                        >
+                                            <p:ajax event="change" process="@this"/>
+                                            <f:selectItem itemLabel="#{label.RRHH_LBLSELECCIONE}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{hrPersonaBean.listaTipoVivienda}" var="value"
+                                                           itemLabel="#{value.descripcionlocal}" itemValue="#{value.codigoelemento}"
+                                            />
+                                        </p:selectOneMenu>
+
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{label.RRHH_ADICIONAL_DATPERSONAL_FECHAESTADO}" styleClass="estiloLabelForm"  />
+                                        <p:calendar id="fechaEstadoCivil"
+                                                pattern="#{label.PATTERN_DATE}"	 locale="#{lbv.LOCALE}"
+                                                value="#{hrPersonaBean.registroHrEmpleado.fechaEstadoCivil}"
+                                                disabled="#{hrPersonaBean.componentesReadonly}"
+                                                mask="true"
+                                        >
+                                            <p:ajax update="fechaEstadoCivil" event="dateSelect" />
+                                            <p:ajax event="blur" process="@this"/>
+                                        </p:calendar>
+                                        <h:outputText value="#{label.RRHH_ADICIONAL_DATPERSONAL_DISPONIBILIDAD}" styleClass="estiloLabelForm"  />
+                                        <h:selectBooleanCheckbox  styleClass="chkSiNo"
+                                                                  value="#{hrPersonaBean.chkDisponibilidad}"
+                                                                  disabled="#{hrPersonaBean.componentesReadonly}" >
+                                            <p:ajax event="change" process="@this"/>
+                                        </h:selectBooleanCheckbox>
+
+                                    </p:column>
+                                </p:panelGrid>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <i class="fa fa-caret-down"></i> <a
+                        style="font-weight: bold; font-size: 14px;" class="estiloLabelForm"
+                        href="#divTabObservaciones" data-toggle="collapse">
+                    #{label.RRHH_ADICIONAL_OBSERVACIONES}</a>
+                    <div id="divTabObservaciones" class="ui-g-12 collapse in">
+                        <div class="ui-g-12 ui-g-nopad">
+                            <div class="ui-fluid">
+                                <p:panelGrid id="pgTabObservaciones"  layout="grid" styleClass="ui-panelgrid-blank" columns="1" columnClasses="ui-grid-col-6,ui-grid-col-6">
+                                    <p:column>
+                                        <p:inputText   value="#{hrPersonaBean.registroHrEmpleado.observaciones}"
+                                                       disabled="#{hrPersonaBean.componentesReadonly}"
+                                                       maxlength="30" style="text-transform:uppercase" >
+                                            <p:ajax event="blur" process="@this"/>
+                                        </p:inputText>
+                                    </p:column>
+                                </p:panelGrid>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <i class="fa fa-caret-down"></i> <a
+                        style="font-weight: bold; font-size: 14px;" class="estiloLabelForm"
+                        href="#divTabContactoEmergencia" data-toggle="collapse">
+                    #{label.RRHH_ADICIONAL_CONTACTOEMERGENCIA}</a>
+                    <div id="divTabContactoEmergencia" class="ui-g-12 collapse in">
+                        <div class="ui-g-12 ui-g-nopad">
+                            <div class="ui-fluid">
+                                <p:panelGrid id="pgTabContactoEmergencia"  layout="grid" styleClass="ui-panelgrid-blank" columns="2" columnClasses="ui-grid-col-6,ui-grid-col-6">
+                                    <p:column>
+                                        <h:outputText value="#{label.RRHH_ADICIONAL_CONTACTOEMERGENCIA_NOMBRE}" styleClass="estiloLabelForm"  />
+                                        <p:inputText   value="#{hrPersonaBean.registroPersona.nombreEmergencia}"
+                                                       disabled="#{hrPersonaBean.componentesReadonly}"
+                                                       maxlength="30" style="text-transform:uppercase" >
+                                            <p:ajax event="blur" process="@this"/>
+                                        </p:inputText>
+                                        <h:outputText value="#{label.RRHH_ADICIONAL_CONTACTOEMERGENCIA_DIRECCION}" styleClass="estiloLabelForm"  />
+                                        <p:inputText   value="#{hrPersonaBean.registroPersona.direccionEmergencia}"
+                                                       disabled="#{hrPersonaBean.componentesReadonly}"
+                                                       maxlength="30" style="text-transform:uppercase" >
+                                            <p:ajax event="blur" process="@this"/>
+                                        </p:inputText>
+                                        <p:panelGrid  id="pnInternoEmergencia" layout="grid" styleClass="ui-panelgrid-blank" columns="2" columnClasses="ui-grid-col-6,ui-grid-col-6">
+                                            <p:column>
+                                                <h:outputText value="#{label.RRHH_ADICIONAL_CONTACTOEMERGENCIA_TELEFONO}" styleClass="estiloLabelForm"  />
+                                                <p:inputText   value="#{hrPersonaBean.registroPersona.telefonoEmergencia}"
+                                                               disabled="#{hrPersonaBean.componentesReadonly}"
+                                                               maxlength="30" style="text-transform:uppercase" >
+                                                    <p:ajax event="blur" process="@this"/>
+                                                </p:inputText>
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value="#{label.RRHH_ADICIONAL_CONTACTOEMERGENCIA_CELULAR}" styleClass="estiloLabelForm"  />
+                                                <p:inputText   value="#{hrPersonaBean.registroPersona.celularEmergencia}"
+                                                               disabled="#{hrPersonaBean.componentesReadonly}"
+                                                               maxlength="30" style="text-transform:uppercase" >
+                                                    <p:ajax event="blur" process="@this"/>
+                                                </p:inputText>
+                                            </p:column>
+                                        </p:panelGrid>
+                                        <h:outputText value="#{label.RRHH_ADICIONAL_CONTACTOEMERGENCIA_PARENTESCO}" styleClass="estiloLabelForm"  />
+                                        <p:selectOneMenu
+                                                value="#{hrPersonaBean.registroPersona.parentescoEmergencia}"
+                                                readonly="#{hrPersonaBean.componentesReadonly}"
+                                                disabled="#{hrPersonaBean.componentesReadonly}"
+                                        >
+                                            <p:ajax event="change" process="@this"/>
+                                            <f:selectItem itemLabel="#{label.RRHH_LBLSELECCIONE}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{hrPersonaBean.listaParentesto}" var="value"
+                                                           itemLabel="#{value.descripcionlocal}" itemValue="#{value.codigoelemento}"
+                                            />
+                                        </p:selectOneMenu>
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{label.RRHH_ADICIONAL_CONTACTOEMERGENCIA_NOMBRE}" styleClass="estiloLabelForm"  />
+                                        <p:inputText   value="#{hrPersonaBean.registroHrEmpleado.nombreEmergencia}"
+                                                       disabled="#{hrPersonaBean.componentesReadonly}"
+                                                       maxlength="30" style="text-transform:uppercase" >
+                                            <p:ajax event="blur" process="@this"/>
+                                        </p:inputText>
+                                        <h:outputText value="#{label.RRHH_ADICIONAL_CONTACTOEMERGENCIA_DIRECCION}" styleClass="estiloLabelForm"  />
+                                        <p:inputText   value="#{hrPersonaBean.registroHrEmpleado.direccionEmergencia}"
+                                                       disabled="#{hrPersonaBean.componentesReadonly}"
+                                                       maxlength="30" style="text-transform:uppercase" >
+                                            <p:ajax event="blur" process="@this"/>
+                                        </p:inputText>
+                                        <p:panelGrid   layout="grid" styleClass="ui-panelgrid-blank" columns="2" columnClasses="ui-grid-col-6,ui-grid-col-6">
+                                            <p:column>
+                                                <h:outputText value="#{label.RRHH_ADICIONAL_CONTACTOEMERGENCIA_TELEFONO}" styleClass="estiloLabelForm"  />
+                                                <p:inputText   value="#{hrPersonaBean.registroHrEmpleado.telefonoEmergencia}"
+                                                               disabled="#{hrPersonaBean.componentesReadonly}"
+                                                               maxlength="30" style="text-transform:uppercase" >
+                                                    <p:ajax event="blur" process="@this"/>
+                                                </p:inputText>
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value="#{label.RRHH_ADICIONAL_CONTACTOEMERGENCIA_CELULAR}" styleClass="estiloLabelForm"  />
+                                                <p:inputText   value="#{hrPersonaBean.registroHrEmpleado.celularEmergencia}"
+                                                               disabled="#{hrPersonaBean.componentesReadonly}"
+                                                               maxlength="30" style="text-transform:uppercase" >
+                                                    <p:ajax event="blur" process="@this"/>
+                                                </p:inputText>
+                                            </p:column>
+                                        </p:panelGrid>
+                                        <h:outputText value="#{label.RRHH_ADICIONAL_CONTACTOEMERGENCIA_PARENTESCO}" styleClass="estiloLabelForm"  />
+                                        <p:selectOneMenu
+                                                value="#{hrPersonaBean.registroHrEmpleado.parentescoEmergencia}"
+                                                readonly="#{hrPersonaBean.componentesReadonly}"
+                                                disabled="#{hrPersonaBean.componentesReadonly}"
+                                        >
+                                            <p:ajax event="change" process="@this"/>
+                                            <f:selectItem itemLabel="#{label.RRHH_LBLSELECCIONE}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{hrPersonaBean.listaParentesto}" var="value"
+                                                           itemLabel="#{value.descripcionlocal}" itemValue="#{value.codigoelemento}"
+                                            />
+                                        </p:selectOneMenu>
+
+                                    </p:column>
+
+                                </p:panelGrid>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <i class="fa fa-caret-down"></i> <a
+                        style="font-weight: bold; font-size: 14px;" class="estiloLabelForm"
+                        href="#divTabLicenciaConducir" data-toggle="collapse">
+                    #{label.RRHH_ADICIONAL_LICENCIA}</a>
+                    <div id="divTabLicenciaConducir" class="ui-g-12 collapse in">
+                        <div class="ui-g-12 ui-g-nopad">
+                            <div class="ui-fluid">
+                                <p:panelGrid id="pgTabLicenciaConducir"  layout="grid" styleClass="ui-panelgrid-blank" columns="2" columnClasses="ui-grid-col-6,ui-grid-col-6">
+                                    <p:column>
+                                        <h:outputText value="#{label.RRHH_ADICIONAL_LICENCIA_CATEGORIA}" styleClass="estiloLabelForm"  />
+                                        <p:selectOneMenu
+                                                value="#{hrPersonaBean.registroPersona.tipoBrevete}"
+                                                readonly="#{hrPersonaBean.componentesReadonly}"
+                                                disabled="#{hrPersonaBean.componentesReadonly}"
+                                        >
+                                            <p:ajax event="change" process="@this"/>
+                                            <f:selectItem itemLabel="#{label.RRHH_LBLSELECCIONE}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{hrPersonaBean.listaTipoBrevete}" var="value"
+                                                           itemLabel="#{value.descripcionlocal}" itemValue="#{value.codigoelemento}"
+                                            />
+                                        </p:selectOneMenu>
+                                        <p:panelGrid  id="pnLicenciaConducir" layout="grid" styleClass="ui-panelgrid-blank" columns="2" columnClasses="ui-grid-col-6,ui-grid-col-6">
+                                            <p:column>
+                                                <h:outputText value="#{label.RRHH_ADICIONAL_LICENCIA_LICCONDUCIR}" styleClass="estiloLabelForm"  />
+                                                <p:inputText   value="#{hrPersonaBean.registroPersona.brevete}"
+                                                               disabled="#{hrPersonaBean.componentesReadonly}"
+                                                               maxlength="30" style="text-transform:uppercase" >
+                                                    <p:ajax event="blur" process="@this"/>
+                                                </p:inputText>
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value="#{label.RRHH_ADICIONAL_LICENCIA_VENCIMIENTO}" styleClass="estiloLabelForm"  />
+                                                <p:calendar id="fechaVencimiento"
+                                                            pattern="#{label.PATTERN_DATE}"	 locale="#{lbv.LOCALE}"
+                                                            value="#{hrPersonaBean.registroPersona.breveteFecVcto}"
+                                                            disabled="#{hrPersonaBean.componentesReadonly}"
+                                                            mask="true"
+                                                >
+                                                    <p:ajax update="fechaVencimiento" event="dateSelect" />
+                                                    <p:ajax event="blur" process="@this"/>
+                                                </p:calendar>
+                                            </p:column>
+                                        </p:panelGrid>
+                                            <h:outputText value="#{label.RRHH_ADICIONAL_LICENCIA_VISAFECHAEXPIRACION}" styleClass="estiloLabelForm"  />
+                                            <p:calendar id ="visaFechaExp"
+                                                    pattern="#{label.PATTERN_DATE}"	 locale="#{lbv.LOCALE}"
+                                                    value="#{hrPersonaBean.registroHrEmpleado.licenciaConducirFecha}"
+                                                    disabled="#{hrPersonaBean.componentesReadonly}"
+                                                    mask="true"
+                                            >
+                                                <p:ajax update="visaFechaExp" event="dateSelect" />
+                                                <p:ajax event="blur" process="@this"/>
+                                            </p:calendar>
+
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{label.RRHH_ADICIONAL_LICENCIA_PASOPORTE}" styleClass="estiloLabelForm"  />
+                                        <p:inputText   value="#{hrPersonaBean.registroPersona.pasaporte}"
+                                                       disabled="#{hrPersonaBean.componentesReadonly}"
+                                                       maxlength="30" style="text-transform:uppercase" >
+                                            <p:ajax event="blur" process="@this"/>
+                                        </p:inputText>
+                                        <h:outputText value="#{label.RRHH_ADICIONAL_LICENCIA_CEDULA}" styleClass="estiloLabelForm"  />
+                                        <p:inputText   value="#{hrPersonaBean.registroPersona.carnetExtranjeria}"
+                                                       disabled="#{hrPersonaBean.componentesReadonly}"
+                                                       maxlength="30" style="text-transform:uppercase" >
+                                            <p:ajax event="blur" process="@this"/>
+                                        </p:inputText>
+                                        <h:outputText value="#{label.RRHH_ADICIONAL_LICENCIA_FECHAVENC}" styleClass="estiloLabelForm"  />
+                                        <p:calendar id="fechaLicenFechaV"
+                                                    pattern="#{label.PATTERN_DATE}"	 locale="#{lbv.LOCALE}"
+                                                    value="#{hrPersonaBean.registroPersona.carnetExtranjeriaFecVcto}"
+                                                    disabled="#{hrPersonaBean.componentesReadonly}"
+                                                    mask="true"
+                                        >
+                                            <p:ajax update="fechaLicenFechaV" event="dateSelect" />
+                                            <p:ajax event="blur" process="@this"/>
+                                        </p:calendar>
+
+                                    </p:column>
+                                </p:panelGrid>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <i class="fa fa-caret-down"></i> <a
+                        style="font-weight: bold; font-size: 14px;" class="estiloLabelForm"
+                        href="#divTabVisa" data-toggle="collapse">
+                    #{label.RRHH_ADICIONAL_LICENCIA_VISA}</a>
+                    <div id="divTabVisa" class="ui-g-12 collapse in">
+                        <div class="ui-g-12 ui-g-nopad">
+                            <div class="ui-fluid">
+                                <p:panelGrid id="pgTabVisa"  layout="grid" styleClass="ui-panelgrid-blank" columns="2" columnClasses="ui-grid-col-6,ui-grid-col-6">
+                                    <p:column>
+                                        <p:panelGrid  id="pnLicenciaVisa" layout="grid" styleClass="ui-panelgrid-blank" columns="2" columnClasses="ui-grid-col-6,ui-grid-col-6">
+                                            <p:column>
+                                                <h:outputText value="#{label.RRHH_ADICIONAL_LICENCIA_VISATIPO}" styleClass="estiloLabelForm"  />
+                                                <p:selectOneMenu
+                                                        value="#{hrPersonaBean.registroEmpleado.tipoVisa}"
+                                                        readonly="#{hrPersonaBean.componentesReadonly}"
+                                                        disabled="#{hrPersonaBean.componentesReadonly}"
+                                                >
+                                                    <p:ajax event="change" process="@this"/>
+                                                    <f:selectItem itemLabel="#{label.RRHH_LBLSELECCIONE}" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{hrPersonaBean.listaTipoVisa}" var="value"
+                                                                   itemLabel="#{value.descripcionlocal}" itemValue="#{value.codigoelemento}"
+                                                    />
+                                                </p:selectOneMenu>
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value="#{label.RRHH_ADICIONAL_LICENCIA_VISAFECHAINICIO}" styleClass="estiloLabelForm"  />
+                                                <p:calendar id="fechaVisaFInicio"
+                                                        pattern="#{label.PATTERN_DATE}"	 locale="#{lbv.LOCALE}"
+                                                        value="#{hrPersonaBean.registroPersona.breveteFecVcto}"
+                                                        disabled="#{hrPersonaBean.componentesReadonly}"
+                                                        mask="true"
+                                                >
+                                                    <p:ajax update="fechaVisaFInicio" event="dateSelect" />
+                                                    <p:ajax event="blur" process="@this"/>
+                                                </p:calendar>
+                                            </p:column>
+                                        </p:panelGrid>
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{label.RRHH_ADICIONAL_LICENCIA_VISAFECHAEXPIRACION}" styleClass="estiloLabelForm"  />
+                                        <p:calendar id="fechaVisaFeEx"
+                                                pattern="#{label.PATTERN_DATE}"	 locale="#{lbv.LOCALE}"
+                                                value="#{hrPersonaBean.registroEmpleado.visaFechaExpiracion}"
+                                                disabled="#{hrPersonaBean.componentesReadonly}"
+                                                mask="true"
+                                        >
+                                            <p:ajax update="fechaVisaFeEx" event="dateSelect" />
+                                            <p:ajax event="blur" process="@this"/>
+                                        </p:calendar>
+                                    </p:column>
+                                </p:panelGrid>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</ui:composition>
+
+

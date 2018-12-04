@@ -1,0 +1,114 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:toolbar id="toolbarBotones">
+
+		<f:facet name="left">
+		</f:facet>
+		<f:facet name="right">
+
+			<p:commandButton id="btnGuardarPerfil" value="Guardar"
+				icon="ui-icon-disk" update="@form, FormHeader"
+				rendered="#{saPerfilBean.btnGuardarVisible}"
+				actionListener="#{saPerfilBean.btnGuardar}" style=" height: 30px;" />
+
+			<p:commandButton id="btnAceptaPerfil" value="Aceptar"
+				icon="ui-icon-check" update="@form, FormHeader"
+				rendered="#{saPerfilBean.btnAceptarVisible}"
+				actionListener="#{saPerfilBean.btnAceptar}" style=" height: 30px;" />
+
+			<p:commandButton id="btnInactivarPerfil" value="Inactivar"
+				icon="ui-icon-circle-close" update="@form, FormHeader"
+				rendered="#{saPerfilBean.btnGuardarInactivarVisible}"
+				actionListener="#{saPerfilBean.btnGuardar}" style=" height: 30px;" />
+
+			<p:commandButton id="btnEliminarPerfil" value="Eliminar"
+				icon="ui-icon-trash" update="@form, FormHeader"
+				rendered="#{saPerfilBean.btnGuardarEliminarVisible}"
+				actionListener="#{saPerfilBean.btnGuardar}" style=" height: 30px;" />
+
+			<p:commandButton id="btnCancelarPerfil" value="Cancelar"
+				icon="ui-icon-cancel" update="@form, FormHeader"
+				rendered="#{saPerfilBean.btnCancelarVisible}"
+				actionListener="#{saPerfilBean.btnCancelar}" style=" height: 30px;" />
+
+
+		</f:facet>
+	</p:toolbar>
+
+	<div class="ui-g-12">
+		<div class="ui-g-12 ui-g-nopad">
+			<div class="ui-fluid">
+
+				<i class="fa fa-caret-down"></i> <a
+					style="font-weight: bold; font-size: 14px;" class="estiloLabelForm"
+					href="#divGeneralPerfil" data-toggle="collapse">
+					#{label.DATOS_GENERALES_CAP}</a>
+				<div id="divGeneralPerfil"
+					class="ui-g-12 ui-g-nopad ui-fluid collapse in">
+					<p:panelGrid id="pgPerfilReg" layout="grid" styleClass="ui-panelgrid-blank"
+						columns="3"
+						columnClasses="ui-grid-col-5,ui-grid-col-4,ui-grid-col-3">
+						<p:column>
+							<h:outputText value="#{label.PERFIL_NOMBRE_PERFIL}"  styleClass="estiloLabelForm" />
+							<p:inputText maxlength="50"
+							styleClass="required-field"
+							style="text-transform: uppercase;"
+							value="#{saPerfilBean.registro.usuario}"
+							readonly="#{saPerfilBean.componentesReadonly  or saPerfilBean.modoUpdate }"
+							disabled="#{saPerfilBean.componentesReadonly}"
+							/>
+							
+							<h:outputText value="#{label.PERFIL_DESCRIPCION}" styleClass="estiloLabelForm"  />
+							<p:inputText value="#{saPerfilBean.registro.nombre}"
+							maxlength="50" styleClass="required-field"
+							readonly="#{saPerfilBean.componentesReadonly}"
+							disabled="#{saPerfilBean.componentesReadonly}"  />
+
+							<h:outputText value="#{label.PERFIL_ESTADO}" styleClass="estiloLabelForm" />
+							<p:selectOneMenu autoWidth="false" disabled="#{saPerfilBean.componentesReadonly}"
+								value="#{saPerfilBean.registro.estado}">
+								<f:selectItem itemLabel="#{label.ITEM_ACTIVO}" itemValue="#{constant.ACTIVO}" />
+								<f:selectItem itemLabel="#{label.ITEM_INACTIVO}" itemValue="#{constant.INACTIVO}" />
+							</p:selectOneMenu>
+						</p:column>
+						 
+						<p:column>
+						</p:column>						
+					</p:panelGrid>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="ui-g-12">				
+		<i class="fa fa-caret-down"></i> 
+		<a style="font-weight:bold; font-size:14px;" class="estiloLabelForm" href="#divInfoRefPerfil" data-toggle="collapse"> 
+			#{label.INFORMACION_REFERENCIAL_CAP}</a>
+		<div id="divInfoRefPerfil" class="ui-g collapse in" >
+			
+			<div class="ui-g-12 ui-g-nopad">
+				<div class="ui-fluid">
+					<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank" columns="3"
+					columnClasses="ui-grid-col-3,ui-grid-col-2,ui-grid-col-8"
+					>
+						<h:outputLabel value="#{label.CREACION_CAP}" class="estiloLabelForm" style="font-weight: bold;"/>
+						<h:outputLabel value="#{saPerfilBean.registro.usuariored} |" />
+						
+					</p:panelGrid> 
+					<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank" columns="3"
+					columnClasses="ui-grid-col-3,ui-grid-col-2,ui-grid-col-8">
+						<h:outputLabel value="#{label.MODIFICACION_CAP}" class="estiloLabelForm" style="font-weight: bold;"/>
+						<h:outputLabel value="#{saPerfilBean.registro.ultimousuario} | " />
+						<h:outputLabel value="#{saPerfilBean.registro.ultimafechamodif}">
+							<f:convertDateTime pattern="#{label.PATTERN_DATETIME}" />
+						</h:outputLabel>
+					</p:panelGrid> 	
+				</div>
+			</div>		
+		</div>			
+	</div>	
+</ui:composition>
