@@ -5,16 +5,15 @@ import java.util.Date;
 
 @Entity
 @Table(name = "SS_CARGAINICIAL")
-public class SsCargainicial  extends Entidad{
-    private Integer cargainicialid;
+@IdClass(SsCargainicialPK.class)
+public class SsCargainicial   extends Entidad{
     private String companyowner;
     private String sucursal;
-    private String periodo;
-    private String tipofrecuencia;
-    private String citipoid;
     private Integer proyectoid;
-    private Integer sectorid;
+    private Integer fuenteid;
     private Integer anno;
+    private Integer cargainicialid;
+    private Integer sectorid;
     private Integer mes;
     private String fuobservaciones;
     private String fuusaldecaptacoin;
@@ -49,7 +48,61 @@ public class SsCargainicial  extends Entidad{
     private String potenciaHp;
     private String observacion;
     private String documentofuente;
+    private String creacionusuario;
+    private Date creacionfecha;
+    private String ultimousuario;
+    private Date ultimafechamodif;
     private String estado;
+
+    @Id
+    @Column(name = "COMPANYOWNER")
+    public String getCompanyowner() {
+        return companyowner;
+    }
+
+    public void setCompanyowner(String companyowner) {
+        this.companyowner = companyowner;
+    }
+
+    @Id
+    @Column(name = "SUCURSAL")
+    public String getSucursal() {
+        return sucursal;
+    }
+
+    public void setSucursal(String sucursal) {
+        this.sucursal = sucursal;
+    }
+
+    @Id
+    @Column(name = "PROYECTOID")
+    public Integer getProyectoid() {
+        return proyectoid;
+    }
+
+    public void setProyectoid(Integer proyectoid) {
+        this.proyectoid = proyectoid;
+    }
+
+    @Id
+    @Column(name = "FUENTEID")
+    public Integer getFuenteid() {
+        return fuenteid;
+    }
+
+    public void setFuenteid(Integer fuenteid) {
+        this.fuenteid = fuenteid;
+    }
+
+    @Id
+    @Column(name = "ANNO")
+    public Integer getAnno() {
+        return anno;
+    }
+
+    public void setAnno(Integer anno) {
+        this.anno = anno;
+    }
 
     @Id
     @Column(name = "CARGAINICIALID")
@@ -62,66 +115,6 @@ public class SsCargainicial  extends Entidad{
     }
 
     @Basic
-    @Column(name = "COMPANYOWNER")
-    public String getCompanyowner() {
-        return companyowner;
-    }
-
-    public void setCompanyowner(String companyowner) {
-        this.companyowner = companyowner;
-    }
-
-    @Basic
-    @Column(name = "SUCURSAL")
-    public String getSucursal() {
-        return sucursal;
-    }
-
-    public void setSucursal(String sucursal) {
-        this.sucursal = sucursal;
-    }
-
-    @Basic
-    @Column(name = "PERIODO")
-    public String getPeriodo() {
-        return periodo;
-    }
-
-    public void setPeriodo(String periodo) {
-        this.periodo = periodo;
-    }
-
-    @Basic
-    @Column(name = "TIPOFRECUENCIA")
-    public String getTipofrecuencia() {
-        return tipofrecuencia;
-    }
-
-    public void setTipofrecuencia(String tipofrecuencia) {
-        this.tipofrecuencia = tipofrecuencia;
-    }
-
-    @Basic
-    @Column(name = "CITIPOID")
-    public String getCitipoid() {
-        return citipoid;
-    }
-
-    public void setCitipoid(String citipoid) {
-        this.citipoid = citipoid;
-    }
-
-    @Basic
-    @Column(name = "PROYECTOID")
-    public Integer getProyectoid() {
-        return proyectoid;
-    }
-
-    public void setProyectoid(Integer proyectoid) {
-        this.proyectoid = proyectoid;
-    }
-
-    @Basic
     @Column(name = "SECTORID")
     public Integer getSectorid() {
         return sectorid;
@@ -129,16 +122,6 @@ public class SsCargainicial  extends Entidad{
 
     public void setSectorid(Integer sectorid) {
         this.sectorid = sectorid;
-    }
-
-    @Basic
-    @Column(name = "ANNO")
-    public Integer getAnno() {
-        return anno;
-    }
-
-    public void setAnno(Integer anno) {
-        this.anno = anno;
     }
 
     @Basic
@@ -482,6 +465,46 @@ public class SsCargainicial  extends Entidad{
     }
 
     @Basic
+    @Column(name = "CREACIONUSUARIO")
+    public String getCreacionusuario() {
+        return creacionusuario;
+    }
+
+    public void setCreacionusuario(String creacionusuario) {
+        this.creacionusuario = creacionusuario;
+    }
+
+    @Basic
+    @Column(name = "CREACIONFECHA")
+    public Date getCreacionfecha() {
+        return creacionfecha;
+    }
+
+    public void setCreacionfecha(Date creacionfecha) {
+        this.creacionfecha = creacionfecha;
+    }
+
+    @Basic
+    @Column(name = "ULTIMOUSUARIO")
+    public String getUltimousuario() {
+        return ultimousuario;
+    }
+
+    public void setUltimousuario(String ultimousuario) {
+        this.ultimousuario = ultimousuario;
+    }
+
+    @Basic
+    @Column(name = "ULTIMAFECHAMODIF")
+    public Date getUltimafechamodif() {
+        return ultimafechamodif;
+    }
+
+    public void setUltimafechamodif(Date ultimafechamodif) {
+        this.ultimafechamodif = ultimafechamodif;
+    }
+
+    @Basic
     @Column(name = "ESTADO")
     public String getEstado() {
         return estado;
@@ -498,16 +521,13 @@ public class SsCargainicial  extends Entidad{
 
         SsCargainicial that = (SsCargainicial) o;
 
-        if (cargainicialid != that.cargainicialid) return false;
         if (proyectoid != that.proyectoid) return false;
+        if (fuenteid != that.fuenteid) return false;
+        if (anno != that.anno) return false;
+        if (cargainicialid != that.cargainicialid) return false;
         if (companyowner != null ? !companyowner.equals(that.companyowner) : that.companyowner != null) return false;
         if (sucursal != null ? !sucursal.equals(that.sucursal) : that.sucursal != null) return false;
-        if (periodo != null ? !periodo.equals(that.periodo) : that.periodo != null) return false;
-        if (tipofrecuencia != null ? !tipofrecuencia.equals(that.tipofrecuencia) : that.tipofrecuencia != null)
-            return false;
-        if (citipoid != null ? !citipoid.equals(that.citipoid) : that.citipoid != null) return false;
         if (sectorid != null ? !sectorid.equals(that.sectorid) : that.sectorid != null) return false;
-        if (anno != null ? !anno.equals(that.anno) : that.anno != null) return false;
         if (mes != null ? !mes.equals(that.mes) : that.mes != null) return false;
         if (fuobservaciones != null ? !fuobservaciones.equals(that.fuobservaciones) : that.fuobservaciones != null)
             return false;
@@ -563,6 +583,14 @@ public class SsCargainicial  extends Entidad{
         if (observacion != null ? !observacion.equals(that.observacion) : that.observacion != null) return false;
         if (documentofuente != null ? !documentofuente.equals(that.documentofuente) : that.documentofuente != null)
             return false;
+        if (creacionusuario != null ? !creacionusuario.equals(that.creacionusuario) : that.creacionusuario != null)
+            return false;
+        if (creacionfecha != null ? !creacionfecha.equals(that.creacionfecha) : that.creacionfecha != null)
+            return false;
+        if (ultimousuario != null ? !ultimousuario.equals(that.ultimousuario) : that.ultimousuario != null)
+            return false;
+        if (ultimafechamodif != null ? !ultimafechamodif.equals(that.ultimafechamodif) : that.ultimafechamodif != null)
+            return false;
         if (estado != null ? !estado.equals(that.estado) : that.estado != null) return false;
 
         return true;
@@ -570,15 +598,13 @@ public class SsCargainicial  extends Entidad{
 
     @Override
     public int hashCode() {
-        int result = (int) (cargainicialid ^ (cargainicialid >>> 32));
-        result = 31 * result + (companyowner != null ? companyowner.hashCode() : 0);
+        int result = companyowner != null ? companyowner.hashCode() : 0;
         result = 31 * result + (sucursal != null ? sucursal.hashCode() : 0);
-        result = 31 * result + (periodo != null ? periodo.hashCode() : 0);
-        result = 31 * result + (tipofrecuencia != null ? tipofrecuencia.hashCode() : 0);
-        result = 31 * result + (citipoid != null ? citipoid.hashCode() : 0);
         result = 31 * result + (int) (proyectoid ^ (proyectoid >>> 32));
+        result = 31 * result + (int) (fuenteid ^ (fuenteid >>> 32));
+        result = 31 * result + (int) (anno ^ (anno >>> 32));
+        result = 31 * result + (int) (cargainicialid ^ (cargainicialid >>> 32));
         result = 31 * result + (sectorid != null ? sectorid.hashCode() : 0);
-        result = 31 * result + (anno != null ? anno.hashCode() : 0);
         result = 31 * result + (mes != null ? mes.hashCode() : 0);
         result = 31 * result + (fuobservaciones != null ? fuobservaciones.hashCode() : 0);
         result = 31 * result + (fuusaldecaptacoin != null ? fuusaldecaptacoin.hashCode() : 0);
@@ -613,6 +639,10 @@ public class SsCargainicial  extends Entidad{
         result = 31 * result + (potenciaHp != null ? potenciaHp.hashCode() : 0);
         result = 31 * result + (observacion != null ? observacion.hashCode() : 0);
         result = 31 * result + (documentofuente != null ? documentofuente.hashCode() : 0);
+        result = 31 * result + (creacionusuario != null ? creacionusuario.hashCode() : 0);
+        result = 31 * result + (creacionfecha != null ? creacionfecha.hashCode() : 0);
+        result = 31 * result + (ultimousuario != null ? ultimousuario.hashCode() : 0);
+        result = 31 * result + (ultimafechamodif != null ? ultimafechamodif.hashCode() : 0);
         result = 31 * result + (estado != null ? estado.hashCode() : 0);
         return result;
     }
