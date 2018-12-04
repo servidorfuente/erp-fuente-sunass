@@ -6,6 +6,7 @@ import erp.realcoresystems.pe.controller.AbstractGenericBean;
 import erp.realcoresystems.pe.controller.InterfaceGenericBean;
 import erp.realcoresystems.pe.model.domain.Companyowner;
 import erp.realcoresystems.pe.model.domain.MaMiscelaneosdetalle;
+import erp.realcoresystems.pe.model.domain.SsControlperiodo;
 import erp.realcoresystems.pe.model.util.Constant;
 import erp.realcoresystems.pe.model.util.EntPeriodo;
 import erp.realcoresystems.pe.model.util.FacesUtil;
@@ -32,8 +33,6 @@ public class ControlPeriodoBean extends AbstractGenericBean implements Interface
 
 
     private static final long serialVersionUID = 1L;
-
-    // Service
     @ManagedProperty(value = "#{ssControlperiodoService}")
     private SsControlperiodoService ssControlperiodoService;
 
@@ -46,6 +45,8 @@ public class ControlPeriodoBean extends AbstractGenericBean implements Interface
     private List<MaMiscelaneosdetalle> maMisDestalleTipoFrencuencia;
 
     private List<MaMiscelaneosdetalle> maMisDestalleEstadoDocumento;
+    // Service
+
     private LazyDataModel<SsControlperiodo> listaSsControlperiodoModel;
     private List<SsControlperiodo> listaSsControlperiodo;
 
@@ -182,7 +183,7 @@ public class ControlPeriodoBean extends AbstractGenericBean implements Interface
             cal.setTime(today);
             listaEntPeriodo =  generarPeriodo(TimeCommons.getAnio(today));
             controlPeriodoRegistro = new SsControlperiodo();
-            controlPeriodoRegistro.setAnno(TimeCommons.getAnio(today));
+           // controlPeriodoRegistro.setAnno(TimeCommons.getAnio(today));
             controlPeriodoRegistro.setEstadodocumento(1);
             controlPeriodoRegistro.setFechainicio(new Date());
             controlPeriodoRegistro.setFechafin(new Date());
@@ -285,7 +286,7 @@ public class ControlPeriodoBean extends AbstractGenericBean implements Interface
         if(UtilesCommons.noEsVacio(controlPeriodoRegistro.getTipofrecuencia())){
             listaEntPeriodo.clear();
             if (controlPeriodoRegistro.getTipofrecuencia().equals("MENSUAL")){
-                listaEntPeriodo =  generarPeriodo(controlPeriodoRegistro.getAnno());
+             //   listaEntPeriodo =  generarPeriodo(controlPeriodoRegistro.getAnno());
             }
 
             /*if(impuestoRegistro.getTipoImpuesto().equalsIgnoreCase(Constant.TIPOIMPUESTO_RENTA)){
@@ -297,7 +298,7 @@ public class ControlPeriodoBean extends AbstractGenericBean implements Interface
     public List<EntPeriodo> generarPeriodo(int annoo){
         EntPeriodo entObj = new EntPeriodo();
         for (int i = 1; i < 13; i++) {
-            entObj.setAnno(controlPeriodoRegistro.getAnno());
+           // entObj.setAnno(controlPeriodoRegistro.getAnno());
             entObj.setMes(i);
             entObj.setDia(i);
             entObj.setTipo("MENSUAL");
