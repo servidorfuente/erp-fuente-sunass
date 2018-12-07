@@ -1,15 +1,20 @@
 package erp.realcoresystems.pe.model.domain;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
+/**
+ * Created by mamania on 07/01/2016.
+ */
 @Entity
-@Table(name = "AC_SUCURSAL" )
-public class AcSucursal  extends Entidad{
-    private String sucursal;
+@Table(name = "AC_SUCURSAL")
+public class AcSucursalAnt extends Entidad{
+	
+	private static final long serialVersionUID = 1L;
+	private String sucursal;
     private String sucursalgrupo;
-    private String companyowner;
     private Integer sedsedegrupoid;
+    private Companyowner companyowner = new Companyowner();
     private String descripcionlocal;
     private String descripcioningles;
     private String estado;
@@ -36,27 +41,17 @@ public class AcSucursal  extends Entidad{
     public void setSucursalgrupo(String sucursalgrupo) {
         this.sucursalgrupo = sucursalgrupo;
     }
-    @Id
-    @Basic
-    @Column(name = "COMPANYOWNER")
-    public String getCompanyowner() {
-        return companyowner;
-    }
-
-    public void setCompanyowner(String companyowner) {
-        this.companyowner = companyowner;
-    }
 
     @Basic
-    @Column(name = "SEDSEDEGRUPOID")
-    public Integer getSedsedegrupoid() {
-        return sedsedegrupoid;
-    }
+    @Column(name="SEDSEDEGRUPOID")
+	public Integer getSedsedegrupoid() {
+		return sedsedegrupoid;
+	}
 
-    public void setSedsedegrupoid(Integer sedsedegrupoid) {
-        this.sedsedegrupoid = sedsedegrupoid;
-    }
-
+	public void setSedsedegrupoid(Integer sedsedegrupoid) {
+		this.sedsedegrupoid = sedsedegrupoid;
+	}
+	
     @Basic
     @Column(name = "DESCRIPCIONLOCAL")
     public String getDescripcionlocal() {
@@ -105,7 +100,17 @@ public class AcSucursal  extends Entidad{
 
     public void setUltimafechamodif(Date ultimafechamodif) {
         this.ultimafechamodif = ultimafechamodif;
-    }
+    }    
+    
+    @ManyToOne
+    @JoinColumn(name="COMPANYOWNER")
+	public Companyowner getCompanyowner() {
+		return companyowner;
+	}
+
+	public void setCompanyowner(Companyowner companyowner) {
+		this.companyowner = companyowner;
+	}
 
     @Basic
     @Column(name = "CUENTACONTABLEDEFECTO")
@@ -122,14 +127,12 @@ public class AcSucursal  extends Entidad{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        AcSucursal that = (AcSucursal) o;
+        AcSucursalAnt that = (AcSucursalAnt) o;
 
         if (sucursal != null ? !sucursal.equals(that.sucursal) : that.sucursal != null) return false;
         if (sucursalgrupo != null ? !sucursalgrupo.equals(that.sucursalgrupo) : that.sucursalgrupo != null)
             return false;
         if (companyowner != null ? !companyowner.equals(that.companyowner) : that.companyowner != null) return false;
-        if (sedsedegrupoid != null ? !sedsedegrupoid.equals(that.sedsedegrupoid) : that.sedsedegrupoid != null)
-            return false;
         if (descripcionlocal != null ? !descripcionlocal.equals(that.descripcionlocal) : that.descripcionlocal != null)
             return false;
         if (descripcioningles != null ? !descripcioningles.equals(that.descripcioningles) : that.descripcioningles != null)
@@ -150,7 +153,6 @@ public class AcSucursal  extends Entidad{
         int result = sucursal != null ? sucursal.hashCode() : 0;
         result = 31 * result + (sucursalgrupo != null ? sucursalgrupo.hashCode() : 0);
         result = 31 * result + (companyowner != null ? companyowner.hashCode() : 0);
-        result = 31 * result + (sedsedegrupoid != null ? sedsedegrupoid.hashCode() : 0);
         result = 31 * result + (descripcionlocal != null ? descripcionlocal.hashCode() : 0);
         result = 31 * result + (descripcioningles != null ? descripcioningles.hashCode() : 0);
         result = 31 * result + (estado != null ? estado.hashCode() : 0);
@@ -159,4 +161,5 @@ public class AcSucursal  extends Entidad{
         result = 31 * result + (cuentacontabledefecto != null ? cuentacontabledefecto.hashCode() : 0);
         return result;
     }
+		
 }

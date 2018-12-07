@@ -7,9 +7,11 @@ import erp.realcoresystems.pe.model.domain.SsProyectoPK;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class SsProyectoDaoImpl extends AbstractDaoImpl<SsProyecto, String> implements SsProyectoDao {
 
     protected SsProyectoDaoImpl() {

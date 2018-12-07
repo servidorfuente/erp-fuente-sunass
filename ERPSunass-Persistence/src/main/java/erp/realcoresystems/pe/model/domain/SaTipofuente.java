@@ -1,7 +1,7 @@
 package erp.realcoresystems.pe.model.domain;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.util.Date ;
 
 @Entity
 @Table(name = "SA_TIPOFUENTE")
@@ -9,9 +9,9 @@ public class SaTipofuente  extends Entidad{
     private Integer fuenteid;
     private String descripcion;
     private String creacionusuario;
-    private Date creacionfecha;
+    private Date  creacionfecha;
     private String ultimousuario;
-    private Date ultimafechamodif;
+    private Date  ultimafechamodif;
     private String estado;
 
     @Id
@@ -46,11 +46,11 @@ public class SaTipofuente  extends Entidad{
 
     @Basic
     @Column(name = "CREACIONFECHA")
-    public Date getCreacionfecha() {
+    public Date  getCreacionfecha() {
         return creacionfecha;
     }
 
-    public void setCreacionfecha(Date creacionfecha) {
+    public void setCreacionfecha(Date  creacionfecha) {
         this.creacionfecha = creacionfecha;
     }
 
@@ -66,11 +66,11 @@ public class SaTipofuente  extends Entidad{
 
     @Basic
     @Column(name = "ULTIMAFECHAMODIF")
-    public Date getUltimafechamodif() {
+    public Date  getUltimafechamodif() {
         return ultimafechamodif;
     }
 
-    public void setUltimafechamodif(Date ultimafechamodif) {
+    public void setUltimafechamodif(Date  ultimafechamodif) {
         this.ultimafechamodif = ultimafechamodif;
     }
 

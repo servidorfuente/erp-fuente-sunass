@@ -6,9 +6,11 @@ import erp.realcoresystems.pe.model.domain.SaTipofuente;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class SsTipofuenteDaoImpl extends AbstractDaoImpl<SaTipofuente, String> implements SaTipofuenteDao {
 
     protected SsTipofuenteDaoImpl() {

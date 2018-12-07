@@ -1,6 +1,7 @@
 package erp.realcoresystems.pe.model.domain;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -91,6 +92,37 @@ public class Entidad implements Serializable {
 	private String parametroNombreOrden;
 
 	private boolean transactionRollback = true;
+	// Para validaciones Fuentes
+	private BigDecimal validFuente01Valor01;
+	private BigDecimal validFuente01Valor02;
+
+	public BigDecimal getValidFuente01Valor01() {
+		return validFuente01Valor01;
+	}
+
+	public void setValidFuente01Valor01(BigDecimal validFuente01Valor01) {
+		this.validFuente01Valor01 = validFuente01Valor01;
+	}
+
+	public BigDecimal getValidFuente01Valor02() {
+		return validFuente01Valor02;
+	}
+
+	public void setValidFuente01Valor02(BigDecimal validFuente01Valor02) {
+		this.validFuente01Valor02 = validFuente01Valor02;
+	}
+
+
+	private List<String> listaAtributoOrdenacion;
+	private List<String> listaAtributoOrdenacionDesc;
+
+	public List<String> getListaAtributoOrdenacionDesc() {
+		return listaAtributoOrdenacionDesc;
+	}
+
+	public void setListaAtributoOrdenacionDesc(List<String> listaAtributoOrdenacionDesc) {
+		this.listaAtributoOrdenacionDesc = listaAtributoOrdenacionDesc;
+	}
 
 	public Date getFechaInicioBusqueda() {
 		return fechaInicioBusqueda;
@@ -185,10 +217,29 @@ public class Entidad implements Serializable {
 
 
 	private String atributoOrdenacion;
-	private List<String> listaAtributoOrdenacion;
+
 
 	private boolean paginable;
 	private boolean ordernable;
+
+	private boolean ordernableGenericAsc= false;//Consulta ORDENADA de la FORMA GEENRICA: ASC
+	private boolean ordernableGenericDesc = false;//Consulta ORDENADA de la FORMA GEENRICA: DESC
+
+	public boolean isOrdernableGenericAsc() {
+		return ordernableGenericAsc;
+	}
+
+	public void setOrdernableGenericAsc(boolean ordernableGenericAsc) {
+		this.ordernableGenericAsc = ordernableGenericAsc;
+	}
+
+	public boolean isOrdernableGenericDesc() {
+		return ordernableGenericDesc;
+	}
+
+	public void setOrdernableGenericDesc(boolean ordernableGenericDesc) {
+		this.ordernableGenericDesc = ordernableGenericDesc;
+	}
 
 	public boolean isOrdernable() {
 		return ordernable;

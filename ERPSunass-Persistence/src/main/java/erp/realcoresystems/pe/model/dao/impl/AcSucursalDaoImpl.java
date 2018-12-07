@@ -20,8 +20,8 @@ public class AcSucursalDaoImpl extends AbstractDaoImpl<AcSucursal, String> imple
 	@Override
 	public List<AcSucursal> sucursalListar(AcSucursal acSucursal) {
         Criteria criteria = getCurrentSession().createCriteria(AcSucursal.class);
-        if(acSucursal.getCompanyowner().getCompanyowner() != null){
-        	criteria.add(Restrictions.eq("companyowner.companyowner", acSucursal.getCompanyowner().getCompanyowner()));
+        if(acSucursal.getCompanyowner() != null){
+        	criteria.add(Restrictions.eq("companyowner", acSucursal.getCompanyowner()));
         }
         return (List<AcSucursal>) criteria.list();
 	}

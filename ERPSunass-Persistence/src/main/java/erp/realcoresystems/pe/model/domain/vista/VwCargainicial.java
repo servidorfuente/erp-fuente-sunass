@@ -1,17 +1,22 @@
-package erp.realcoresystems.pe.model.domain;
+package erp.realcoresystems.pe.model.domain.vista;
+
+import erp.realcoresystems.pe.model.domain.Entidad;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.util.Date ;
 
 @Entity
-@Table(name = "SS_CARGAINICIAL")
-@IdClass(SsCargainicialPK.class)
-public class SsCargainicial   extends Entidad{
+@Table(name = "VW_CARGAINICIAL" )
+public class VwCargainicial  extends Entidad {
     private String companyowner;
+    private String englishdescription;
     private String sucursal;
+    private String descripcionlocal;
     private Integer proyectoid;
+    private String prdescripcion;
     private Integer fuenteid;
+    private String descripcion;
     private Integer anno;
     private Integer cargainicialid;
     private Integer sectorid;
@@ -20,12 +25,14 @@ public class SsCargainicial   extends Entidad{
     private String fuusaldecaptacoin;
     private String fupacidadproduccion;
     private String futipofuente;
-    private Date fechainformacion;
+    private Date  fechainformacion;
     private String direccion;
+    private String estado;
+    private String sedescripcion;
     private String ubigeo;
     private BigDecimal volumenM3;
-    private BigDecimal capacActualLps;
-    private BigDecimal capacMaximaLps;
+    private BigDecimal  capacActualLps;
+    private BigDecimal  capacMaximaLps;
     private String antiguedadAos;
     private String estadofisico;
     private String tipodeenergia;
@@ -33,7 +40,7 @@ public class SsCargainicial   extends Entidad{
     private String potenciabombaHp;
     private String cuentaconfoculadorDFT;
     private String diametroPulg;
-    private String IntegeritudMts;
+    private String longitudMts;
     private String tipodetuberia;
     private String anchoMts;
     private String primariaAreaHaUnidad;
@@ -42,20 +49,30 @@ public class SsCargainicial   extends Entidad{
     private String unidades;
     private String alturaMts;
     private String presionmaximaMca;
-    private BigDecimal caudalurbanoLps;
-    private BigDecimal caudalruralLps;
-    private BigDecimal caudalcaptadodirectoLps;
-    private BigDecimal caudalcaptadobombeoLps;
+    private BigDecimal  caudalurbanoLps;
+    private BigDecimal  caudalruralLps;
+    private BigDecimal  caudalcaptadodirectoLps;
+    private BigDecimal  caudalcaptadobombeoLps;
     private String potenciaHp;
     private String observacion;
     private String documentofuente;
     private String creacionusuario;
-    private Date creacionfecha;
+    private Date  creacionfecha;
     private String ultimousuario;
-    private Date ultimafechamodif;
-    private String estado;
+    private Date  ultimafechamodif;
 
     @Id
+    @Basic
+    @Column(name = "CARGAINICIALID")
+    public Integer getCargainicialid() {
+        return cargainicialid;
+    }
+
+    public void setCargainicialid(Integer cargainicialid) {
+        this.cargainicialid = cargainicialid;
+    }
+
+    @Basic
     @Column(name = "COMPANYOWNER")
     public String getCompanyowner() {
         return companyowner;
@@ -65,7 +82,17 @@ public class SsCargainicial   extends Entidad{
         this.companyowner = companyowner;
     }
 
-    @Id
+    @Basic
+    @Column(name = "ENGLISHDESCRIPTION")
+    public String getEnglishdescription() {
+        return englishdescription;
+    }
+
+    public void setEnglishdescription(String englishdescription) {
+        this.englishdescription = englishdescription;
+    }
+
+    @Basic
     @Column(name = "SUCURSAL")
     public String getSucursal() {
         return sucursal;
@@ -75,7 +102,17 @@ public class SsCargainicial   extends Entidad{
         this.sucursal = sucursal;
     }
 
-    @Id
+    @Basic
+    @Column(name = "DESCRIPCIONLOCAL")
+    public String getDescripcionlocal() {
+        return descripcionlocal;
+    }
+
+    public void setDescripcionlocal(String descripcionlocal) {
+        this.descripcionlocal = descripcionlocal;
+    }
+
+    @Basic
     @Column(name = "PROYECTOID")
     public Integer getProyectoid() {
         return proyectoid;
@@ -85,7 +122,17 @@ public class SsCargainicial   extends Entidad{
         this.proyectoid = proyectoid;
     }
 
-    @Id
+    @Basic
+    @Column(name = "PRDESCRIPCION")
+    public String getPrdescripcion() {
+        return prdescripcion;
+    }
+
+    public void setPrdescripcion(String prdescripcion) {
+        this.prdescripcion = prdescripcion;
+    }
+
+    @Basic
     @Column(name = "FUENTEID")
     public Integer getFuenteid() {
         return fuenteid;
@@ -95,7 +142,17 @@ public class SsCargainicial   extends Entidad{
         this.fuenteid = fuenteid;
     }
 
-    @Id
+    @Basic
+    @Column(name = "DESCRIPCION")
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    @Basic
     @Column(name = "ANNO")
     public Integer getAnno() {
         return anno;
@@ -103,16 +160,6 @@ public class SsCargainicial   extends Entidad{
 
     public void setAnno(Integer anno) {
         this.anno = anno;
-    }
-
-    @Id
-    @Column(name = "CARGAINICIALID")
-    public Integer getCargainicialid() {
-        return cargainicialid;
-    }
-
-    public void setCargainicialid(Integer cargainicialid) {
-        this.cargainicialid = cargainicialid;
     }
 
     @Basic
@@ -177,11 +224,11 @@ public class SsCargainicial   extends Entidad{
 
     @Basic
     @Column(name = "FECHAINFORMACION")
-    public Date getFechainformacion() {
+    public Date  getFechainformacion() {
         return fechainformacion;
     }
 
-    public void setFechainformacion(Date fechainformacion) {
+    public void setFechainformacion(Date  fechainformacion) {
         this.fechainformacion = fechainformacion;
     }
 
@@ -196,6 +243,26 @@ public class SsCargainicial   extends Entidad{
     }
 
     @Basic
+    @Column(name = "ESTADO")
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    @Basic
+    @Column(name = "SEDESCRIPCION")
+    public String getSedescripcion() {
+        return sedescripcion;
+    }
+
+    public void setSedescripcion(String sedescripcion) {
+        this.sedescripcion = sedescripcion;
+    }
+
+    @Basic
     @Column(name = "UBIGEO")
     public String getUbigeo() {
         return ubigeo;
@@ -207,31 +274,31 @@ public class SsCargainicial   extends Entidad{
 
     @Basic
     @Column(name = "VOLUMEN_M3")
-    public BigDecimal getVolumenM3() {
+    public BigDecimal  getVolumenM3() {
         return volumenM3;
     }
 
-    public void setVolumenM3(BigDecimal volumenM3) {
+    public void setVolumenM3(BigDecimal  volumenM3) {
         this.volumenM3 = volumenM3;
     }
 
     @Basic
     @Column(name = "CAPAC_ACTUAL_LPS")
-    public BigDecimal getCapacActualLps() {
+    public BigDecimal  getCapacActualLps() {
         return capacActualLps;
     }
 
-    public void setCapacActualLps(BigDecimal capacActualLps) {
+    public void setCapacActualLps(BigDecimal  capacActualLps) {
         this.capacActualLps = capacActualLps;
     }
 
     @Basic
     @Column(name = "CAPAC_MAXIMA_LPS")
-    public BigDecimal getCapacMaximaLps() {
+    public BigDecimal  getCapacMaximaLps() {
         return capacMaximaLps;
     }
 
-    public void setCapacMaximaLps(BigDecimal capacMaximaLps) {
+    public void setCapacMaximaLps(BigDecimal  capacMaximaLps) {
         this.capacMaximaLps = capacMaximaLps;
     }
 
@@ -307,13 +374,15 @@ public class SsCargainicial   extends Entidad{
 
     @Basic
     @Column(name = "LONGITUD_MTS")
-    public String getIntegeritudMts() {
-        return IntegeritudMts;
+    public String getLongitudMts() {
+        return longitudMts;
     }
 
-    public void setIntegeritudMts(String IntegeritudMts) {
-        this.IntegeritudMts = IntegeritudMts;
+    public void setLongitudMts(String longitudMts) {
+        this.longitudMts = longitudMts;
     }
+
+
 
     @Basic
     @Column(name = "TIPODETUBERIA")
@@ -397,41 +466,41 @@ public class SsCargainicial   extends Entidad{
 
     @Basic
     @Column(name = "CAUDALURBANO_LPS")
-    public BigDecimal getCaudalurbanoLps() {
+    public BigDecimal  getCaudalurbanoLps() {
         return caudalurbanoLps;
     }
 
-    public void setCaudalurbanoLps(BigDecimal caudalurbanoLps) {
+    public void setCaudalurbanoLps(BigDecimal  caudalurbanoLps) {
         this.caudalurbanoLps = caudalurbanoLps;
     }
 
     @Basic
     @Column(name = "CAUDALRURAL_LPS")
-    public BigDecimal getCaudalruralLps() {
+    public BigDecimal  getCaudalruralLps() {
         return caudalruralLps;
     }
 
-    public void setCaudalruralLps(BigDecimal caudalruralLps) {
+    public void setCaudalruralLps(BigDecimal  caudalruralLps) {
         this.caudalruralLps = caudalruralLps;
     }
 
     @Basic
     @Column(name = "CAUDALCAPTADODIRECTO_LPS")
-    public BigDecimal getCaudalcaptadodirectoLps() {
+    public BigDecimal  getCaudalcaptadodirectoLps() {
         return caudalcaptadodirectoLps;
     }
 
-    public void setCaudalcaptadodirectoLps(BigDecimal caudalcaptadodirectoLps) {
+    public void setCaudalcaptadodirectoLps(BigDecimal  caudalcaptadodirectoLps) {
         this.caudalcaptadodirectoLps = caudalcaptadodirectoLps;
     }
 
     @Basic
     @Column(name = "CAUDALCAPTADOBOMBEO_LPS")
-    public BigDecimal getCaudalcaptadobombeoLps() {
+    public BigDecimal  getCaudalcaptadobombeoLps() {
         return caudalcaptadobombeoLps;
     }
 
-    public void setCaudalcaptadobombeoLps(BigDecimal caudalcaptadobombeoLps) {
+    public void setCaudalcaptadobombeoLps(BigDecimal  caudalcaptadobombeoLps) {
         this.caudalcaptadobombeoLps = caudalcaptadobombeoLps;
     }
 
@@ -477,11 +546,11 @@ public class SsCargainicial   extends Entidad{
 
     @Basic
     @Column(name = "CREACIONFECHA")
-    public Date getCreacionfecha() {
+    public Date  getCreacionfecha() {
         return creacionfecha;
     }
 
-    public void setCreacionfecha(Date creacionfecha) {
+    public void setCreacionfecha(Date  creacionfecha) {
         this.creacionfecha = creacionfecha;
     }
 
@@ -497,22 +566,12 @@ public class SsCargainicial   extends Entidad{
 
     @Basic
     @Column(name = "ULTIMAFECHAMODIF")
-    public Date getUltimafechamodif() {
+    public Date  getUltimafechamodif() {
         return ultimafechamodif;
     }
 
-    public void setUltimafechamodif(Date ultimafechamodif) {
+    public void setUltimafechamodif(Date  ultimafechamodif) {
         this.ultimafechamodif = ultimafechamodif;
-    }
-
-    @Basic
-    @Column(name = "ESTADO")
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
     }
 
 
