@@ -93,9 +93,9 @@ public class SySeguridadAutorizacionServiceImpl implements SySeguridadAutorizaci
 					.listadoSySeguridad(sySeguridadautorizaciones);
 			for (SySeguridadautorizaciones bean : lista) {
 				AcSucursal acSucursal = (AcSucursal) acSucursalDao.findById(bean.getConcepto());
-				bean.setDescripcionlarga(acSucursal.getCompanyowner().getDescription());
+				bean.setDescripcionlarga(acSucursal.getCompanyowner());
 				bean.setDescripcionlocal(acSucursal.getDescripcionlocal());
-				bean.setConceptoMaster(acSucursal.getCompanyowner().getCompanyowner());
+				bean.setConceptoMaster(acSucursal.getCompanyowner());
 			}
 			return lista;
 		} catch (Exception e) {
