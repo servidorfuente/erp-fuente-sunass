@@ -542,7 +542,7 @@ public class SaPermisoUsuarioBean extends AbstractGenericBean implements Interfa
 	public Map<String, AcSucursal> mapListarSucursal(String companyowner){		
 		Map<String, AcSucursal> map = UtilesCommons.getNewLinkedHashMap();		
 		AcSucursal acSucursal = new AcSucursal();
-		acSucursal.getCompanyowner().setCompanyowner(companyowner);
+		acSucursal.setCompanyowner(companyowner);
 		List<AcSucursal> lista = acSucursalService.sucursalListar(acSucursal);
 		if(UtilesCommons.noEsVacio(lista)){
 			for (AcSucursal value : lista) {

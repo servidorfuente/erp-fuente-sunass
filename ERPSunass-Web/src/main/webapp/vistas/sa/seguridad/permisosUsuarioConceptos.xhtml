@@ -1,0 +1,215 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"	
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+		
+
+												
+		<p:panel  id="FormUsuarioConceptos"  style="width:auto;" >			
+			<div class="row" align="center">
+				<div class="ui-g-12 ui-g-nopad">
+					<div class="ui-fluid">
+						<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank" 
+								columns="3" columnClasses="ui-grid-col-8,ui-grid-col-2,ui-grid-col-2">
+							
+								<p:spacer width="10"></p:spacer>
+								
+								<p:commandButton id="btnGuardarRegConcepto" value="Guardar"  
+										icon="fa fa-save" styleClass="btn-primary"	process="@form"															
+										 rendered="#{permisosUsuarioBean.btnGuardarVisible}"
+										 actionListener="#{permisosUsuarioBean.btnGuardar}"
+										 title="#{mensaje.MSJ_INFO_TIP_GUARDAR_MAIN}"
+										 update="@form, FormHeader" >					
+								</p:commandButton>	
+								<p:commandButton id="btnEliminarRegConcepto" value="Eliminar"
+										 icon="fa fa-trash-o"  styleClass="btn-primary"
+										 update="@form, FormHeader"
+										 rendered="#{permisosUsuarioBean.btnGuardarEliminarVisible}"
+										 actionListener="#{permisosUsuarioBean.btnGuardar}"
+										 title="#{mensaje.MSJ_INFO_TIP_ELIMINARCOMP_MAIN}"
+										  >					
+								</p:commandButton>											
+								<p:commandButton id="btnCancelarRegConcepto" value="Cancelar"
+										  styleClass="btn-primary"
+										 icon="fa fa-times-circle-o"
+										 immediate="true"
+										 title="#{mensaje.MSJ_INFO_TIP_CANCELAR_MAIN}"
+										 update="@form, FormHeader"
+										 rendered="#{permisosUsuarioBean.btnCancelarVisible}"
+										 actionListener="#{permisosUsuarioBean.btnCancelar}" >																
+								</p:commandButton>
+										
+								<p:commandButton id="btnAceptarRegConcepto" value="Aceptar"
+										  styleClass="btn-primary"
+										 icon="fa fa-check-circle-o"										 
+										 immediate="true"
+										 update="@form, FormHeader"
+										 rendered="#{permisosUsuarioBean.btnAceptarVisible}"
+										 title="#{mensaje.MSJ_INFO_TIP_ACEPTAR_MAIN}"
+										 actionListener="#{permisosUsuarioBean.btnAceptar}" 
+										 />	
+																							
+						</p:panelGrid>					
+					</div>
+				</div>
+			</div>
+			<div class="customHr">.</div>					    			        				
+										
+				<p:outputPanel 
+					style="margin-bottom:20px">
+						<div class="ui-g">
+						<div class="ui-g-12 ui-g-nopad">
+							<div class="ui-fluid">								
+	                        <p:panelGrid layout="grid" styleClass="ui-panelgrid-blank" columns="1"
+	                                     columnClasses="ui-sm-12 ui-md-12 ui-lg-12 ui-xl-12
+	                                         				" >
+	                            <p:column>								
+	                                <p:outputLabel   
+	                                	value="Usuario actual" styleClass="estiloLabelForm" />
+									<p:outputLabel   
+	                                	value=": #{permisosUsuarioBean.perfilUsuarioRegistro.usuario} - #{permisosUsuarioBean.perfilUsuarioRegistro.nombre}" 
+	                                	styleClass="estiloValueForm"  />	                                	
+									<br /> 		
+									 		                         
+	                            </p:column>                                 
+	                        </p:panelGrid>
+							</div>
+						</div>							
+						</div>
+						<hr class="divider" />		
+						<p:fieldset legend="Compañía Socio" toggleSpeed="500" toggleable="true" >
+							<div id="divElemConceptoCompa"  >
+								<p:dataTable id="dtElemConceptoCompa" var="vPregValor"
+									value="#{permisosUsuarioBean.listaSeguridadAutorizaConceptosCompaniaReg}"							
+									reflow="true"							
+									rowIndexVar="index"
+									style="font-size:12px;"						
+									emptyMessage="#{mensaje.MSJ_WARN_busquedaVacia}">
+									<f:facet name="header"  >
+										<p:outputLabel style="padding-right:20px;" >Permisos por Compañía Socio</p:outputLabel>		
+										<p:commandButton actionListener="#{permisosUsuarioBean.agregarValorConceptoSeguridad(permisosUsuarioBean.tipoSeguridadGrupoCompania)}" 
+												id="btnAddRowHead"  styleClass="btn-primary"	
+												disabled="#{permisosUsuarioBean.componentesReadonly}"
+												update="dtElemConceptoCompa" icon="fa fa-plus-square lg"/>
+																										
+									</f:facet>							
+						
+									<p:column headerText="N°" width="10%" style="height: 30px;text-align:center" >
+										<h:outputText value="#{index + 1}" />
+									</p:column>					
+									<p:column headerText="Concepto - Descripción" width="50%"   >
+										<f:facet name="header">Concepto - Descripción
+										</f:facet>									
+							               		<p:selectOneMenu 
+							               		autoWidth="false"							               		
+							               		style="width:100%; #{(permisosUsuarioBean.componentesReadonly or (vPregValor.accion ne 'I')) ? 'pointer-events: none; cursor: default;': ''}"							               		
+														value="#{vPregValor.id.concepto}"	>	
+														<f:selectItem itemLabel="--Seleccione--" itemValue="" noSelectionOption="true" />
+														<f:selectItems value="#{permisosUsuarioBean.listaCompaniaRegSeleccionar}" 
+															var="elemeCmb"													
+															itemLabel="#{elemeCmb.description}"
+															itemValue="#{elemeCmb.companyowner}"
+														/>
+												</p:selectOneMenu>	
+													
+									</p:column>
+									<p:column headerText="Estado" width="20%"   >
+										<p:selectOneMenu 	
+											autoWidth="false" style="width:100%;"																 
+												value="#{vPregValor.estado}"	>	
+												<p:ajax  process="@form"  />
+												<f:selectItem itemLabel="Activo" itemValue="A" noSelectionOption="false"  />
+												<f:selectItem itemLabel="Inactivo" itemValue="I" noSelectionOption="false"  />
+										</p:selectOneMenu>																			
+									</p:column>
+									<p:column headerText="Último Usuario" width="20%"   >
+										<p:outputLabel  value="#{vPregValor.ultimoUsuario}" ></p:outputLabel>
+									</p:column>								
+									<p:column width="10%" headerText="Acciones" >							
+										<h:panelGroup layout="block">
+											
+											<p:commandButton actionListener="#{permisosUsuarioBean.eliminarValorConceptoSeguridad(vPregValor,permisosUsuarioBean.tipoSeguridadGrupoCompania)}" 
+											ajax="true"   id="btnDelRowConceptoCompa"
+											icon="fa fa-trash-o fa-lg" styleClass="btn-primary"	
+											disabled="#{permisosUsuarioBean.componentesReadonly}"
+											update="dtElemConceptoCompa" style="float: right;"/>
+											<p:tooltip for="btnDelRowConceptoCompa"
+											value="Elimina el elmento del listado" />
+										</h:panelGroup>									
+									</p:column>				
+								</p:dataTable>						
+							</div>						
+						</p:fieldset>
+
+						<p:fieldset legend="Establecimiento" toggleSpeed="500" toggleable="true" 
+							rendered="false" >
+							<div id="divElemConceptoEstab"  >
+								<p:dataTable id="dtElemConceptoEstab" var="vPregValor"
+									value="#{permisosUsuarioBean.listaSeguridadAutorizaConceptosEstablecReg}"							
+									reflow="true"							
+									rowIndexVar="index"
+									style="font-size:12px;"						
+									emptyMessage="#{mensaje.MSJ_WARN_busquedaVacia}">
+									<f:facet name="header"  >
+										<p:outputLabel style="padding-right:20px;" >Seguridad por Establecimiento</p:outputLabel>		
+										<p:commandButton actionListener="#{permisosUsuarioBean.agregarValorConceptoSeguridad(permisosUsuarioBean.tipoSeguridadGrupoEstablec)}" 
+												id="btnAddRowHead" styleClass="btn-primary"		
+												disabled="#{permisosUsuarioBean.componentesReadonly}"
+												update="dtElemConceptoEstab" icon="fa fa-plus-square lg"/>
+																										
+									</f:facet>							
+						
+									<p:column headerText="N°" width="10%" style="height: 30px;text-align:center" >
+										<h:outputText value="#{index + 1}" />
+									</p:column>					
+									<p:column headerText="Concepto - Descripción" width="50%"   >
+										<f:facet name="header">Concepto - Descripción
+										</f:facet>									
+							               		<p:selectOneMenu 
+							               		autoWidth="false"
+							               		style="width:100%;"
+							               		disabled="#{permisosUsuarioBean.componentesReadonly or (vPregValor.accion ne 'I')}"
+														value="#{vPregValor.id.concepto}"	>	
+														<f:selectItem itemLabel="--Seleccione--" itemValue="" noSelectionOption="true" />
+														<f:selectItems value="#{permisosUsuarioBean.listaEstablecimientoRegSeleccionar}" 
+															var="elemeCmb"													
+															itemLabel="#{elemeCmb.descripcionLocal}"
+															itemValue="#{elemeCmb.establecimientoCodigo}"
+														/>
+												</p:selectOneMenu>	
+													
+									</p:column>
+									<p:column headerText="Estado" width="20%"   >
+										<p:selectOneMenu 	
+											autoWidth="false" style="width:100%;"																 
+												value="#{vPregValor.estado}"	>	
+												<p:ajax  process="@form"  />
+												<f:selectItem itemLabel="Activo" itemValue="A" noSelectionOption="false"  />
+												<f:selectItem itemLabel="Inactivo" itemValue="I" noSelectionOption="false"  />
+										</p:selectOneMenu>																			
+									</p:column>
+									<p:column headerText="Último Usuario" width="20%"   >
+										<p:outputLabel  value="#{vPregValor.ultimoUsuario}" ></p:outputLabel>
+									</p:column>								
+									<p:column width="10%" headerText="Acciones" >							
+										<h:panelGroup layout="block">
+											<p:commandButton actionListener="#{permisosUsuarioBean.eliminarValorConceptoSeguridad(vPregValor,permisosUsuarioBean.tipoSeguridadGrupoEstablec)}" 
+											ajax="true"   id="dtElemConceptoEstab"
+											icon="fa fa-trash-o fa-lg" styleClass="btn-primary"		
+											disabled="#{permisosUsuarioBean.componentesReadonly}"
+											update="dtElemConceptoEstab" style="float: right;"/>
+											<p:tooltip for="dtElemConceptoEstab"
+											value="Elimina el elmento del listado" />
+										</h:panelGroup>									
+									</p:column>				
+								</p:dataTable>										
+								</div>							
+							</p:fieldset>
+													
+			</p:outputPanel>
+			
+		</p:panel>	
+
+</ui:composition>

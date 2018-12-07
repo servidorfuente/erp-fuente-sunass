@@ -1,0 +1,248 @@
+<ui:composition template="/template/TemplateGeneral.xhtml"	
+				
+				xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:p="http://primefaces.org/ui"
+				 
+				>
+					
+					
+		<style type="text/css">
+
+												
+		</style>				
+						
+	<ui:define name="contentBread">
+			<li class="current">
+				<i class="icon-angle-right labelBreadCrumbNormal"></i> 
+				<a class="labelBreadCrumbNormal" href="#{facesContext.externalContext.requestContextPath}/vistas/workflow/seguridad/permisosUsuario.xhtml">
+					Permisos de Usuario
+				</a>		
+			</li>
+			
+			<li id="liRegistro">
+				<i class="icon-angle-right labelBreadCrumbNormal" ></i> 
+				<a class="labelBreadCrumbDecor"   href="#"> 
+					 <h:outputText  rendered="#{permisosUsuarioBean.visibleRegistro}"  
+					 	value="#{label.REGISTRO_CAP}: #{permisosUsuarioBean.MODO_ACTUAL}" >
+					 </h:outputText> 
+				</a>
+			</li>	
+	</ui:define>
+
+	<ui:define name="contentEspecifico">	
+	
+	<script type="text/javascript" src="#{request.contextPath}/resources/js/primefaces-calendar.js"/>
+	
+	<h:form id="FormPermisosUsuario">
+			<p:growl  id="growl" globalOnly="true" autoUpdate="true"  ></p:growl>
+			<p:blockUI block="FormPermisosUsuario" widgetVar="blockElem" id="blockElem" trigger="btnModificar btnVer">
+				#{mensaje.MSJ_BLOCKUI_Proceso}<br />
+				<p:graphicImage value="/resources/images/loader03.gif"/>
+			</p:blockUI>  
+
+	
+		<div id="seccionMain" style="display: #{permisosUsuarioBean.visibleRegistro ?'none':'block'} ;" >
+					<div class="customHr">.</div>
+					<div  class="row"  align="center"  >
+						<div class="ui-g-12 ui-g-nopad">
+							<div class="ui-fluid">
+								<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank" columns="3"
+								columnClasses="ui-grid-col-2,ui-grid-col-5,ui-grid-col-5"
+								>
+									<p:column>
+										<p:panelGrid  layout="grid" styleClass="ui-panelgrid-blank" columns="1" 
+										columnClasses="ui-grid-col-12"
+										>
+											<p:commandButton id="btnBuscar" value="#{lbv.BUSCAR_CAP}" actionListener="#{permisosUsuarioBean.btnBuscar}" update="dtElemTable"
+												onstart="PF('dtElemTable').paginator.setPage(0);" 
+												process="@form"  styleClass="btn-primary" 
+												icon="fa fa-search" tabindex="5"
+												style="width: 100%;"
+												title="#{mensaje.MSJ_INFO_TIP_BUSCAR_MAIN}"
+											/>
+								
+										</p:panelGrid>
+									</p:column>
+									<p:column>
+										<p:spacer width="10" ></p:spacer>
+									</p:column>							
+									<p:column>
+										<p:panelGrid  layout="grid" styleClass="ui-panelgrid-blank" columns="3" 
+										columnClasses="ui-grid-col-4,ui-grid-col-4,ui-grid-col-4"
+										>	
+											<p:spacer/> 
+											<p:commandButton id="btnModificar" value="Perfiles" type="submit"
+												rendered="true" styleClass="btn-primary" 
+												update="@form, FormHeader"
+												process="@form"
+												title="Permite ver y agregar los perfiles del usuario"
+												actionListener="#{permisosUsuarioBean.btnPerfiles}"												
+												icon="fa fa-user-secret" >						
+											</p:commandButton>
+											<p:commandButton id="btnConceptos" value="Conceptos" type="submit"
+												rendered="true"
+												update="@form, FormHeader"
+												process="@form" styleClass="btn-primary" 
+												title="Permite ver y agregar los Permisos de seguridad del usuario"
+												actionListener="#{permisosUsuarioBean.btnConceptos}"											
+												icon="fa fa-users" >						
+											</p:commandButton>																														
+											<p:spacer width="20" height="10" rendered="false" />			
+											<p:commandButton id="btnVer" value="" type="submit"
+												update="@form, FormHeader"
+												process="@form" styleClass="btn-primary" 
+												rendered="false"
+												title="#{mensaje.MSJ_INFO_TIP_VER_MAIN}"
+												actionListener="#{permisosUsuarioBean.btnVer}"												
+												icon="fa fa-eye" >									
+											</p:commandButton>
+													
+										</p:panelGrid>
+									</p:column>		
+								</p:panelGrid>
+							</div>
+						</div>
+					</div>
+					<div class="customHr">.</div>	
+							
+			<div class="ui-g">
+				<div class="ui-g-12 ui-g-nopad">
+					<div class="ui-fluid">												
+									
+						<p:panelGrid id="pnlFiltros" layout="grid" styleClass="ui-panelgrid-blank" columns="5"
+							columnClasses="ui-grid-col-4,ui-grid-col-5,ui-grid-col-3"
+						>
+						
+							<p:column>
+								<p:outputLabel for="itFiltroUsuario" styleClass="estiloLabelForm" 
+								value="#{lbv.USUARIO_FILTRO_CODUSUARIO}"/>							
+								<p:inputText 										
+									id="itFiltroUsuario" 
+									value="#{permisosUsuarioBean.perfilUsuarioFiltro.usuario}"
+									placeholder="Búsqueda por usuario"									
+									tabindex="1" var="titulo"																											 										 														
+									>
+								</p:inputText>															 					
+							</p:column>											
+									
+							<p:column>
+								<p:outputLabel for="itFiltroNombre" value="#{lbv.USUARIO_FILTRO_NOMBREUSUARIO}" 
+									styleClass="estiloLabelForm"/>
+								<p:inputText  id="itFiltroNombre" 
+									value="#{permisosUsuarioBean.perfilUsuarioFiltro.nombre}"
+									placeholder="Búsqueda por nombre del perfil"									
+									tabindex="2" var="PersPedido"
+									>															
+								</p:inputText >																								
+
+																																												
+							</p:column>	
+																				
+							<p:column>
+								<p:outputLabel for="cmbEstados" value="#{lbv.ESTADO_CAP}: " styleClass="estiloLabelForm"/>
+								<p:selectOneMenu id="cmbEstados"																		 
+										value="#{permisosUsuarioBean.perfilUsuarioFiltro.estado}"												 									
+											>	
+									<p:ajax  process="@form" />		
+																																								 
+										<f:selectItem itemLabel="--Todos--" itemValue="" noSelectionOption="true" />
+										<f:selectItem itemLabel="Activo" itemValue="A" noSelectionOption="false" />
+										<f:selectItem itemLabel="Inactivo" itemValue="I" noSelectionOption="false" />
+
+								</p:selectOneMenu>	
+
+							</p:column>
+						
+						</p:panelGrid>
+						
+					</div>
+				</div>
+			</div>
+			<p:spacer width="0" height="20"/>
+			<div class="ui-g">
+				<div class="ui-g-12 ui-g-nopad">
+					<div class="ui-fluid">				
+						<p:toolbar id="toolbarBotones"  >
+							<f:facet name="left">
+
+							</f:facet>
+							<f:facet name="right">
+								<h:commandLink id="linkXls" 
+									actionListener="#{permisosUsuarioBean.actionLinkDescarga('Listado de Usuario')}">
+									<p:graphicImage value="/resources/images/icons/iconxls.png" />
+									<p:dataExporter type="xls" target="dtElemTable" fileName="ListadoUsuario"
+										postProcessor="#{permisosUsuarioBean.postProcessXLS_descarga}" 										
+										/>
+								</h:commandLink>
+								<p:tooltip for="linkXls" value="#{mensaje.MSJ_TIP_GEN_DESCARGA_XLS}" rendered="false" />
+								
+								<h:commandLink id="linkPdf"
+									actionListener="#{permisosUsuarioBean.actionLinkDescarga('Listado de Usuario')}">
+									<p:graphicImage value="/resources/images/icons/iconpdf.png" />
+									<p:dataExporter type="pdf" target="dtElemTable" fileName="ListadoUsuario"
+										preProcessor="#{permisosUsuarioBean.preProcessPDF_descarga}" encoding="ISO-8859-1"/>
+								</h:commandLink>
+								<p:tooltip for="linkPdf" value="#{mensaje.MSJ_TIP_GEN_DESCARGA_PDF}" />							
+																
+							</f:facet>
+						</p:toolbar>	
+					</div>
+				</div>
+			</div>											
+			<p:dataTable id="dtElemTable" var="vElemTable" lazy="true" widgetVar="dtElemTable"
+				value="#{permisosUsuarioBean.model}" paginator="true"
+				rows="#{permisosUsuarioBean.parametroCantRows}"
+				selectionMode="single"
+				selection="#{permisosUsuarioBean.perfilUsuarioSeleccion}"
+				rowKey="#{vElemTable.usuario}" paginatorPosition="bottom"
+				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+				rowsPerPageTemplate="#{permisosUsuarioBean.entradasVisualizadas}"
+				rowIndexVar="index"
+				reflow="true"			
+				emptyMessage="#{mensaje.MSJ_WARN_busquedaVacia}">
+	
+				<p:ajax event="rowSelect" process="@this"
+					update="FormPermisosUsuario:toolbarBotones"  />
+	
+				<p:column headerText="Nº"  width="5%">
+					<h:outputText value="#{index + 1}" />
+				</p:column>
+				<p:column headerText="#{lbv.USUARIO_FILTRO_CODUSUARIO}" 
+					style="font-weight: bold; background-color: #b8b8d4; " width="15%"
+					sortBy="#{vElemTable.usuario}"	>
+					<h:outputText value="#{vElemTable.usuario}" />
+				</p:column>
+				<p:column headerText="#{lbv.USUARIO_FILTRO_NOMBREUSUARIO}" width="40%" sortBy="#{vElemTable.nombre}" >
+					<h:outputText value="#{vElemTable.nombre}" />
+				</p:column>			
+				<p:column headerText="#{lbv.ESTADO_CAP}" width="10%" style="text-align: center">
+					<h:outputText value="#{vElemTable.estado eq 'A' ? label.ITEM_ACTIVO :label.ITEM_INACTIVO}"
+						styleClass="#{vElemTable.estado eq 'A' ? 'colTableEstadoActivo' :'colTableEstadoInactivo'}" />
+				</p:column>
+			
+			</p:dataTable>
+				
+		</div> 					
+		<div id="seccionRegistro" 
+            		style="display: #{
+            			(permisosUsuarioBean.visibleRegistro
+            				and !permisosUsuarioBean.visibleRegistroConcepto       				
+            			)            				
+            			?'block':'none' };" 
+			>	
+			<p:outputPanel id="opSeccionReg"  >								
+				<ui:include src="/vistas/workflow/seguridad/permisosUsuarioPerfiles.xhtml"></ui:include>			
+			</p:outputPanel>		
+		</div> 	
+		<div style="display: #{permisosUsuarioBean.visibleRegistroConcepto ?'block':'none'} ;" >	
+			<p:outputPanel id="opSeccionRegConcepto" rendered="#{permisosUsuarioBean.visibleRegistroConcepto}" >								
+				<ui:include src="/vistas/workflow/seguridad/permisosUsuarioConceptos.xhtml"></ui:include>			
+			</p:outputPanel>		
+		</div> 					
+	</h:form>		
+			
+	</ui:define>
+</ui:composition>
