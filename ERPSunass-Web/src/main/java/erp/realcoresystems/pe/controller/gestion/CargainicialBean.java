@@ -64,6 +64,7 @@ public class CargainicialBean extends AbstractGenericBean implements InterfaceGe
 
     private List<MaMiscelaneosdetalle> maMisTipoFuente;
     private List<MaMiscelaneosdetalle> maMisDestalleEstadoDocumento;
+    private List<MaMiscelaneosdetalle> maMisSubTipoInfraestructura;
 
     protected LazyDataModel<VwCargainicial> dataModel;
     protected List<VwCargainicial> listaDataModel;
@@ -84,6 +85,7 @@ public class CargainicialBean extends AbstractGenericBean implements InterfaceGe
         inicializarDatoInicial();
         buscarPrincipal();
         maMisTipoFuente = listarMiscelaneosDetalle("","TIPOFUENTE");
+        maMisSubTipoInfraestructura = listarMiscelaneosDetalle("", "SUBTIPINFR");
     }
     public void inicializarEntidad(){
         FacesUtil.removeIfExistsSessionMap(Utiles.COD_SESSION_LISTADO_PERSONAS);
@@ -95,6 +97,7 @@ public class CargainicialBean extends AbstractGenericBean implements InterfaceGe
         vwCargaInicialFiltro.setAnno(annoActual());
         maMisTipoFuente = UtilesCommons.getNewList();
         maMisDestalleEstadoDocumento = UtilesCommons.getNewList();
+        maMisSubTipoInfraestructura = UtilesCommons.getNewList();
         listarFuente = UtilesCommons.getNewList();
         listarSucursal = UtilesCommons.getNewList();
         listarProyecto = UtilesCommons.getNewList();
@@ -561,6 +564,14 @@ public class CargainicialBean extends AbstractGenericBean implements InterfaceGe
     public void setMaMisDestalleEstadoDocumento(List<MaMiscelaneosdetalle> maMisDestalleEstadoDocumento) {
         this.maMisDestalleEstadoDocumento = maMisDestalleEstadoDocumento;
     }
+    
+    public List<MaMiscelaneosdetalle> getMaMisSubTipoInfraestructura() {
+		return maMisSubTipoInfraestructura;
+	}
+    
+    public void setMaMisSubTipoInfraestructura(List<MaMiscelaneosdetalle> maMisSubTipoInfraestructura) {
+		this.maMisSubTipoInfraestructura = maMisSubTipoInfraestructura;
+	}
 
     public VwCargainicial getVwCargaInicialSelect() {
         return vwCargaInicialSelect;

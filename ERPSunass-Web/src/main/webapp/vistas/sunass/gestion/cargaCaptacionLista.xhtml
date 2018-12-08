@@ -1,0 +1,295 @@
+<ui:composition template="/template/TemplateGeneral.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <style type="text/css">
+    </style>
+    <ui:define name="contentBread">
+        <li class="current">
+            <i class="icon-angle-right labelBreadCrumbNormal"></i>
+            <a class="labelBreadCrumbNormal" href="#{facesContext.externalContext.requestContextPath}/vistas/sunass/gestion/cargaCaptacionLista.xhtml">
+                Fuentes de Agua
+            </a>
+        </li>
+
+        <li id="liRegistro">
+            <i class="icon-angle-right labelBreadCrumbNormal" ></i>
+            <a class="labelBreadCrumbDecor"   href="#">
+                <h:outputText  rendered="#{cargainicialBean.visibleRegistro}"
+                               value="#{label.REGISTRO_CAP}: #{cargainicialBean.MODO_ACTUAL}" >
+                </h:outputText>
+            </a>
+        </li>
+
+    </ui:define>
+
+    <ui:define name="contentEspecifico">
+
+        <script src="#{request.contextPath}/resources/js/validaciones.js" type="text/javascript" />
+        <script src="#{request.contextPath}/resources/js/primefaces-calendar.js" type="text/javascript" />
+
+
+        <h:form id="FormCargaInicial">
+            <script type="text/javascript" src="#{request.contextPath}/resources/js/primefaces-calendar.js" />
+            <p:remoteCommand name="inicializar" update="FormCargaInicial" actionListener="#{cargainicialBean.inicializar()}" />
+            <p:growl  id="growl" globalOnly="true" autoUpdate="true"  ></p:growl>
+
+            <p:blockUI block="FormCargaInicial" widgetVar="blockElem" id="blockElem" trigger="btnBuscar btnNuevo btnModificar btnVer">
+                #{mensaje.MSJ_BLOCKUI_Proceso}<br />
+                <p:graphicImage value="/resources/images/loader03.gif"/>
+            </p:blockUI>
+
+
+            <div id="seccionMain" style="display: #{cargainicialBean.visibleRegistro ?'none':'block'} ;" >
+                <div class="customHr">.</div>
+                <div  class="row"  align="center"  >
+                    <div class="ui-g-12 ui-g-nopad">
+                        <div class="ui-fluid">
+                            <p:panelGrid layout="grid" styleClass="ui-panelgrid-blank" columns="3"
+                                         columnClasses="ui-grid-col-2,ui-grid-col-6,ui-grid-col-4"
+                            >
+                                <p:column>
+                                    <p:panelGrid  layout="grid" styleClass="ui-panelgrid-blank" columns="1"
+                                                  columnClasses="ui-grid-col-12"
+                                    >
+                                        <p:commandButton value="Buscar" icon="fa fa-search" type="submit"
+                                                         id="btnBuscar"  styleClass="btn-primary"
+                                                         actionListener="#{cargainicialBean.btnBuscar}"
+                                                         process="@form"
+                                                         onstart="PF('dtCargaInicial').paginator.setPage(0);" update="dtCargaInicial"
+                                                         title="#{mensaje.MSJ_INFO_TIP_BUSCAR_MAIN}" />
+
+                                    </p:panelGrid>
+                                </p:column>
+                                <p:column>
+                                    <p:spacer width="10" ></p:spacer>
+                                </p:column>
+                                <p:column>
+                                    <p:panelGrid  layout="grid" styleClass="ui-panelgrid-blank" columns="6"
+                                                  columnClasses="ui-grid-col-2,ui-grid-col-2,ui-grid-col-2,ui-grid-col-2,ui-grid-col-2,ui-grid-col-2"
+                                    >
+                                        <p:spacer/>
+                                        <p:commandButton id="btnNuevo"   type="submit"
+                                                         update="@form, FormHeader"
+                                                         process="@form"
+                                                         actionListener="#{cargainicialBean.btnNuevo}"
+                                                         rendered="true" styleClass="btn-primary"
+                                                         icon="fa fa-plus-square"
+                                                         title="#{mensaje.MSJ_INFO_TIP_NUEVO_MAIN}"
+                                        >
+
+                                        </p:commandButton>
+
+                                        <p:commandButton id="btnModificar"   type="submit"
+                                                         rendered="true"
+                                                         update="@form, FormHeader"
+                                                         process="@form"
+                                                         actionListener="#{cargainicialBean.btnModificar}"
+                                                         styleClass="btn-primary"
+                                                         icon="fa fa-edit"
+                                                         title="#{mensaje.MSJ_INFO_TIP_MODIFICAR_MAIN}"
+                                        >
+                                        </p:commandButton>
+
+                                        <p:commandButton id="btnEliminar"   type="submit"
+                                                         rendered="true"
+                                                         update="@form, FormHeader"
+                                                         process="@form"
+                                                         actionListener="#{cargainicialBean.btnEliminar}"
+                                                         styleClass="btn-primary"
+                                                         icon="fa fa-trash"
+                                                         title="#{mensaje.MSJ_INFO_TIP_ELIMINAR_MAIN}"
+                                        >
+
+                                        </p:commandButton>
+
+                                        <p:spacer width="20" height="10"/>
+                                        <p:commandButton id="btnVer"  type="submit"
+                                                         update="@form, FormHeader"
+                                                         process="@form"
+                                                         rendered="true"
+                                                         actionListener="#{cargainicialBean.btnVer}"
+                                                         styleClass="btn-primary"
+                                                         icon="fa fa-eye"
+                                                         title="#{mensaje.MSJ_INFO_TIP_VER_MAIN}"
+                                        >
+                                        </p:commandButton>
+
+
+                                    </p:panelGrid>
+                                </p:column>
+                            </p:panelGrid>
+                        </div>
+                    </div>
+                </div>
+                <div class="customHr">.</div>
+
+                <div class="ui-g">
+                    <div class="ui-g-12 ui-g-nopad">
+                        <div class="ui-fluid">
+
+                            <p:panelGrid id="pnlFiltros" layout="grid" styleClass="ui-panelgrid-blank" columns="3"
+                                         columnClasses="ui-grid-col-4,ui-grid-col-4,ui-grid-col-4"
+                            >
+                                <p:column>
+                                    <p:outputLabel for="itTipoFuente" styleClass="estiloLabelForm"   value="#{lbv.CARGAINICIAL_TIPOFUENTE}"/>
+                                    <p:selectOneMenu id="itTipoFuente"  autoWidth="false" value="#{cargainicialBean.vwCargaInicialFiltro.fuenteid}"
+                                                     styleClass="required-field" >
+                                        <f:selectItem itemLabel="#{lbv.lblSeleccione}" itemValue="#{null}" noSelectionOption="true"/>
+                                        <f:selectItems value="#{cargainicialBean.listarFuente}" var="item"
+                                                       itemLabel="#{item.descripcion}" itemValue="#{item.fuenteid}"/>
+                                    </p:selectOneMenu>
+                                    <p:outputLabel for="itProyecto" styleClass="estiloLabelForm"   value="#{lbv.CARGAINICIAL_PROYECTO}"/>
+                                    <p:selectOneMenu id="itProyecto"  autoWidth="false" value="#{cargainicialBean.vwCargaInicialFiltro.proyectoid}"
+                                                     styleClass="required-field" >
+                                        <f:selectItem itemLabel="#{lbv.lblSeleccione}" itemValue="#{null}" noSelectionOption="true"/>
+                                        <f:selectItems value="#{cargainicialBean.listarProyecto}" var="item"
+                                                       itemLabel="#{item.prdescripcion}" itemValue="#{item.proyectoid}"/>
+                                    </p:selectOneMenu>
+                                </p:column>
+
+                                <p:column>
+                                    <p:outputLabel for="itCompania" styleClass="estiloLabelForm"   value="#{lbv.CONTROLPERIODO_COMPANIA}"/>
+
+                                    <p:selectOneMenu id="itCompania"  autoWidth="false" value="#{cargainicialBean.vwCargaInicialFiltro.companyowner}"
+                                                     styleClass="required-field" >
+                                        <p:ajax event="change" process="@this" update="FormCargaInicial:cmdSucursal" listener="#{cargainicialBean.seleccionarSucursal}"/>
+                                        <f:selectItem itemLabel="#{lbv.lblSeleccione}" itemValue="#{null}" noSelectionOption="true"/>
+                                        <f:selectItems value="#{cargainicialBean.listarCompanias}" var="item"
+                                                       itemLabel="#{item.description}" itemValue="#{item.companyowner}"/>
+                                    </p:selectOneMenu>
+                                    <p:outputLabel value="#{lbv.CARGAINICIAL_ANNO}" styleClass="estiloLabelForm" />
+                                    <p:inputText
+                                            value="#{cargainicialBean.vwCargaInicialFiltro.anno}"
+                                    />
+                                </p:column>
+
+                                <p:column>
+                                    <p:outputLabel for="cmdSucursal" styleClass="estiloLabelForm"  value="#{lbv.CARGAINICIAL_LOCALIDAD}"/>
+                                    <p:selectOneMenu id="cmdSucursal"
+                                                     value="#{cargainicialBean.vwCargaInicialFiltro.sucursal}">
+                                        <p:ajax event="change" process="@this" update="FormCargaInicial:itProyecto" listener="#{cargainicialBean.seleccionarProyecto}"/>
+                                        <f:selectItem itemLabel="#{lbv.lblSeleccione}" itemValue="#{null}" noSelectionOption="true"/>
+                                        <f:selectItems value="#{cargainicialBean.listarSucursal}" var="item"
+                                                       itemLabel="#{item.descripcionlocal}" itemValue="#{item.sucursal}"/>
+                                    </p:selectOneMenu>
+
+                                    <p:outputLabel for="cmbEstados" styleClass="estiloLabelForm"  value="Estado: " />
+                                    <p:selectOneMenu id="cmbEstados"
+                                                     value="#{cargainicialBean.vwCargaInicialFiltro.estado}"
+                                    >
+                                        <p:ajax  process="@form" />
+
+                                        <f:selectItem itemLabel="#{label.lblTodos}" itemValue="" noSelectionOption="true" />
+                                        <f:selectItem itemLabel="#{label.ITEM_ACTIVO}" itemValue="A" />
+                                        <f:selectItem itemLabel="#{label.ITEM_INACTIVO}" itemValue="I" />
+                                    </p:selectOneMenu>
+
+                                </p:column>
+
+                            </p:panelGrid>
+
+                        </div>
+                    </div>
+                </div>
+                <p:spacer width="0" height="20"/>
+                <div class="ui-g">
+                    <div class="ui-g-12 ui-g-nopad">
+                        <div class="ui-fluid">
+                            <p:toolbar id="toolbarBotones">
+                                <f:facet name="left">
+                                </f:facet>
+                                <f:facet name="right">
+                                    <h:commandLink id="linkXls" title="#{mensaje.MSJ_TIP_GEN_DESCARGA_XLS}"
+                                                   actionListener="#{cargainicialBean.actionLinkDescarga(mensaje.MSJ_LINKDESCARGA_ControlPeriodo)}">
+                                        <p:graphicImage value="/resources/images/icons/iconxls.png" />
+                                        <p:dataExporter type="xls" target="dtCargaInicial" fileName="#{mensaje.MSJ_LINKDESCARGA_ControlPeriodo_FILENAME}"
+                                                        postProcessor="#{cargainicialBean.postProcessXLS_descarga}"
+                                        />
+                                    </h:commandLink>
+
+                                    <h:commandLink id="linkPdf"
+                                                   title="#{mensaje.MSJ_TIP_GEN_DESCARGA_PDF}"
+                                                   actionListener="#{cargainicialBean.actionLinkDescarga(mensaje.MSJ_LINKDESCARGA_ControlPeriodo)}">
+                                        <p:graphicImage value="/resources/images/icons/iconpdf.png" />
+                                        <p:dataExporter type="pdf" target="dtCargaInicial" fileName="#{mensaje.MSJ_LINKDESCARGA_ControlPeriodo_FILENAME}"
+                                                        preProcessor="#{cargainicialBean.preProcessPDF_descarga}" encoding="ISO-8859-1"/>
+                                    </h:commandLink>
+
+                                </f:facet>
+                            </p:toolbar>
+                        </div>
+                    </div>
+                </div>
+                <p:dataTable id="dtCargaInicial" var="vElement" widgetVar="dtCargaInicial" lazy="true" reflow="true"
+                             value="#{cargainicialBean.dataModel}" paginator="true"
+                             rows="#{cargainicialBean.parametroCantRows}"
+                             selection="#{cargainicialBean.vwCargaInicialSelect}" selectionMode="single"
+                             rowKey="#{vElement.cargainicialid}" paginatorPosition="bottom"
+
+                             paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                             rowsPerPageTemplate="#{cargainicialBean.entradasVisualizadas}"
+                             rowIndexVar="index"
+                             emptyMessage="#{mensaje.MSJ_WARN_busquedaVacia}"
+                             style="font-size: 12px; text-align:center;"
+                >
+                    <p:ajax event="rowSelect" process="@this" />
+
+                    <p:column headerText="Nº" >
+                        <h:outputText value="#{index + 1}" />
+                    </p:column>
+                    <p:column headerText="#{lbv.CONTROLPERIODO_EPS}" >
+                        <h:outputText value="#{vElement.companyowner}" />
+                    </p:column>
+                    <p:column headerText="#{lbv.CONTROLPERIODO_SUCURSAL}" >
+                        <h:outputText value="#{vElement.sucursal}" />
+                    </p:column>
+                    <p:column headerText="#{lbv.CONTROLPERIODO_CODIGOFUENTE}" >
+                        <h:outputText value="#{vElement.proyectoid}" />
+                    </p:column>
+                    <p:column headerText="#{lbv.CONTROLPERIODO_NOMBREFUENTE}" >
+                        <h:outputText value="#{vElement.prdescripcion}" />
+                    </p:column>
+                    <p:column headerText="#{lbv.CARGAINICIAL_TIPOFUENTES}" >
+                        <h:outputText value="#{vElement.fuenteid}" />
+                    </p:column>
+                    <p:column headerText="#{lbv.CARGAINICIAL_CAUDALCAPTADOURBANO}" >
+                        <h:outputText value="#{vElement.caudalurbanoLps}" />
+                    </p:column>
+                    <p:column headerText="#{lbv.CARGAINICIAL_CAUDALCAPTADORURAL}" >
+                        <h:outputText value="#{vElement.caudalruralLps}" />
+                    </p:column>
+                    <p:column headerText="#{lbv.CARGAINICIAL_CAUDALCAPTADODIRECTO}" >
+                        <h:outputText value="#{vElement.caudalcaptadodirectoLps}" />
+                    </p:column>
+                    <p:column headerText="#{lbv.CARGAINICIAL_CAUDALCAPTADOBOMBEO}" >
+                        <h:outputText value="#{vElement.caudalcaptadobombeoLps}" />
+                    </p:column>
+					<p:column headerText="#{lbv.CARGAINICIAL_POTENCIAHP}" >
+                        <h:outputText value="#{vElement.potenciaHp}" />
+                    </p:column>
+                    <p:column headerText="#{lbv.CARGAINICIAL_OBSERVACIONES}" >
+                        <h:outputText value="#{vElement.observacion}" />
+                    </p:column>
+                    <p:column headerText="#{lbv.ESTADO_CAP}" >
+                        <h:outputText value="#{vElement.estado eq 'A' ? label.ITEM_ACTIVO :label.ITEM_INACTIVO}"
+                                      styleClass="#{vElement.estado eq 'A' ? 'colTableEstadoActivo' :'colTableEstadoInactivo'}" />
+                    </p:column>
+
+                </p:dataTable>
+
+            </div>
+            <div id="seccionRegistro" style="display: #{cargainicialBean.visibleRegistro ?'block':'none'} ;" >
+                <p:outputPanel id="opSeccionReg" rendered="#{cargainicialBean.visibleRegistro}" >
+                    <ui:include src="/vistas/sunass/gestion/cargaCaptacionRegistro.xhtml"></ui:include>
+
+                </p:outputPanel>
+            </div>
+        </h:form>
+
+
+
+    </ui:define>
+</ui:composition>
