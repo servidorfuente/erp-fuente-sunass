@@ -38,6 +38,7 @@ public class MenuPrincipalEstaticoBean {
     public static final String URL_CARGAINICIAL_FUENTE= "/vistas/sunass/gestion/cargaFuentesLista.xhtml?fuenteid=1";
     public static final String URL_CARGAINICIAL_ESTRUCTURA= "/vistas/sunass/gestion/cargaEstructuraLista.xhtml?fuenteid=2";
     public static final String URL_CARGAINICIAL_PLANTA= "/vistas/sunass/gestion/cargaPlantaLista.xhtml?fuenteid=3";
+    public static final String URL_CARGAINICIAL_CAPTACION= "/vistas/sunass/gestion/cargaCaptacionLista.xhtml?fuenteid=7";
 
     /**
      * Obtiene la lista de Permisos , pero del tipo de objeto 'C', que son las
@@ -199,6 +200,21 @@ public class MenuPrincipalEstaticoBean {
         planta.setUrl("" + URL_CARGAINICIAL_PLANTA);
         planta.setObjetoWindow("fa fa-circle-o");
         listaOpcPermisos.add(planta);
+        
+        
+        VwSeguridadautorizacione captacion = new VwSeguridadautorizacione();
+        captacion.setAplicacionCodigo(Constant.APLICACION_CODIGO);
+        captacion.setUsuario(EntityGlobal.getInstance().getUsuario());
+        captacion.setEstado(Constant.ACTIVO);
+        captacion.setTipodeObjeto(TIPOO_ARCHIVO_db);
+        
+        captacion.setGrupo("GRUPO010");
+        captacion.setConcepto("CON0007");
+        captacion.setConceptoPadre("CON0000");
+        captacion.setDescripcionSegConcepto("Captación de Agua");
+        captacion.setUrl("" + URL_CARGAINICIAL_CAPTACION);
+        captacion.setObjetoWindow("fa fa-circle-o");
+        listaOpcPermisos.add(captacion);
 
         VwSeguridadautorizacione estructura = new VwSeguridadautorizacione();
         estructura.setAplicacionCodigo(Constant.APLICACION_CODIGO);

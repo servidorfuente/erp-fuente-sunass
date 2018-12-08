@@ -60,7 +60,10 @@ public class VwCargainicial  extends Entidad {
     private Date  creacionfecha;
     private String ultimousuario;
     private Date  ultimafechamodif;
-
+    private String subTipoInfraestructura;
+    private String codSistemaCaptacion;
+    private String nombreSistemaCaptacion;
+    
     @Id
     @Basic
     @Column(name = "CARGAINICIALID")
@@ -574,5 +577,33 @@ public class VwCargainicial  extends Entidad {
         this.ultimafechamodif = ultimafechamodif;
     }
 
-
+    @Basic
+    @Column(name = "SUB_TIPO_INFRAESTRUCTURA")
+    public String getSubTipoInfraestructura() {
+		return subTipoInfraestructura;
+	}
+    
+    public void setSubTipoInfraestructura(String subTipoInfraestructura) {
+		this.subTipoInfraestructura = subTipoInfraestructura;
+	}
+    
+    @Basic
+    @Column(name = "COD_SISTEMA_CAPTACION")
+    public String getCodSistemaCaptacion() {
+		return codSistemaCaptacion;
+	}
+    
+    public void setCodSistemaCaptacion(String codSistemaCaptacion) {
+		this.codSistemaCaptacion = codSistemaCaptacion;
+	}
+    
+    @Basic
+    @Column(name = "NOMBRE_SISTEMA_CAPTACION")
+    public String getNombreSistemaCaptacion() {
+		return nombreSistemaCaptacion;
+	}
+    
+    public void setNombreSistemaCaptacion(String nombreSistemaCaptacion) {
+		this.nombreSistemaCaptacion = nombreSistemaCaptacion;
+	}
 }

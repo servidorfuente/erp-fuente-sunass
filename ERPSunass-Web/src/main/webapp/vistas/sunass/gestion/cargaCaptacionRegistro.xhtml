@@ -1,0 +1,201 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+                
+    <p:importConstants type="erp.realcoresystems.pe.model.util.Constant" var="CONSTANT"/>
+
+    <p:panel  id="ControlTipoCambioReg"  style="width:auto;" >
+        <div class="row" align="center">
+            <div class="ui-g-12 ui-g-nopad">
+                <div class="ui-fluid">
+                    <p:panelGrid layout="grid" styleClass="ui-panelgrid-blank"
+                                 columns="3" columnClasses="ui-grid-col-8,ui-grid-col-2,ui-grid-col-2">
+
+                        <p:spacer width="10"></p:spacer>
+                        <p:spacer  rendered="#{cargainicialBean.btnAceptarVisible}" width="10"></p:spacer>
+                        <p:commandButton id="btnGuardar" value="Guardar"
+                                         icon="fa fa-save"  styleClass="btn-primary"
+                                         rendered="#{cargainicialBean.btnGuardarVisible}"
+                                         actionListener="#{cargainicialBean.btnGuardar}"
+                                         update="@form, FormHeader"
+                                         title="#{mensaje.MSJ_INFO_TIP_GUARDAR_MAIN}"
+                        >
+                        </p:commandButton>
+                        <p:commandButton id="btnEliminarReg" value="Eliminar"
+                                         icon="fa fa-trash-o"
+                                         styleClass="btn-primary"
+                                         update="@form, FormHeader"
+                                         rendered="#{cargainicialBean.btnGuardarEliminarVisible}"
+                                         actionListener="#{cargainicialBean.btnGuardar}"
+                                         title="#{mensaje.MSJ_INFO_TIP_ELIMINARCOMP_MAIN}"
+                        >
+                        </p:commandButton>
+                        <p:commandButton id="btnCancelar" value="Cancelar"
+                                         styleClass="btn-primary"
+                                         icon="fa fa-times-circle-o"
+                                         immediate="true"
+                                         update="@form, FormHeader"
+                                         rendered="#{cargainicialBean.btnCancelarVisible}"
+                                         actionListener="#{cargainicialBean.btnCancelar}"
+                                         title="#{mensaje.MSJ_INFO_TIP_CANCELAR_MAIN}"
+                        >
+                        </p:commandButton>
+
+                        <p:commandButton id="btnAceptarReg" value="Aceptar"
+                                         styleClass="btn-primary"
+                                         icon="fa fa-check-circle-o"
+                                         immediate="true"
+                                         update="@form, FormHeader"
+                                         rendered="#{cargainicialBean.btnAceptarVisible}"
+                                         actionListener="#{cargainicialBean.btnAceptar}"
+                                         title="#{mensaje.MSJ_INFO_TIP_ACEPTAR_MAIN}"
+                        />
+                    </p:panelGrid>
+                </div>
+            </div>
+        </div>
+        <div class="customHr">.</div>
+        <p:fieldset legend="Información General" toggleSpeed="500" toggleable="true" >
+            <div class="ui-g">
+                <div class="ui-g-12 ui-g-nopad">
+                    <div class="ui-fluid">
+                        <div class="customHr">.</div>
+                        <p:outputPanel id="pnlCapRegistro">
+                        
+                         <p:panelGrid layout="grid" styleClass="ui-panelgrid-blank"
+                                     columns="2"
+                                     columnClasses="ui-grid-col-6,ui-grid-col-6">
+                        
+                        	<p:column >
+								<p:outputLabel for="itTipoFuenteReg" styleClass="estiloLabelForm" value="#{lbv.CARGAINICIAL_TIPOFUENTE}" />
+	                            <p:selectOneMenu id="itTipoFuenteReg"  autoWidth="false" value="#{cargainicialBean.ssCargaInicialRegistro.fuenteid}"
+	                                                 styleClass="required-field">
+	                            	<f:selectItem itemLabel="#{lbv.lblSeleccione}" itemValue="#{null}" noSelectionOption="true"/>
+	                                <f:selectItems value="#{cargainicialBean.listarFuente}" var="item"
+	                                                   itemLabel="#{item.descripcion}" itemValue="#{item.fuenteid}"/>
+	                           	</p:selectOneMenu>
+                           	</p:column>
+                           	
+                        	<p:column>
+	                        	<p:outputLabel for="itAnno" styleClass="estiloLabelForm" value="#{lbv.CARGAINICIAL_ANNO}"/>
+								<p:inputText id="itAnno"
+								 	value="#{cargainicialBean.ssCargaInicialRegistro.anno}"
+								/>        
+							</p:column>       
+                        </p:panelGrid>
+                        
+                        <p:panelGrid layout="grid" styleClass="ui-panelgrid-blank"
+                                     columns="2"
+                                     columnClasses="ui-grid-col-6,ui-grid-col-6">
+                                     
+                            <p:column>
+								<p:outputLabel for="itCompaniaReg" styleClass="estiloLabelForm"   value="#{lbv.CONTROLPERIODO_COMPANIA}"/>
+                                <p:selectOneMenu id="itCompaniaReg"  autoWidth="false" value="#{cargainicialBean.ssCargaInicialRegistro.companyowner}"
+                                                 styleClass="required-field" >
+                                    <p:ajax event="change" process="@this" update="#{p:component('pnlCapRegistro')}" listener="#{cargainicialBean.seleccionarSucursal}"/>
+                                    <f:selectItem itemLabel="#{lbv.lblSeleccione}" itemValue="#{null}" noSelectionOption="true"/>
+                                    <f:selectItems value="#{cargainicialBean.listarCompanias}" var="item"
+                                                   itemLabel="#{item.description}" itemValue="#{item.companyowner}"/>
+                                </p:selectOneMenu>
+								
+								<p:outputLabel for="itProyectoReg" styleClass="estiloLabelForm"   value="#{lbv.CARGAINICIAL_PROYECTO}" />
+	                        	<p:selectOneMenu id="itProyectoReg"  autoWidth="false" value="#{cargainicialBean.ssCargaInicialRegistro.proyectoid}"
+	                                                 styleClass="required-field">
+	                            	<f:selectItem itemLabel="#{lbv.lblSeleccione}" itemValue="#{null}" noSelectionOption="true"/>
+	                                <f:selectItems value="#{cargainicialBean.listarProyecto}" var="item"
+	                                                   itemLabel="#{item.prdescripcion}" itemValue="#{item.proyectoid}"/>
+	                        	</p:selectOneMenu>
+                                
+                              	<p:outputLabel for="itCaudalUrbano" styleClass="estiloLabelForm" value="#{lbv.CARGAINICIAL_CAUDALCAPTADOURBANO}"/>
+								<p:inputNumber id="itCaudalUrbano"
+									value="#{cargainicialBean.ssCargaInicialRegistro.caudalurbanoLps}"
+									disabled="#{cargainicialBean.ssCargaInicialRegistro.subTipoInfraestructura ne CONSTANT.CAPTACION_SUB_TIPO_INFRAESTRUCTURA_SUPERFICIAL or cargainicialBean.ssCargaInicialRegistro.subTipoInfraestructura eq null}"
+								/>
+									 
+								<p:outputLabel for="itCaudalRural" styleClass="estiloLabelForm" value="#{lbv.CARGAINICIAL_CAUDALCAPTADORURAL}"/>
+								<p:inputNumber id="itCaudalRural"
+									value="#{cargainicialBean.ssCargaInicialRegistro.caudalruralLps}"
+									disabled="#{cargainicialBean.ssCargaInicialRegistro.subTipoInfraestructura ne CONSTANT.CAPTACION_SUB_TIPO_INFRAESTRUCTURA_SUPERFICIAL or cargainicialBean.ssCargaInicialRegistro.subTipoInfraestructura eq null}"
+								/>
+                                
+                                <p:outputLabel for="itObervaciones" styleClass="estiloLabelForm" value="#{lbv.CARGAINICIAL_OBSERVACIONES}"/>
+                            	<p:inputText id="itObervaciones"
+                            		value="#{cargainicialBean.ssCargaInicialRegistro.observacion}"
+                            	/>
+                            </p:column>
+                            
+                            <p:column>
+                            
+                                <p:outputLabel for="itSucursalReg" styleClass="estiloLabelForm"  value="#{lbv.CARGAINICIAL_LOCALIDAD}"/>
+                                <p:selectOneMenu id="itSucursalReg"
+                                                 value="#{cargainicialBean.ssCargaInicialRegistro.sucursal}">
+                                    <p:ajax event="change" process="@this" update="FormCargaInicial:itProyectoReg" listener="#{cargainicialBean.seleccionarProyecto}"/>
+                                    <f:selectItem itemLabel="#{lbv.lblSeleccione}" itemValue="#{null}" noSelectionOption="true"/>
+                                    <f:selectItems value="#{cargainicialBean.listarSucursal}" var="item"
+                                                   itemLabel="#{item.descripcionlocal}" itemValue="#{item.sucursal}"/>
+                                </p:selectOneMenu>
+                                                              	
+                              	<p:outputLabel for="itSubtipoInfra" styleClass="estiloLabelForm"   value="#{lbv.CARGAINICIAL_SUBTIPOINFRAESTRUCTURA}"/>
+                                <p:selectOneMenu id="itSubtipoInfra"  autoWidth="false" value="#{cargainicialBean.ssCargaInicialRegistro.subTipoInfraestructura}"
+                                                 styleClass="required-field" >
+                                     
+                                    <p:ajax process="@this" update="#{p:component('pnlCapRegistro')}"/>
+                                    <f:selectItem itemLabel="#{lbv.lblSeleccione}" itemValue="#{null}" noSelectionOption="true"/>
+                                    <f:selectItems value="#{cargainicialBean.maMisSubTipoInfraestructura}" var="item"
+                                                   itemLabel="#{item.descripcionlocal}" itemValue="#{item.codigoelemento}"/>
+                                </p:selectOneMenu>
+                                
+                                <p:outputLabel for="itCaudalDirecto" styleClass="estiloLabelForm" value="#{lbv.CARGAINICIAL_CAUDALCAPTADODIRECTO}"/>
+								<p:inputNumber id="itCaudalDirecto"
+									value="#{cargainicialBean.ssCargaInicialRegistro.caudalcaptadodirectoLps}"
+									disabled="#{cargainicialBean.ssCargaInicialRegistro.subTipoInfraestructura eq CONSTANT.CAPTACION_SUB_TIPO_INFRAESTRUCTURA_SUPERFICIAL or cargainicialBean.ssCargaInicialRegistro.subTipoInfraestructura eq null}"
+								/>
+									 
+								<p:outputLabel for="itCaudalBombeo" styleClass="estiloLabelForm" value="#{lbv.CARGAINICIAL_CAUDALCAPTADOBOMBEO}"/>
+								<p:inputNumber id="itCaudalBombeo"
+									value="#{cargainicialBean.ssCargaInicialRegistro.caudalcaptadobombeoLps}"
+									disabled="#{cargainicialBean.ssCargaInicialRegistro.subTipoInfraestructura eq CONSTANT.CAPTACION_SUB_TIPO_INFRAESTRUCTURA_SUPERFICIAL or cargainicialBean.ssCargaInicialRegistro.subTipoInfraestructura eq null}"
+								/>
+	
+	                            <p:outputLabel for="itPotenciaHP" styleClass="estiloLabelForm" value="#{lbv.CARGAINICIAL_POTENCIAHP}"/>
+								<p:inputNumber id="itPotenciaHP"
+									value="#{cargainicialBean.ssCargaInicialRegistro.potenciaHp}"
+									disabled="#{cargainicialBean.ssCargaInicialRegistro.subTipoInfraestructura eq CONSTANT.CAPTACION_SUB_TIPO_INFRAESTRUCTURA_SUPERFICIAL or cargainicialBean.ssCargaInicialRegistro.subTipoInfraestructura eq null}"
+								/>
+								
+                            </p:column>
+                        </p:panelGrid>
+						</p:outputPanel>
+                    </div>
+                </div>
+            </div>
+
+        </p:fieldset>
+
+        <div class="row" style="padding-left:15px;" >
+            <p:spacer height="20" ></p:spacer>
+            <p:fieldset legend="Información Referencial"   toggleable="true" toggleSpeed="500" >
+                <div  align="left" >
+                    <h:panelGrid columns="1" cellpadding="0" cellspacing="0" >
+                        <p:outputLabel value="#{lbv.MODIFICACION_CAP}" styleClass="estiloLabelForm"  />
+                        <h:outputText value="#{cargainicialBean.ssCargaInicialRegistro.ultimousuario}"
+                                      style="font-style: italic" />
+                        <h:outputText value="#{cargainicialBean.ssCargaInicialRegistro.ultimafechamodif}" style="font-style: italic">
+                            <f:convertDateTime pattern="#{label.PATTERN_DATETIME}" locale="#{lbv.LOCALE}"/>
+                        </h:outputText>
+                    </h:panelGrid>
+
+                </div>
+            </p:fieldset>
+
+        </div>
+    </p:panel>
+
+    <script type="text/javascript">
+
+    </script>
+
+</ui:composition>

@@ -64,6 +64,7 @@ public class CargainicialBean extends AbstractGenericBean implements InterfaceGe
 
     private List<MaMiscelaneosdetalle> maMisTipoFuente;
     private List<MaMiscelaneosdetalle> maMisDestalleEstadoDocumento;
+    private List<MaMiscelaneosdetalle> maMisSubTipoInfraestructura;
 
     protected LazyDataModel<VwCargainicial> dataModel;
     protected List<VwCargainicial> listaDataModel;
@@ -84,6 +85,7 @@ public class CargainicialBean extends AbstractGenericBean implements InterfaceGe
         inicializarDatoInicial();
         buscarPrincipal();
         maMisTipoFuente = listarMiscelaneosDetalle("","TIPOFUENTE");
+        maMisSubTipoInfraestructura = listarMiscelaneosDetalle("", "SUBTIPINFR");
     }
     public void inicializarEntidad(){
         FacesUtil.removeIfExistsSessionMap(Utiles.COD_SESSION_LISTADO_PERSONAS);
@@ -95,6 +97,7 @@ public class CargainicialBean extends AbstractGenericBean implements InterfaceGe
         vwCargaInicialFiltro.setAnno(annoActual());
         maMisTipoFuente = UtilesCommons.getNewList();
         maMisDestalleEstadoDocumento = UtilesCommons.getNewList();
+        maMisSubTipoInfraestructura = UtilesCommons.getNewList();
         listarFuente = UtilesCommons.getNewList();
         listarSucursal = UtilesCommons.getNewList();
         listarProyecto = UtilesCommons.getNewList();
@@ -285,6 +288,7 @@ public class CargainicialBean extends AbstractGenericBean implements InterfaceGe
         ssCargaInicialRegistro.setCreacionfecha(new Date());
         ssCargaInicialRegistro.setUltimafechamodif(new Date());
     }
+    
     public boolean esValidoFormulario( SsCargainicial objSave) {
         boolean validoFormulario = true;
         if(!UtilesCommons.noEsVacio(ssCargaInicialRegistro.getFuenteid())){
@@ -314,6 +318,11 @@ public class CargainicialBean extends AbstractGenericBean implements InterfaceGe
             validoFormulario = false;
             return validoFormulario;
         }
+        if(!esValidoFormularioCaptacion(ssCargaInicialRegistro)) {
+        	 validoFormulario = false;
+             return validoFormulario;
+        }
+        
         SsCargainicial busqueda = ssCargainicialService.buscar(ssCargaInicialRegistro);
         if (busqueda != null && MODO_ACTUAL.equals(MODO_NEW)) {
             FacesUtil.adicionarMensajeWarning(FacesUtil.getMSJProperty("MSJ_WARN_EXISTEREGISTRO"));
@@ -321,6 +330,7 @@ public class CargainicialBean extends AbstractGenericBean implements InterfaceGe
         }
         return validoFormulario;
     }
+    
     public boolean esValidoxFormulario( SsCargainicial validaxFormulario) {
         boolean validoxFormulario = true;
         if (validaxFormulario.getFuenteid()==1){ // Formulario FUENTE DE AGUA
@@ -366,6 +376,38 @@ public class CargainicialBean extends AbstractGenericBean implements InterfaceGe
 
         return validoxFormulario;
     }
+    
+    public boolean esValidoFormularioCaptacion(SsCargainicial formulario) {
+    	if(formulario.getFuenteid().compareTo(new Integer(7)) == 0) {// FORMULARIO CAPTACION
+//    		if(UtilesCommons.esVacio(formulario.getCodSistemaCaptacion())) {
+//    			FacesUtil.adicionarMensajeWarning("Ingrese el código del sistema de captación.");
+//    			return false;
+//    		}
+//    		if(UtilesCommons.esVacio(formulario.getNombreSistemaCaptacion())) {
+//    			FacesUtil.adicionarMensajeWarning("Ingrese el nombre del sistema de captación.");
+//    			return false;
+//    		}
+    		if(UtilesCommons.esVacio(formulario.getSubTipoInfraestructura())) {
+    			FacesUtil.adicionarMensajeWarning("Seleccione el sub tipo de infraestructura.");
+    			return false;
+    		}
+    		if(UtilesCommons.sonCadenasIguales(formulario.getSubTipoInfraestructura(), Constant.CAPTACION_SUB_TIPO_INFRAESTRUCTURA_SUPERFICIAL)
+    				&& UtilesCommons.esNulo(formulario.getCaudalurbanoLps()) 
+    				&& UtilesCommons.esNulo(formulario.getCaudalruralLps())) {
+    			FacesUtil.adicionarMensajeWarning("Debe ingresar almenos el caudal urbano o rural cuando es sub tipo de infraestructura es superficial.");
+    			return false;
+    		}
+    		if(!UtilesCommons.sonCadenasIguales(formulario.getSubTipoInfraestructura(), Constant.CAPTACION_SUB_TIPO_INFRAESTRUCTURA_SUPERFICIAL)
+    				&& UtilesCommons.esNulo(formulario.getCaudalcaptadodirectoLps()) 
+    				&& UtilesCommons.esNulo(formulario.getCaudalcaptadobombeoLps())
+    				&& UtilesCommons.esVacio(formulario.getPotenciaHp())) {
+    			FacesUtil.adicionarMensajeWarning("Debe ingresar almenos el caudal directo, bombeo o la potencia HP cuando es sub tipo de infraestructura no es superficial.");
+    			return false;
+    		}
+    	}
+    	return true;
+    }
+    
     @Override
     public void btnAceptar() {
         visibleRegistro = false;
@@ -561,6 +603,14 @@ public class CargainicialBean extends AbstractGenericBean implements InterfaceGe
     public void setMaMisDestalleEstadoDocumento(List<MaMiscelaneosdetalle> maMisDestalleEstadoDocumento) {
         this.maMisDestalleEstadoDocumento = maMisDestalleEstadoDocumento;
     }
+    
+    public List<MaMiscelaneosdetalle> getMaMisSubTipoInfraestructura() {
+		return maMisSubTipoInfraestructura;
+	}
+    
+    public void setMaMisSubTipoInfraestructura(List<MaMiscelaneosdetalle> maMisSubTipoInfraestructura) {
+		this.maMisSubTipoInfraestructura = maMisSubTipoInfraestructura;
+	}
 
     public VwCargainicial getVwCargaInicialSelect() {
         return vwCargaInicialSelect;
