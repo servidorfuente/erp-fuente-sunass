@@ -413,7 +413,7 @@ public class CargainicialBean extends AbstractGenericBean implements InterfaceGe
 //    			FacesUtil.adicionarMensajeWarning("Ingrese el nombre del sistema de captación.");
 //    			return false;
 //    		}
-    		if(UtilesCommons.esVacio(formulario.getSubTipoInfraestructura())) {
+    	/*	if(UtilesCommons.esVacio(formulario.getSubTipoInfraestructura())) {
     			FacesUtil.adicionarMensajeWarning("Seleccione el sub tipo de infraestructura.");
     			return false;
     		}
@@ -429,7 +429,7 @@ public class CargainicialBean extends AbstractGenericBean implements InterfaceGe
     				&& UtilesCommons.esVacio(formulario.getPotenciaHp())) {
     			FacesUtil.adicionarMensajeWarning("Debe ingresar almenos el caudal directo, bombeo o la potencia HP cuando es sub tipo de infraestructura no es superficial.");
     			return false;
-    		}
+    		}*/
     	}
     	return true;
     }

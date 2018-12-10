@@ -42,6 +42,10 @@ public class AprobacionesAperturaBean extends AbstractGenericBean implements Int
     @ManagedProperty(value="#{ssControlperiodoService}")
     private SsControlperiodoService ssControlperiodoService;
 
+    @ManagedProperty(value="#{ssCargainicialService}")
+    private SsCargainicialService ssCargainicialService;
+
+
     @ManagedProperty(value="#{acSucursalService}")
     private AcSucursalService acSucursalService;
 
@@ -206,9 +210,9 @@ public class AprobacionesAperturaBean extends AbstractGenericBean implements Int
                                                Map<String, Object> filters) {
                 cargarObjetoFiltros(first, pageSize, 0);
                 setOrderListadoGeneric(vwControlperiodoFiltro, sortField, sortOrder);
-                listaDataModel = ssControlperiodoService.listarVista(vwControlperiodoFiltro,true);
+                listaDataModel = ssControlperiodoService.listarVistaGrupos(vwControlperiodoFiltro,true);
                 if(UtilesCommons.noEsVacio(listaDataModel)){
-                    setRowCount(ssControlperiodoService.contarVista(vwControlperiodoFiltro));
+                    setRowCount(ssControlperiodoService.contarVistaGrupo(vwControlperiodoFiltro));
                 }
                 setPageSize(pageSize);
                 setRowIndex(first);
@@ -307,7 +311,38 @@ public class AprobacionesAperturaBean extends AbstractGenericBean implements Int
             }else{
                 listadoTemp = listaSeleccionTotal;
             }
+            vwControlperiodoFiltro.setInt_3(2);
             result = ssControlperiodoService.registrarVista(listadoTemp,vwControlperiodoFiltro, false );
+            if (result==3){
+                Integer annno= vwControlperiodoFiltro.getInteger1()-1;
+                Integer retorno;
+                SsCargainicial regsEnt = new SsCargainicial();
+                List<SsCargainicial> registraList = new ArrayList<>();
+                vwControlperiodoFiltro.setInt_3(result);
+                for(VwControlperiodo obj : listadoTemp) {
+                    regsEnt = new SsCargainicial();
+                    regsEnt.setCompanyowner(obj.getCompanyowner());
+                    regsEnt.setAnno(annno);
+                    regsEnt.setEstadodocumento(4);
+                    registraList = ssCargainicialService.listar(regsEnt, false);
+                    if (registraList.size() > 0) {
+                        for (SsCargainicial objRegs : registraList) {
+                            objRegs.setAnno(vwControlperiodoFiltro.getInteger1());
+                            objRegs.setEstadodocumento(3);
+                            SsCargainicial objSiguient = new SsCargainicial();
+                            objSiguient = ssCargainicialService.buscar(objRegs);
+                            if (objSiguient == null) {
+                                objRegs.setEstado("A");
+                                objRegs.setCargainicialid(null);
+                                retorno = ssCargainicialService.guardar(objRegs);
+                                retorno = 3;
+                            }
+                        }
+                    } else {
+                    }
+                }
+               // result = ssCargainicialService.guardarMasivo(listadoTemp,vwControlperiodoFiltro, new SsCargainicial() );
+            }
             if(result>0){
                 btnCancelar();
                 btnBuscar();
@@ -834,6 +869,13 @@ public class AprobacionesAperturaBean extends AbstractGenericBean implements Int
         this.ssControlperiodoService = ssControlperiodoService;
     }
 
+    public SsCargainicialService getSsCargainicialService() {
+        return ssCargainicialService;
+    }
+
+    public void setSsCargainicialService(SsCargainicialService ssCargainicialService) {
+        this.ssCargainicialService = ssCargainicialService;
+    }
     //SetGet
 }
 
