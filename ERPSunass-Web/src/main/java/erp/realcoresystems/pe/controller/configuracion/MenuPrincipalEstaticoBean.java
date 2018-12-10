@@ -57,8 +57,8 @@ public class MenuPrincipalEstaticoBean {
         objPermisos001.setGrupo("GRUPO011");
         objPermisos001.setConcepto("CON0000");
         objPermisos001.setConceptoPadre("GRUPO011");
-        objPermisos001.setDescripcionGrupo("APROBACIONES");
-        objPermisos001.setDescripcionSegConcepto("APROBACIONES");
+        objPermisos001.setDescripcionGrupo("APERTURA Y APROBACIONES");
+        objPermisos001.setDescripcionSegConcepto("APERTURA Y APROBACIONES");
         objPermisos001.setObjetoWindow("icon-desktop");
         listaGruposPermisos.add(objPermisos001);
 
@@ -81,8 +81,8 @@ public class MenuPrincipalEstaticoBean {
         objCargaInicial1.setGrupo("GRUPO010");
         objCargaInicial1.setConcepto("CON0000");
         objCargaInicial1.setConceptoPadre("GRUPO010");
-        objCargaInicial1.setDescripcionGrupo("CARGA INICIAL");
-        objCargaInicial1.setDescripcionSegConcepto("CARGA INICIAL");
+        objCargaInicial1.setDescripcionGrupo("CARGA INFORMES");
+        objCargaInicial1.setDescripcionSegConcepto("CARGA INFORMES");
         objCargaInicial1.setObjetoWindow("icon-desktop");
         listaGruposPermisos.add(objCargaInicial1);
 
@@ -175,10 +175,10 @@ public class MenuPrincipalEstaticoBean {
         objPermisos01.setEstado(Constant.ACTIVO);
         objPermisos01.setTipodeObjeto(TIPOO_ARCHIVO_db);
 
-        objPermisos01.setGrupo("GRUPO000");
+        objPermisos01.setGrupo("GRUPO011");
         objPermisos01.setConcepto("CON0001");
         objPermisos01.setConceptoPadre("CON0000");
-        objPermisos01.setDescripcionSegConcepto("Apertura Periodo");
+        objPermisos01.setDescripcionSegConcepto("Apertura y Aprobaciones");
         objPermisos01.setUrl("" + URL_CONTROL_PERIODO);
         objPermisos01.setObjetoWindow("fa fa-circle-o");
         listaOpcPermisos.add(objPermisos01);
