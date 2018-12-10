@@ -19,6 +19,9 @@ public abstract class Constant implements Serializable{
 	public static final String COMPANIA_VARIABLE = "999999";
 	public static final String APLICACION_CODIGO = "SA";
 	public static final String GRUPO_COMPANIA = "COMPANIASOCIO";
+	
+	/** PARA LA CAPTACION DE AGUA**/
+	public static final String CAPTACION_SUB_TIPO_INFRAESTRUCTURA_SUPERFICIAL = "005";
 
 	private static final long serialVersionUID = -6743013645117707062L;	
 	public static ResourceBundle propiedadesParam= ResourceBundle.getBundle("parametrosService");
