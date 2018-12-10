@@ -18,6 +18,7 @@
                                          icon="fa fa-save"  styleClass="btn-primary"
                                          rendered="#{cargainicialBean.btnGuardarVisible}"
                                          actionListener="#{cargainicialBean.btnGuardar}"
+                                         disabled="#{cargainicialBean.buttonesEstado}"
                                          update="@form, FormHeader"
                                          title="#{mensaje.MSJ_INFO_TIP_GUARDAR_MAIN}"
                         >
@@ -81,20 +82,39 @@
                                                    itemLabel="#{item.descripcionlocal}" itemValue="#{item.sucursal}"/>
                                 </p:selectOneMenu>
                                 <p:outputLabel value="#{lbv.CARGAINICIAL_ANNO}" styleClass="estiloLabelForm" />
-                                <p:inputText
-                                        value="#{cargainicialBean.ssCargaInicialRegistro.anno}"
-                                />
+                                <p:panelGrid layout="grid" styleClass="sinpadding ui-panelgrid-blank" id="panelAnno"
+                                             columns="3" columnClasses="ui-grid-col-5,ui-grid-col-2,ui-grid-col-5">
+                                    <p:column>
+                                        <p:inputText
+                                                value="#{cargainicialBean.ssCargaInicialRegistro.anno}" readonly="true"
+                                        />
+                                    </p:column>
+                                    <p:column>
+                                        <p:spacer width="10"></p:spacer>
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{cargainicialBean.mensajeEstado}"
+                                                      styleClass="#{cargainicialBean.buttonesEstado eq false ? 'colTableEstadoActivo' :'colTableEstadoInactivo'}" />
+                                    </p:column>
+                                </p:panelGrid>
+
                                 <p:outputLabel value="#{lbv.CARGAINICIAL_CAPACIDAD}" styleClass="estiloLabelForm" />
                                 <p:inputText
                                         value="#{cargainicialBean.ssCargaInicialRegistro.capacActualLps}"
                                 />
-
+                                <h:outputText value="Estado" class="estiloLabelForm" />
+                                <p:selectOneMenu autoWidth="false" value="#{cargainicialBean.ssCargaInicialRegistro.estado}">
+                                    <f:selectItem itemLabel="#{label.lblTodos}" noSelectionOption="true" />
+                                    <f:selectItem itemLabel="#{label.ITEM_ACTIVO}" itemValue="#{constant.INT_ACTIVO}" />
+                                    <f:selectItem itemLabel="#{label.ITEM_INACTIVO}" itemValue="#{constant.INT_INACTIVO}" />
+                                </p:selectOneMenu>
                             </p:column>
                             <p:column>
                                 <p:outputLabel for="itCompaniaReg" styleClass="estiloLabelForm"   value="#{lbv.CONTROLPERIODO_COMPANIA}"/>
                                 <p:selectOneMenu id="itCompaniaReg"  autoWidth="false" value="#{cargainicialBean.ssCargaInicialRegistro.companyowner}"
                                                  styleClass="required-field" >
-                                    <p:ajax event="change" process="@this" update="FormCargaInicial:cmdSucursalReg" listener="#{cargainicialBean.seleccionarSucursal}"/>
+                                    <p:ajax event="change" process="@this" update="FormCargaInicial:cmdSucursalReg FormCargaInicial:btnGuardar FormCargaInicial:panelAnno" listener="#{cargainicialBean.seleccionarSucursal}"/>
+
                                     <f:selectItem itemLabel="#{lbv.lblSeleccione}" itemValue="#{null}" noSelectionOption="true"/>
                                     <f:selectItems value="#{cargainicialBean.listarCompanias}" var="item"
                                                    itemLabel="#{item.description}" itemValue="#{item.companyowner}"/>
@@ -118,6 +138,17 @@
                                 <p:inputText
                                         value="#{cargainicialBean.ssCargaInicialRegistro.caudalcaptadodirectoLps}"
                                 />
+                                <p:outputLabel value="Observaciones" styleClass="estiloLabelForm" />
+                                <p:inputTextarea
+                                        value="#{cargainicialBean.ssCargaInicialRegistro.observacion}"
+                                />
+                                <h:outputText value="Estado Documento" class="estiloLabelForm" />
+                                <p:selectOneMenu autoWidth="false" value="#{cargainicialBean.ssCargaInicialRegistro.estadodocumento}">
+                                    <f:selectItem itemLabel="#{lbv.lblSeleccione}" itemValue="#{null}" noSelectionOption="true"/>
+                                    <f:selectItems value="#{cargainicialBean.maMisDestalleEstadoDocumento}" var="item"
+                                                   itemLabel="#{item.descripcionlocal}" itemValue="#{item.codigoelemento}"/>
+                                </p:selectOneMenu>
+
                             </p:column>
 
                             <p:column>

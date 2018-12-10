@@ -267,6 +267,14 @@
                     <p:column headerText="#{lbv.CARGAINICIAL_OBSERVACIONES}" >
                         <h:outputText value="#{vElement.observacion}" />
                     </p:column>
+                         <p:column headerText="ESTADO DOCUMENTO" >
+                            <h:outputText value="#{vElement.estadodocumento eq '1' ? 'Preparación' :''
+                            or vElement.estadodocumento eq '2' ? 'Vigente':''
+                            or vElement.estadodocumento eq '3' ? 'Revisión':''
+                            or vElement.estadodocumento eq '4' ? 'Aprobado':''
+                            or vElement.estadodocumento eq '4' ? 'Cerrado':''
+                            }"  />
+                    </p:column>
                     <p:column headerText="#{lbv.ESTADO_CAP}" >
                         <h:outputText value="#{vElement.estado eq 'A' ? label.ITEM_ACTIVO :label.ITEM_INACTIVO}"
                                       styleClass="#{vElement.estado eq 'A' ? 'colTableEstadoActivo' :'colTableEstadoInactivo'}" />

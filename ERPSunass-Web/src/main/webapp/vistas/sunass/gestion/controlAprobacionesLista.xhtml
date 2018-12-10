@@ -1,0 +1,300 @@
+<ui:composition template="/template/TemplateGeneral.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <style type="text/css">
+    </style>
+    <ui:define name="contentBread">
+        <li class="current">
+            <i class="icon-angle-right labelBreadCrumbNormal"></i>
+            <a class="labelBreadCrumbNormal" href="#{facesContext.externalContext.requestContextPath}/vistas/sunass/gestion/controlAprobacionesLista.xhtml">
+                Carga Inicial
+            </a>
+        </li>
+
+        <li id="liRegistro">
+            <i class="icon-angle-right labelBreadCrumbNormal" ></i>
+            <a class="labelBreadCrumbDecor"   href="#">
+                <h:outputText  rendered="#{aprobacionesAperturaBean.visibleRegistro}"
+                               value="#{label.REGISTRO_CAP}: #{aprobacionesAperturaBean.MODO_ACTUAL}" >
+                </h:outputText>
+            </a>
+        </li>
+
+    </ui:define>
+
+    <ui:define name="contentEspecifico">
+
+        <script src="#{request.contextPath}/resources/js/validaciones.js" type="text/javascript" />
+        <script src="#{request.contextPath}/resources/js/primefaces-calendar.js" type="text/javascript" />
+
+
+        <h:form id="FormCargaInicial">
+            <script type="text/javascript" src="#{request.contextPath}/resources/js/primefaces-calendar.js" />
+            <p:remoteCommand name="inicializar" update="FormCargaInicial" actionListener="#{aprobacionesAperturaBean.inicializar()}" />
+            <p:growl  id="growl" globalOnly="true" autoUpdate="true"  ></p:growl>
+
+            <p:blockUI block="FormCargaInicial" widgetVar="blockElem" id="blockElem" trigger="btnBuscar btnNuevo btnModificar ">
+                #{mensaje.MSJ_BLOCKUI_Proceso}<br />
+                <p:graphicImage value="/resources/images/loader03.gif"/>
+            </p:blockUI>
+
+
+            <div id="seccionMain" style="display: #{aprobacionesAperturaBean.visibleRegistro ?'none':'block'} ;" >
+                <div class="customHr">.</div>
+                <div  class="row"  align="center"  >
+                    <div class="ui-g-12 ui-g-nopad">
+                        <div class="ui-fluid">
+                            <p:panelGrid layout="grid" styleClass="ui-panelgrid-blank" columns="3"
+                                         columnClasses="ui-grid-col-2,ui-grid-col-6,ui-grid-col-4"
+                            >
+                                <p:column>
+                                    <p:panelGrid  layout="grid" styleClass="ui-panelgrid-blank" columns="1"
+                                                  columnClasses="ui-grid-col-12"
+                                    >
+                                        <p:commandButton value="Buscar" icon="fa fa-search" type="submit"
+                                                         id="btnBuscar"  styleClass="btn-primary"
+                                                         actionListener="#{aprobacionesAperturaBean.btnBuscar}"
+                                                         process="@form"
+                                                         onstart="PF('dtCargaInicial').paginator.setPage(0);" update="dtCargaInicial"
+                                                         title="#{mensaje.MSJ_INFO_TIP_BUSCAR_MAIN}" />
+
+                                    </p:panelGrid>
+                                </p:column>
+                                <p:column>
+                                    <p:spacer width="10" ></p:spacer>
+                                </p:column>
+                                <p:column>
+                                    <p:panelGrid   id="pgOpcionesMain" layout="grid" styleClass="ui-panelgrid-blank" columns="6"
+                                                   columnClasses="ui-grid-col-1,ui-grid-col-5,ui-grid-col-5,ui-grid-col-1"
+                                    >
+                                        <p:spacer/>
+                                        <p:commandButton id="btnNuevo"   type="submit"  value="Apertura"
+                                                         update="@form, FormHeader"
+                                                         process="@form"
+                                                         actionListener="#{aprobacionesAperturaBean.btnAperturar}"
+                                                         rendered="true" styleClass="btn-primary"
+                                                         icon="fa fa-meh-o fa-lg"
+                                                         title="#{mensaje.MSJ_INFO_TIP_NUEVO_MAIN}"
+                                        >
+
+                                        </p:commandButton>
+
+                                        <p:commandButton id="btnModificar"   type="submit"  value="Cerrar"
+                                                         rendered="true"
+                                                         update="@form, FormHeader"
+                                                         process="@form"
+                                                         actionListener="#{aprobacionesAperturaBean.btnModificar}"
+                                                         styleClass="btn-primary"
+                                                         icon="fa fa-thumbs-o-down"
+                                                         title="#{mensaje.MSJ_INFO_TIP_MODIFICAR_MAIN}"
+                                        >
+                                        </p:commandButton>
+
+
+                                        <p:spacer width="20" height="10"/>
+
+
+                                    </p:panelGrid>
+                                </p:column>
+                            </p:panelGrid>
+                        </div>
+                    </div>
+                </div>
+                <div class="customHr">.</div>
+
+                <div class="ui-g">
+                    <div class="ui-g-12 ui-g-nopad">
+                        <div class="ui-fluid">
+
+                            <p:panelGrid id="pnlFiltros" layout="grid" styleClass="ui-panelgrid-blank" columns="3"
+                                         columnClasses="ui-grid-col-4,ui-grid-col-4,ui-grid-col-4"
+                            >
+                                <p:column>
+                                    <p:outputLabel for="itCompania" styleClass="estiloLabelForm"   value="#{lbv.CONTROLPERIODO_COMPANIA}"/>
+
+                                    <p:selectOneMenu id="itCompania"  autoWidth="false" value="#{aprobacionesAperturaBean.vwControlperiodoFiltro.companyowner}"
+                                                    >
+
+                                        <f:selectItem itemLabel="#{lbv.lblSeleccione}" itemValue="#{null}" noSelectionOption="true"/>
+                                        <f:selectItems value="#{aprobacionesAperturaBean.listarCompanias}" var="item"
+                                                       itemLabel="#{item.description}" itemValue="#{item.companyowner}"/>
+                                    </p:selectOneMenu>
+
+
+                                </p:column>
+
+                                <p:column>
+                                    <p:outputLabel value="#{lbv.CARGAINICIAL_ANNO}" styleClass="estiloLabelForm" />
+                                    <p:inputText
+                                            value="#{aprobacionesAperturaBean.vwControlperiodoFiltro.anno}"
+                                    />
+                                </p:column>
+
+                                <p:column>
+                                    <p:outputLabel for="itTipoFuentereal" styleClass="estiloLabelForm"   value="Estado Autorización"/>
+                                    <p:selectOneMenu id="itTipoFuentereal"  autoWidth="false" value="#{aprobacionesAperturaBean.vwControlperiodoFiltro.estadodocumento}"
+                                                     >
+                                        <f:selectItem itemLabel="#{lbv.lblSeleccione}" itemValue="#{null}" noSelectionOption="true"/>
+                                        <f:selectItems value="#{aprobacionesAperturaBean.maMisTipoFuente}" var="item"
+                                                       itemLabel="#{item.descripcionlocal}" itemValue="#{item.codigoelemento}"/>
+                                    </p:selectOneMenu>
+                                    <p:outputLabel for="cmbEstados" styleClass="estiloLabelForm"  value="Estado: " />
+                                    <p:selectOneMenu id="cmbEstados"
+                                                     value="#{aprobacionesAperturaBean.vwControlperiodoFiltro.estado}"
+                                    >
+                                        <p:ajax  process="@form" />
+
+                                        <f:selectItem itemLabel="#{label.lblTodos}" itemValue="" noSelectionOption="true" />
+                                        <f:selectItem itemLabel="#{label.ITEM_ACTIVO}" itemValue="A" />
+                                        <f:selectItem itemLabel="#{label.ITEM_INACTIVO}" itemValue="I" />
+                                    </p:selectOneMenu>
+
+                                </p:column>
+
+                            </p:panelGrid>
+
+                        </div>
+                    </div>
+                </div>
+                <p:spacer width="0" height="20"/>
+                <div class="customHr">.</div>
+                <div class="row" align="center">
+                    <div class="ui-g-12 ui-g-nopad">
+                        <div class="ui-fluid">
+                            <p:panelGrid layout="grid" styleClass="ui-panelgrid-blank" columns="3"
+                                         id="pgControlListadoMain"
+                                         columnClasses="ui-grid-col-6,ui-grid-col-4,ui-grid-col-2">
+                                <p:column>
+                                    <p:panelGrid layout="grid" styleClass="ui-panelgrid-blank" columns="5"
+                                                 columnClasses="ui-grid-col-3,ui-grid-col-1,ui-grid-col-2,ui-grid-col-3,ui-grid-col-3">
+                                        <p:outputLabel value="Seleccionar Todo" styleClass="estiloLabelForm"/>
+                                        <p:selectBooleanCheckbox value="#{aprobacionesAperturaBean.indicaSeleccionTotal}">
+                                            <p:ajax listener="#{aprobacionesAperturaBean.onSeleccionTotal}"
+                                                    process="@form"
+                                                    update="dtCargaInicial #{p:component('pgControlListadoMain')}
+            									 #{p:component('pgOpcionesMain')}"  />
+                                        </p:selectBooleanCheckbox>
+                                        <p:spacer></p:spacer>
+                                        <p:outputLabel value="Selección actual : " styleClass="estiloLabelForm"/>
+
+                                        <p:outputLabel value="#{aprobacionesAperturaBean.indicaSeleccionTotal ? 'TODOS' :
+        										aprobacionesAperturaBean.listaSeleccionTotal.size()}"
+                                                       styleClass="estiloValueForm"/>
+                                        <p:spacer></p:spacer>
+                                    </p:panelGrid>
+                                </p:column>
+                                <p:column>
+                                    <p:panelGrid layout="grid" styleClass="ui-panelgrid-blank" columns="2"
+                                                 columnClasses="ui-grid-col-6,ui-grid-col-6">
+                                        <p:outputLabel value="Aperturar para el AÑO : " styleClass="estiloLabelForm"/>
+                                        <p:inputText  styleClass="required-field"
+                                                value="#{aprobacionesAperturaBean.vwControlperiodoFiltro.integer1}"
+                                        />
+                                    </p:panelGrid>
+
+                                </p:column>
+                                <p:column>
+                                    <p:panelGrid layout="grid" styleClass="ui-panelgrid-blank" columns="3"
+                                                 columnClasses="ui-grid-col-6,ui-grid-col-3,ui-grid-col-3">
+                                        <p:spacer></p:spacer>
+                                        <h:commandLink id="linkXls" title="#{mensaje.MSJ_TIP_GEN_DESCARGA_XLS}"
+                                                       actionListener="#{aprobacionesAperturaBean.actionLinkDescarga(mensaje.MSJ_LINKDESCARGA_ControlPeriodo)}">
+                                            <p:graphicImage value="/resources/images/icons/iconxls.png" />
+                                            <p:dataExporter type="xls" target="dtCargaInicial" fileName="#{mensaje.MSJ_LINKDESCARGA_ControlPeriodo_FILENAME}"
+                                                            postProcessor="#{aprobacionesAperturaBean.postProcessXLS_descarga}"
+                                            />
+                                        </h:commandLink>
+
+                                        <h:commandLink id="linkPdf"
+                                                       title="#{mensaje.MSJ_TIP_GEN_DESCARGA_PDF}"
+                                                       actionListener="#{aprobacionesAperturaBean.actionLinkDescarga(mensaje.MSJ_LINKDESCARGA_ControlPeriodo)}">
+                                            <p:graphicImage value="/resources/images/icons/iconpdf.png" />
+                                            <p:dataExporter type="pdf" target="dtCargaInicial" fileName="#{mensaje.MSJ_LINKDESCARGA_ControlPeriodo_FILENAME}"
+                                                            preProcessor="#{aprobacionesAperturaBean.preProcessPDF_descarga}" encoding="ISO-8859-1"/>
+                                        </h:commandLink>
+
+                                    </p:panelGrid>
+                                </p:column>
+                            </p:panelGrid>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="customHr">.</div>
+                <p:dataTable id="dtCargaInicial" var="vElement" widgetVar="dtCargaInicial" lazy="true"
+                             value="#{aprobacionesAperturaBean.dataModel}" paginator="true" reflow="true"
+                             rows="#{aprobacionesAperturaBean.parametroCantRows}"
+                             selection="#{aprobacionesAperturaBean.listaSeleccion}"  draggableColumns="true"  resizableColumns="true"
+                             rowKey="#{vElement.idcontador}" paginatorPosition="bottom"
+                             paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                             rowsPerPageTemplate="#{aprobacionesAperturaBean.entradasVisualizadas}" rowIndexVar="index"
+                             emptyMessage="#{mensaje.MSJ_WARN_busquedaVacia}"
+                             style="font-size: 12px; text-align:center;"
+                              >
+
+                    <p:ajax event="rowSelectCheckbox" process="@form" update="#{p:component('pgControlListadoMain')}
+							 #{p:component('pgOpcionesMain')}"
+                            listener="#{aprobacionesAperturaBean.onRowSelectCheckboxAction}"	 />
+                    <p:ajax event="rowUnselectCheckbox" process="@form"  update="#{p:component('pgControlListadoMain')}
+					  		 #{p:component('pgOpcionesMain')}"
+                            listener="#{aprobacionesAperturaBean.onRowUnselectCheckbox}"	/>
+                    <p:ajax event="rowSelect"  process="@form"  update="#{p:component('pgControlListadoMain')}
+					  		 #{p:component('pgOpcionesMain')}"
+                            listener="#{aprobacionesAperturaBean.onRowSelect}"	/>
+                    <p:ajax event="rowUnselect" process="@form"  update="#{p:component('pgControlListadoMain')}
+					  		 #{p:component('pgOpcionesMain')}"
+                            listener="#{aprobacionesAperturaBean.onRowUnselect}"	/>
+
+                    <p:ajax event="toggleSelect" process="@form"  update="#{p:component('pgControlListadoMain')}
+						 #{p:component('pgOpcionesMain')}"
+                            listener="#{aprobacionesAperturaBean.onRowToggleSelect}" />
+
+                    <p:column selectionMode="multiple"
+                              style="background-color:#B2BD7E; width:16px;text-align:center"/>
+
+                    <p:column headerText="Nº" >
+                        <h:outputText value="#{index + 1}" />
+                    </p:column>
+                    <p:column headerText="#{lbv.CONTROLPERIODO_EPS}" >
+                        <h:outputText value="#{vElement.companyowner}" />
+                    </p:column>
+                    <p:column headerText="#{lbv.CONTROLPERIODO_COMPANIA}" >
+                        <h:outputText value="#{vElement.description}" />
+                    </p:column>
+                    <p:column headerText="#{lbv.CARGAINICIAL_ANNO}" >
+                        <h:outputText value="#{vElement.anno}" />
+                    </p:column>
+                       <p:column headerText="ESTADO DOCUMENTO" >
+                        <h:outputText value="#{vElement.estadodocumento eq '1' ? 'Preparación' :'Sin Estado'
+                        or vElement.estadodocumento eq '2' ? 'Habilitado' :'Sin Estado'
+                        or vElement.estadodocumento eq '3' ? 'Revisado' :'Sin Estado'
+                        or vElement.estadodocumento eq '3' ? 'Cerrado' :'Sin Estado'
+                         }"
+                                      styleClass="#{vElement.estadodocumento eq '' ? 'colTableEstadoInactivo' :'colTableEstadoActivo'}" />
+                    </p:column>
+
+                    <p:column headerText="ESTADO" >
+                        <h:outputText value="#{vElement.estado eq 'A' ? label.ITEM_ACTIVO :label.ITEM_INACTIVO}"
+                                      styleClass="#{vElement.estado eq 'A' ? 'colTableEstadoActivo' :'colTableEstadoInactivo'}" />
+                    </p:column>
+
+
+                </p:dataTable>
+
+
+            </div>
+            <div id="seccionRegistro" style="display: #{aprobacionesAperturaBean.visibleRegistro ?'block':'none'} ;" >
+                <p:outputPanel id="opSeccionReg" rendered="#{aprobacionesAperturaBean.visibleRegistro}" >
+
+
+                </p:outputPanel>
+            </div>
+        </h:form>
+
+
+
+    </ui:define>
+</ui:composition>

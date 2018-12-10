@@ -33,7 +33,7 @@ public class MenuPrincipalEstaticoBean {
 
     public static final String URL_MAST_PERSONA = "/vistas/sa/maestro/persona/saPersonaBusqueda.xhtml";
 
-    public static final String URL_CONTROL_PERIODO = "/vistas/sunass/gestion/controlFormularioLista.xhtml";
+    public static final String URL_CONTROL_PERIODO = "/vistas/sunass/gestion/controlAprobacionesLista.xhtml";
     public static final String URL_CARGAINICIAL_BASE= "/vistas/sunass/gestion/cargaInicialLista.xhtml?fuenteid=1";
     public static final String URL_CARGAINICIAL_FUENTE= "/vistas/sunass/gestion/cargaFuentesLista.xhtml?fuenteid=1";
     public static final String URL_CARGAINICIAL_ESTRUCTURA= "/vistas/sunass/gestion/cargaEstructuraLista.xhtml?fuenteid=2";
@@ -49,6 +49,18 @@ public class MenuPrincipalEstaticoBean {
 
     public static List<VwSeguridadautorizacione> obtenerGruposPermisosMenuEstatic() {
         List<VwSeguridadautorizacione> listaGruposPermisos = new ArrayList<VwSeguridadautorizacione>();
+
+        VwSeguridadautorizacione objPermisos001 = new VwSeguridadautorizacione();
+        objPermisos001.setAplicacionCodigo(Constant.APLICACION_CODIGO);
+        objPermisos001.setTipodeObjeto(TIPOO_CARPETA_db);
+
+        objPermisos001.setGrupo("GRUPO011");
+        objPermisos001.setConcepto("CON0000");
+        objPermisos001.setConceptoPadre("GRUPO011");
+        objPermisos001.setDescripcionGrupo("APROBACIONES");
+        objPermisos001.setDescripcionSegConcepto("APROBACIONES");
+        objPermisos001.setObjetoWindow("icon-desktop");
+        listaGruposPermisos.add(objPermisos001);
 
         VwSeguridadautorizacione objPermisos5 = new VwSeguridadautorizacione();
         objPermisos5.setAplicacionCodigo(Constant.APLICACION_CODIGO);
