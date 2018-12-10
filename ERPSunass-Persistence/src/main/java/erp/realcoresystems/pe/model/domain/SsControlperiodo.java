@@ -41,7 +41,7 @@ public class SsControlperiodo  extends Entidad{
         this.companyowner = companyowner;
     }
 
-    @Id
+    //@Id
     @Column(name = "TIPOOPERACION")
     public String getTipooperacion() {
         return tipooperacion;
@@ -61,7 +61,7 @@ public class SsControlperiodo  extends Entidad{
         this.anno = anno;
     }
 
-    @Id
+    //@Id
     @Column(name = "FORMULARIOID")
     public Integer getFormularioid() {
         return formularioid;

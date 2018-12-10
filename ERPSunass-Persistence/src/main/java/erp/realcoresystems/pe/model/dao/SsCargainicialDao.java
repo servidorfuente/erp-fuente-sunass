@@ -6,7 +6,7 @@ package erp.realcoresystems.pe.model.dao;
 
  import java.util.List;
 
-public interface SsCargainicialDao extends AbstractDao<SsCargainicial, SsCargainicialPK>{
+public interface SsCargainicialDao extends AbstractDao<SsCargainicial, String>{
 	public SsCargainicial buscar(SsCargainicial filtro);
 	public SsCargainicial verificar(SsCargainicial filtro);
 	public List<SsCargainicial> listar(SsCargainicial filtro, boolean pagina);
