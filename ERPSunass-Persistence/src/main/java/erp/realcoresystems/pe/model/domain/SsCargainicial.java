@@ -53,6 +53,7 @@ public class SsCargainicial   extends Entidad{
     private Date creacionfecha;
     private String ultimousuario;
     private Date ultimafechamodif;
+    private Integer estadodocumento;
     private String estado;
 
     @Id
@@ -515,5 +516,13 @@ public class SsCargainicial   extends Entidad{
         this.estado = estado;
     }
 
+    @Basic
+    @Column(name = "ESTADODOCUMENTO")
+    public Integer getEstadodocumento() {
+        return estadodocumento;
+    }
 
+    public void setEstadodocumento(Integer estadodocumento) {
+        this.estadodocumento = estadodocumento;
+    }
 }

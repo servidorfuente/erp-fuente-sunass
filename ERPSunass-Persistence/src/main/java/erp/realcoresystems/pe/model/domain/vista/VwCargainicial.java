@@ -60,6 +60,7 @@ public class VwCargainicial  extends Entidad {
     private Date  creacionfecha;
     private String ultimousuario;
     private Date  ultimafechamodif;
+    private Integer  estadodocumento;
 
     @Id
     @Basic
@@ -574,5 +575,12 @@ public class VwCargainicial  extends Entidad {
         this.ultimafechamodif = ultimafechamodif;
     }
 
-
+    @Basic
+    @Column(name = "ESTADODOCUMENTO")
+    public Integer getEstadodocumento() {
+        return estadodocumento;
+    }
+    public void setEstadodocumento(Integer estadodocumento) {
+        this.estadodocumento = estadodocumento;
+    }
 }

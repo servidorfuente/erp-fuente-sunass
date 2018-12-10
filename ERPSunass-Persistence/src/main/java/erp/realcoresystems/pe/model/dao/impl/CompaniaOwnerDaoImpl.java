@@ -65,6 +65,19 @@ public class CompaniaOwnerDaoImpl extends AbstractDaoImpl<Companyowner, String> 
 	}
 
 	@Override
+	public List<Companyowner> listados(Companyowner filtro, boolean pagina) {
+		Criteria criteria = createCriteria();
+		if (pagina){
+			filtro.setPaginable(true);
+			setPaginable(filtro, criteria);
+		}
+		if(filtro.getCompany()!=null){
+			criteria.add(Restrictions.eq("company", filtro.getCompany()));
+		}
+		return criteria.list();
+	}
+
+	@Override
 	public int guardar(Companyowner objDao) {
 		save(objDao);
 		return 1;

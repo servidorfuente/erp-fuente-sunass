@@ -6,10 +6,9 @@ import java.io.Serializable;
 
 public class SsControlperiodoPK implements Serializable {
     private String companyowner;
-    private String tipofrecuencia;
-    private Integer ffanno;
+    private String tipooperacion;
+    private Integer anno;
     private Integer formularioid;
-    private String periodo;
     private Integer secuencia;
 
     @Column(name = "COMPANYOWNER")
@@ -22,24 +21,24 @@ public class SsControlperiodoPK implements Serializable {
         this.companyowner = companyowner;
     }
 
-    @Column(name = "TIPOFRECUENCIA")
+    @Column(name = "TIPOOPERACION")
     @Id
-    public String getTipofrecuencia() {
-        return tipofrecuencia;
+    public String getTipooperacion() {
+        return tipooperacion;
     }
 
-    public void setTipofrecuencia(String tipofrecuencia) {
-        this.tipofrecuencia = tipofrecuencia;
+    public void setTipooperacion(String tipooperacion) {
+        this.tipooperacion = tipooperacion;
     }
 
-    @Column(name = "FFANNO")
+    @Column(name = "ANNO")
     @Id
-    public Integer getFfanno() {
-        return ffanno;
+    public Integer getAnno() {
+        return anno;
     }
 
-    public void setFfanno(Integer ffanno) {
-        this.ffanno = ffanno;
+    public void setAnno(Integer anno) {
+        this.anno = anno;
     }
 
     @Column(name = "FORMULARIOID")
@@ -50,16 +49,6 @@ public class SsControlperiodoPK implements Serializable {
 
     public void setFormularioid(Integer formularioid) {
         this.formularioid = formularioid;
-    }
-
-    @Column(name = "PERIODO")
-    @Id
-    public String getPeriodo() {
-        return periodo;
-    }
-
-    public void setPeriodo(String periodo) {
-        this.periodo = periodo;
     }
 
     @Column(name = "SECUENCIA")
@@ -79,13 +68,12 @@ public class SsControlperiodoPK implements Serializable {
 
         SsControlperiodoPK that = (SsControlperiodoPK) o;
 
-        if (ffanno != that.ffanno) return false;
+        if (anno != that.anno) return false;
         if (formularioid != that.formularioid) return false;
         if (secuencia != that.secuencia) return false;
         if (companyowner != null ? !companyowner.equals(that.companyowner) : that.companyowner != null) return false;
-        if (tipofrecuencia != null ? !tipofrecuencia.equals(that.tipofrecuencia) : that.tipofrecuencia != null)
+        if (tipooperacion != null ? !tipooperacion.equals(that.tipooperacion) : that.tipooperacion != null)
             return false;
-        if (periodo != null ? !periodo.equals(that.periodo) : that.periodo != null) return false;
 
         return true;
     }
@@ -93,10 +81,9 @@ public class SsControlperiodoPK implements Serializable {
     @Override
     public int hashCode() {
         int result = companyowner != null ? companyowner.hashCode() : 0;
-        result = 31 * result + (tipofrecuencia != null ? tipofrecuencia.hashCode() : 0);
-        result = 31 * result + (int) (ffanno ^ (ffanno >>> 32));
+        result = 31 * result + (tipooperacion != null ? tipooperacion.hashCode() : 0);
+        result = 31 * result + (int) (anno ^ (anno >>> 32));
         result = 31 * result + (int) (formularioid ^ (formularioid >>> 32));
-        result = 31 * result + (periodo != null ? periodo.hashCode() : 0);
         result = 31 * result + (int) (secuencia ^ (secuencia >>> 32));
         return result;
     }
