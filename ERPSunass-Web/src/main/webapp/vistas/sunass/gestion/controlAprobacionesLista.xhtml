@@ -48,7 +48,7 @@
                     <div class="ui-g-12 ui-g-nopad">
                         <div class="ui-fluid">
                             <p:panelGrid layout="grid" styleClass="ui-panelgrid-blank" columns="3"
-                                         columnClasses="ui-grid-col-2,ui-grid-col-6,ui-grid-col-4"
+                                         columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-6"
                             >
                                 <p:column>
                                     <p:panelGrid  layout="grid" styleClass="ui-panelgrid-blank" columns="1"
@@ -71,7 +71,7 @@
                                                    columnClasses="ui-grid-col-1,ui-grid-col-5,ui-grid-col-5,ui-grid-col-1"
                                     >
                                         <p:spacer/>
-                                        <p:commandButton id="btnNuevo"   type="submit"  value="Apertura"
+                                        <p:commandButton id="btnNuevo"   type="submit"  value="Aperturar Carga Inicial"
                                                          update="@form, FormHeader"
                                                          process="@form"
                                                          actionListener="#{aprobacionesAperturaBean.btnAperturar}"
@@ -82,7 +82,7 @@
 
                                         </p:commandButton>
 
-                                        <p:commandButton id="btnModificar"   type="submit"  value="Cerrar"
+                                        <p:commandButton id="btnModificar"   type="submit"  value="Aperturar Formulario"
                                                          rendered="true"
                                                          update="@form, FormHeader"
                                                          process="@form"
