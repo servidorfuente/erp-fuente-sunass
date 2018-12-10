@@ -17,6 +17,8 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service("ssControlperiodoService")
 @Transactional(readOnly = true)
@@ -54,11 +56,21 @@ public class SsControlperiodoServiceImpl extends AbstractServiceImpl implements 
 
 	@Override
 	public List<VwControlperiodo> listarVista(VwControlperiodo filtro, boolean pagina) {
-		VwControlperiodo vistaAlterno = new VwControlperiodo();
-		vistaAlterno = filtro;
-		vistaAlterno.setAnno(null);
-		vistaAlterno.setInteger3(2018);
-		List<VwControlperiodo> objPeriodo = new ArrayList<>();
+		try {
+			return ssControlperiodoDao.listarVista(filtro, pagina);
+		} catch (Exception e) {
+			e.printStackTrace();
+			Log.logger.error(Log.getStackTrace(e));
+		}
+		return null;
+	}
+
+	@Override
+	public List<VwControlperiodo> listarVistaGrupos(VwControlperiodo filtro, boolean pagina) {
+		SsControlperiodo vistaAlterno = new SsControlperiodo();
+
+		List<VwControlperiodo> objPeriodoNull = new ArrayList<>();
+		List<VwControlperiodo> objPeriodoCont = new ArrayList<>();
 		List<VwControlperiodo> objPeriodoSend = new ArrayList<>();
 		List<Companyowner> objCompan = new ArrayList<>();
 		Companyowner objEnt = new Companyowner();
@@ -67,23 +79,33 @@ public class SsControlperiodoServiceImpl extends AbstractServiceImpl implements 
 
 		int random=50;
 
-		VwControlperiodo objVwp = new VwControlperiodo();
+		SsControlperiodo objVwp = new SsControlperiodo();
+		SsControlperiodo objBucar = new SsControlperiodo();
+		VwControlperiodo objEnviar = new VwControlperiodo();
+		VwControlperiodo objEnviarNull = new VwControlperiodo();
 		try {
 			//objCompan = companiaOwnerDao.listados(objEnt,pagina);
 			int contador=1;
-			objPeriodo = ssControlperiodoDao.listarVista(vistaAlterno, pagina);
-			for (VwControlperiodo objVista : objPeriodo){
-				objVwp = new VwControlperiodo();
-				filtro.setCompanyowner(objVista.getCompanyowner());
-				objPeriodoSend = ssControlperiodoDao.listarVista(filtro,false);
-				if (objPeriodoSend.size()>0){
-					objVwp = objPeriodoSend.get(0);
-					objVwp.setIdcontador(contador);
+			objEnviarNull = new VwControlperiodo();
+			filtro.setString10("NULL");
+			objPeriodoNull = ssControlperiodoDao.listarVistaGrupos(filtro, pagina);
+			//Map<String, List<VwControlperiodo>> groupByPriceMap = objPeriodoNull.stream().collect(Collectors.groupingBy(VwControlperiodo::getCompanyowner));
+			filtro.setString10("");
+			objPeriodoCont = ssControlperiodoDao.listarVista(filtro, false);
+
+			for (VwControlperiodo objVista : objPeriodoNull){
+				objEnviar = new VwControlperiodo();
+				VwControlperiodo objBuscarData = objPeriodoCont.stream() // Convert to steam
+						.filter(x -> objVista.getCompanyowner().equals(x.getCompanyowner()))
+						.findAny()
+						.orElse(null);
+				if (objBuscarData!=null){
+					objEnviar = objBuscarData;
 				}else{
-					objVwp = objVista;
-					objVwp.setIdcontador(contador);
+					objEnviar = objVista;
 				}
-				objPeriodoSend.add(objVwp);
+				objEnviar.setIdcontador(contador);
+				objPeriodoSend.add(objEnviar);
 				contador++;
 			}
 			return objPeriodoSend;
@@ -104,48 +126,56 @@ public class SsControlperiodoServiceImpl extends AbstractServiceImpl implements 
 		SsCargainicial regsEnt = new SsCargainicial();
 		List<SsCargainicial> registraList = new ArrayList<>();
 		try {
-			for(VwControlperiodo obj : filtroRegistro){
-				SsControlperiodo veriReg = new SsControlperiodo();
-				registraEnt = new SsControlperiodo();
-				registraEnt.setCompanyowner(obj.getCompanyowner());
-				registraEnt.setTipooperacion("CARGAINICIAL");
-				registraEnt.setFormularioid(0);
-				registraEnt.setAnno(filtro.getInteger1());
-				registraEnt.setFlagmodocargainicial(1);
-				registraEnt.setEstadodocumento(2);
-				veriReg = ssControlperiodoDao.buscar(registraEnt);
-				if (!(veriReg!=null)){
-					registraEnt.setEstado("A");
-					retorno=ssControlperiodoDao.guardar(registraEnt);
-				}
-			}
-			for(VwControlperiodo obj : filtroRegistro){
-				regsEnt = new SsCargainicial();
-				regsEnt.setCompanyowner(obj.getCompanyowner());
-				regsEnt.setAnno(annno);
-				regsEnt.setEstadodocumento(4);
-				registraList = ssCargainicialDao.listar(regsEnt,false);
-				if (registraList.size()>0){
-					for(SsCargainicial objRegs : registraList){
-						objRegs.setAnno(filtro.getInteger1());
-						objRegs.setEstadodocumento(3);
-						SsCargainicial objSiguient= new SsCargainicial();
-						objSiguient = ssCargainicialDao.buscar(objRegs);
-						if (!(objSiguient!=null)){
-							objRegs.setEstado("A");
-							retorno = ssCargainicialDao.guardar(objRegs);
-						}
+			if (filtro.getInt_3()==2){
+				for(VwControlperiodo obj : filtroRegistro){
+					SsControlperiodo veriReg = new SsControlperiodo();
+					registraEnt = new SsControlperiodo();
+					registraEnt.setCompanyowner(obj.getCompanyowner());
+					registraEnt.setTipooperacion("CARGAINICIAL");
+					registraEnt.setFormularioid(0);
+					registraEnt.setAnno(filtro.getInteger1());
+					registraEnt.setFlagmodocargainicial(1);
+					registraEnt.setEstadodocumento(2);
+					veriReg = ssControlperiodoDao.buscar(registraEnt);
+					if (veriReg==null){
+						registraEnt.setEstado("A");
+						retorno=ssControlperiodoDao.guardar(registraEnt);
+						retorno=3;
 					}
-				}else{
-
 				}
 			}
+			if (filtro.getInt_3()==3){
+				for(VwControlperiodo obj : filtroRegistro){
+					regsEnt = new SsCargainicial();
+					regsEnt.setCompanyowner(obj.getCompanyowner());
+					regsEnt.setAnno(annno);
+					regsEnt.setEstadodocumento(4);
+					registraList = ssCargainicialDao.listar(regsEnt,false);
+					if (registraList.size()>0){
+						for(SsCargainicial objRegs : registraList){
+							objRegs.setAnno(filtro.getInteger1());
+							objRegs.setEstadodocumento(3);
+							SsCargainicial objSiguient= new SsCargainicial();
+							objSiguient = ssCargainicialDao.buscar(objRegs);
+							if (objSiguient==null){
+								objRegs.setEstado("A");
+								retorno = ssCargainicialDao.guardar(objRegs);
+								retorno=3;
+							}
+						}
+					}else{
+
+					}
+				}
+			}
+
+
 
 		} catch (Exception ex) {
 			rollback(ex);
 			Log.logger.error(Log.getStackTrace(ex));
 		}
-		return 1;
+		return retorno;
 	}
 
 	@Override
@@ -195,5 +225,11 @@ public class SsControlperiodoServiceImpl extends AbstractServiceImpl implements 
 	@Override
 	public int contarVista(VwControlperiodo filtro) {
 		return ssControlperiodoDao.contarVista(filtro);
+	}
+
+	@Override
+	public int contarVistaGrupo(VwControlperiodo filtro) {
+		filtro.setString10("NULL");
+		return ssControlperiodoDao.contarVistaGrupo(filtro);
 	}
 }
