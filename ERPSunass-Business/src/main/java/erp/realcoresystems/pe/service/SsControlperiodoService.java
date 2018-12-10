@@ -1,29 +1,22 @@
 package erp.realcoresystems.pe.service;
 
+import erp.realcoresystems.pe.model.domain.SsControlperiodo;
 import erp.realcoresystems.pe.model.domain.SsPeriodoformulario;
 import erp.realcoresystems.pe.model.domain.SsPeriodoformulariodetalle;
+import erp.realcoresystems.pe.model.domain.vista.VwControlperiodo;
 import erp.realcoresystems.pe.model.domain.vista.VwSsperiodoformulario;
 
 import java.util.List;
 
 public interface SsControlperiodoService {
-    public SsPeriodoformulario buscarCab(SsPeriodoformulario filtro);
-
-    public SsPeriodoformulariodetalle buscar(SsPeriodoformulariodetalle filtro);
-
-    public List<SsPeriodoformulariodetalle> listar(SsPeriodoformulariodetalle filtro, boolean pagina);
-    public int contar(SsPeriodoformulariodetalle filtro);
-
-    public List<VwSsperiodoformulario> listarVista(VwSsperiodoformulario filtro, boolean pagina);
-    public int contar(VwSsperiodoformulario filtro);
-
-    public int guardarCab(SsPeriodoformulario objDao);
-    public int actualizarCab(SsPeriodoformulario objDao);
-    public int eliminarCab(SsPeriodoformulario objDao);
-
-
-    public int guardar(SsPeriodoformulariodetalle objDao);
-    public int actualizar(SsPeriodoformulariodetalle objDao);
-    public int eliminar(SsPeriodoformulariodetalle objDao);
+    public SsControlperiodo buscar(SsControlperiodo filtro);
+    public List<SsControlperiodo> listar(SsControlperiodo filtro, boolean pagina);
+    public List<VwControlperiodo> listarVista(VwControlperiodo filtroRegistro, boolean pagina);
+    public int registrarVista(List<VwControlperiodo> filtroRegistro,  VwControlperiodo filtro, boolean pagina);
+    public int guardar(SsControlperiodo objDao);
+    public int actualizar(SsControlperiodo objDao);
+    public int eliminar(SsControlperiodo objDao);
+    public int contar(SsControlperiodo filtro);
+    public int contarVista(VwControlperiodo filtro);
 
 }
