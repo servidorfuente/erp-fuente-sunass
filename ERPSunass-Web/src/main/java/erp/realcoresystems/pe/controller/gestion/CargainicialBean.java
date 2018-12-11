@@ -514,6 +514,20 @@ public class CargainicialBean extends AbstractGenericBean implements InterfaceGe
     public void abrirRegistro() {
 
     }
+    
+    public String obtenerDescripcion(String maCodigoDetalle, List<MaMiscelaneosdetalle> detalles) {
+    	String descripcion = "";
+    	if(UtilesCommons.noEsVacio(detalles)) {
+    		descripcion = detalles
+    		.stream()
+    		.filter(detalle -> {return detalle.getCodigoelemento().equalsIgnoreCase(maCodigoDetalle);})
+    		.findFirst()
+    		.map(detalle -> {
+    			return detalle.getDescripcionlocal();
+    		}).orElse("");
+    	}
+    	return descripcion;
+    }
 
     //SetGet
 

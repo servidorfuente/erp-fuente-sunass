@@ -235,55 +235,140 @@
                              emptyMessage="#{mensaje.MSJ_WARN_busquedaVacia}"
                              style="font-size: 12px; text-align:center;"
                 >
+                	<p:columnGroup type="header">
+                		<p:row>
+                			<p:column rowspan="3" headerText="N° de Orden"/>
+                			
+                			<p:column rowspan="3" headerText="CODIGO EPS"/>
+                			
+                			<p:column rowspan="3" headerText="CODIGO LOCALIDAD"/>
+                			
+                			<p:column colspan="2" headerText="Según ubicación del dispositivo de medición"/>
+                			
+                			<p:column colspan="4" headerText="Según ubicación en el componente del sistema de agua potable"/>
+                			
+                			<p:column rowspan="3" headerText="Tipo de elemento  utilizado para determinar el volumen producido"/>
+                			
+                			<p:column colspan="6" headerText="Solo para equipos de medición (002 - Electromagnético y 003-Ultrasónico)"/>
+                			
+                			<p:column rowspan="3" headerText="Estado de la operación"/>
+                			
+                			<p:column rowspan="3" headerText="Fecha de último mantenimiento y/o calibración"/>
+                			
+                			<p:column rowspan="3" headerText="Observaciones"/>
+                		</p:row>
+                		
+                		<p:row>
+                			<p:column colspan="2" headerText="Nombre"/>
+                			
+                			<p:column rowspan="2" headerText="Salida de la PTAP"/>
+                			<p:column colspan="3" headerText="Nombre del componente"/>
+                			
+                			<p:column rowspan="2" headerText="Marca"/>
+                			<p:column rowspan="2" headerText="Diámetro"/>
+                			<p:column rowspan="2" headerText="Tipo de registro"/>
+                			<p:column rowspan="2" headerText="Serie"/>
+                			<p:column rowspan="2" headerText="Fecha de instalación"/>
+                			<p:column rowspan="2" headerText="Estado de verificación"/>
+                		</p:row>
+                		
+                		<p:row>
+                			<p:column headerText="PTAP"/>
+                			<p:column headerText="Sector (pozo, reservorio, otro)"/>
+                			
+                			<p:column headerText="Pozo"/>
+                			<p:column headerText="Reservorio"/>
+                			<p:column headerText="Otro (especificar)"/>
+                			
+                		</p:row>
+                	</p:columnGroup>
+                
                     <p:ajax event="rowSelect" process="@this" />
 
-                    <p:column headerText="Nº" >
+                    <p:column>
                         <h:outputText value="#{index + 1}" />
+                        1
                     </p:column>
-                    <p:column headerText="#{lbv.CONTROLPERIODO_EPS}" >
+                    
+                    <p:column>
                         <h:outputText value="#{vElement.companyowner}" />
+                        2
                     </p:column>
-                    <p:column headerText="#{lbv.CONTROLPERIODO_SUCURSAL}" >
+                    
+                    <p:column>
                         <h:outputText value="#{vElement.sucursal}" />
+						3
                     </p:column>
-                    <p:column headerText="#{lbv.CONTROLPERIODO_CODIGOFUENTE}" rendered="false">
-                        <h:outputText value="#{vElement.proyectoid}" />
-                    </p:column>
-                    <p:column headerText="#{lbv.CARGAINICIAL_NOMBRESISTEMACAPTACION}" >
-                        <h:outputText value="#{vElement.prdescripcion}" />
-                    </p:column>
-                    <p:column headerText="#{lbv.CARGAINICIAL_SUBTIPOINFRAESTRUCTURA}" >
-                        <h:outputText value="#{vElement.subTipoInfraestructura} - #{cargainicialBean.obtenerDescripcion(vElement.subTipoInfraestructura, cargainicialBean.maMisSubTipoInfraestructura)}" />
-                    </p:column>
-                    <p:column headerText="#{lbv.CARGAINICIAL_CAUDALCAPTADOURBANO}" >
-                        <h:outputText value="#{vElement.caudalurbanoLps}" />
-                    </p:column>
-                    <p:column headerText="#{lbv.CARGAINICIAL_CAUDALCAPTADORURAL}" >
-                        <h:outputText value="#{vElement.caudalruralLps}" />
-                    </p:column>
-                    <p:column headerText="#{lbv.CARGAINICIAL_CAUDALCAPTADODIRECTO}" >
-                        <h:outputText value="#{vElement.caudalcaptadodirectoLps}" />
-                    </p:column>
-                    <p:column headerText="#{lbv.CARGAINICIAL_CAUDALCAPTADOBOMBEO}" >
-                        <h:outputText value="#{vElement.caudalcaptadobombeoLps}" />
-                    </p:column>
-					<p:column headerText="#{lbv.CARGAINICIAL_POTENCIAHP}" >
-                        <h:outputText value="#{vElement.potenciaHp}" />
-                    </p:column>
-                    <p:column headerText="#{lbv.CARGAINICIAL_OBSERVACIONES}" >
-                        <h:outputText value="#{vElement.observacion}" />
-                    </p:column>
-                    <p:column headerText="#{lbv.ESTADO_CAP}" >
-                        <h:outputText value="#{vElement.estado eq 'A' ? label.ITEM_ACTIVO :label.ITEM_INACTIVO}"
-                                      styleClass="#{vElement.estado eq 'A' ? 'colTableEstadoActivo' :'colTableEstadoInactivo'}" />
-                    </p:column>
-
+                    
+					<p:column>
+						4
+					</p:column>
+					
+					<p:column>
+						5
+					</p:column>
+					
+					<p:column>
+						6
+					</p:column>
+					
+					<p:column>
+						7
+					</p:column>
+					
+					<p:column>
+						8
+					</p:column>
+					
+					<p:column>
+						9
+					</p:column>
+					
+					<p:column>
+						10
+					</p:column>
+					
+					<p:column>
+						11
+					</p:column>
+					
+					<p:column>
+						12
+					</p:column>
+					
+					<p:column>
+						13
+					</p:column>
+					
+					<p:column>
+						14
+					</p:column>
+					
+					<p:column>
+						15
+					</p:column>
+					
+					<p:column>
+						16
+					</p:column>
+					
+					<p:column>
+						17
+					</p:column>
+					
+					<p:column>
+						18
+					</p:column>
+					
+					<p:column>
+						19
+					</p:column>
                 </p:dataTable>
 
             </div>
             <div id="seccionRegistro" style="display: #{cargainicialBean.visibleRegistro ?'block':'none'} ;" >
                 <p:outputPanel id="opSeccionReg" rendered="#{cargainicialBean.visibleRegistro}" >
-                    <ui:include src="/vistas/sunass/gestion/cargaCaptacionRegistro.xhtml"></ui:include>
+                    <ui:include src="/vistas/sunass/gestion/cargaMacromedicionRegistro.xhtml"></ui:include>
 
                 </p:outputPanel>
             </div>
