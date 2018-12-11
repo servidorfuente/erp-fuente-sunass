@@ -38,6 +38,9 @@ public class MenuPrincipalEstaticoBean {
     public static final String URL_CARGAINICIAL_FUENTE= "/vistas/sunass/gestion/cargaFuentesLista.xhtml?fuenteid=1";
     public static final String URL_CARGAINICIAL_ESTRUCTURA= "/vistas/sunass/gestion/cargaEstructuraLista.xhtml?fuenteid=2";
     public static final String URL_CARGAINICIAL_PLANTA= "/vistas/sunass/gestion/cargaPlantaLista.xhtml?fuenteid=3";
+    public static final String URL_CARGAINICIAL_PLANTARESID= "/vistas/sunass/gestion/cargaPlantaResidualLista.xhtml?fuenteid=4";
+    public static final String URL_CARGAINICIAL_INFESTGENERAL= "/vistas/sunass/gestion/cargaInfraestructuraGeneLista.xhtml?fuenteid=5";
+    public static final String URL_CARGAINICIAL_CICLOFACTURA= "/vistas/sunass/gestion/cargaCicloFacturaLista.xhtml?fuenteid=6";
     public static final String URL_CARGAINICIAL_CAPTACION= "/vistas/sunass/gestion/cargaCaptacionLista.xhtml?fuenteid=7";
     public static final String URL_CARGAINICIAL_MACROMEDICION = "/vistas/sunass/gestion/cargaMacromedicionLista.xhtml?fuenteid=8";
 
@@ -213,7 +216,23 @@ public class MenuPrincipalEstaticoBean {
         planta.setUrl("" + URL_CARGAINICIAL_PLANTA);
         planta.setObjetoWindow("fa fa-circle-o");
         listaOpcPermisos.add(planta);
-        
+
+        VwSeguridadautorizacione plantaRes = new VwSeguridadautorizacione();
+        plantaRes.setAplicacionCodigo(Constant.APLICACION_CODIGO);
+        plantaRes.setUsuario(EntityGlobal.getInstance().getUsuario());
+        plantaRes.setEstado(Constant.ACTIVO);
+        plantaRes.setTipodeObjeto(TIPOO_ARCHIVO_db);
+
+        plantaRes.setGrupo("GRUPO010");
+        plantaRes.setConcepto("CON0013");
+        plantaRes.setConceptoPadre("CON0000");
+        plantaRes.setDescripcionSegConcepto("Planta Residual");
+        plantaRes.setUrl("" + URL_CARGAINICIAL_PLANTARESID);
+        plantaRes.setObjetoWindow("fa fa-circle-o");
+        listaOpcPermisos.add(plantaRes);
+
+
+
         
         VwSeguridadautorizacione captacion = new VwSeguridadautorizacione();
         captacion.setAplicacionCodigo(Constant.APLICACION_CODIGO);
@@ -249,12 +268,38 @@ public class MenuPrincipalEstaticoBean {
         estructura.setEstado(Constant.ACTIVO);
         estructura.setTipodeObjeto(TIPOO_ARCHIVO_db);
         estructura.setGrupo("GRUPO010");
-        estructura.setConcepto("CON0003");
+        estructura.setConcepto("CON0020");
         estructura.setConceptoPadre("CON0000");
         estructura.setDescripcionSegConcepto("Estruc. Almacenamiento");
         estructura.setUrl("" + URL_CARGAINICIAL_ESTRUCTURA);
         estructura.setObjetoWindow("fa fa-circle-o");
         listaOpcPermisos.add(estructura);
+
+      VwSeguridadautorizacione infraGeneral = new VwSeguridadautorizacione();
+        infraGeneral.setAplicacionCodigo(Constant.APLICACION_CODIGO);
+        infraGeneral.setUsuario(EntityGlobal.getInstance().getUsuario());
+        infraGeneral.setEstado(Constant.ACTIVO);
+        infraGeneral.setTipodeObjeto(TIPOO_ARCHIVO_db);
+        infraGeneral.setGrupo("GRUPO010");
+        infraGeneral.setConcepto("CON0021");
+        infraGeneral.setConceptoPadre("CON0000");
+        infraGeneral.setDescripcionSegConcepto("Infraestructura General");
+        infraGeneral.setUrl("" + URL_CARGAINICIAL_INFESTGENERAL);
+        infraGeneral.setObjetoWindow("fa fa-circle-o");
+        listaOpcPermisos.add(infraGeneral);
+
+        VwSeguridadautorizacione cicloFactura = new VwSeguridadautorizacione();
+        cicloFactura.setAplicacionCodigo(Constant.APLICACION_CODIGO);
+        cicloFactura.setUsuario(EntityGlobal.getInstance().getUsuario());
+        cicloFactura.setEstado(Constant.ACTIVO);
+        cicloFactura.setTipodeObjeto(TIPOO_ARCHIVO_db);
+        cicloFactura.setGrupo("GRUPO010");
+        cicloFactura.setConcepto("CON0003");
+        cicloFactura.setConceptoPadre("CON0000");
+        cicloFactura.setDescripcionSegConcepto("Estruc. Almacenamiento");
+        cicloFactura.setUrl("" + URL_CARGAINICIAL_CICLOFACTURA);
+        cicloFactura.setObjetoWindow("fa fa-circle-o");
+        listaOpcPermisos.add(cicloFactura);
 
         VwSeguridadautorizacione objPermisos011 = new VwSeguridadautorizacione();
         objPermisos011.setAplicacionCodigo(Constant.APLICACION_CODIGO);
