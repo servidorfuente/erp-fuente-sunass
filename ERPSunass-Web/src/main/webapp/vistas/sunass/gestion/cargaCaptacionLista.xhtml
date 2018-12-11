@@ -246,14 +246,14 @@
                     <p:column headerText="#{lbv.CONTROLPERIODO_SUCURSAL}" >
                         <h:outputText value="#{vElement.sucursal}" />
                     </p:column>
-                    <p:column headerText="#{lbv.CONTROLPERIODO_CODIGOFUENTE}" >
+                    <p:column headerText="#{lbv.CONTROLPERIODO_CODIGOFUENTE}" rendered="false">
                         <h:outputText value="#{vElement.proyectoid}" />
                     </p:column>
-                    <p:column headerText="#{lbv.CONTROLPERIODO_NOMBREFUENTE}" >
+                    <p:column headerText="#{lbv.CARGAINICIAL_NOMBRESISTEMACAPTACION}" >
                         <h:outputText value="#{vElement.prdescripcion}" />
                     </p:column>
-                    <p:column headerText="#{lbv.CARGAINICIAL_TIPOFUENTES}" >
-                        <h:outputText value="#{vElement.fuenteid}" />
+                    <p:column headerText="#{lbv.CARGAINICIAL_SUBTIPOINFRAESTRUCTURA}" >
+                        <h:outputText value="#{vElement.subTipoInfraestructura} - #{cargainicialBean.obtenerDescripcion(vElement.subTipoInfraestructura, cargainicialBean.maMisSubTipoInfraestructura)}" />
                     </p:column>
                     <p:column headerText="#{lbv.CARGAINICIAL_CAUDALCAPTADOURBANO}" >
                         <h:outputText value="#{vElement.caudalurbanoLps}" />
