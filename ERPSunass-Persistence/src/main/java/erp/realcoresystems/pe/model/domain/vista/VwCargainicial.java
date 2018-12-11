@@ -53,6 +53,22 @@ public class VwCargainicial  extends Entidad {
     private BigDecimal  caudalruralLps;
     private BigDecimal  caudalcaptadodirectoLps;
     private BigDecimal  caudalcaptadobombeoLps;
+
+    private BigDecimal ptaresprima2Areatotal;
+    private BigDecimal ptaressecun2Areatotal;
+    private BigDecimal ptaresterce2Areatotal;
+    private BigDecimal ptaresprima2Cantidad;
+    private BigDecimal ptaressecun2Canbtidad;
+    private BigDecimal ptaresterce2Cantidad;
+    private BigDecimal ptareslontiudmts3;
+    private BigDecimal ptaresanchodmts4;
+    private BigDecimal ptarescantidadunit5;
+    private BigDecimal ptaresdiametropulg6;
+    private BigDecimal ptaresalturamts7;
+    private BigDecimal ptarescapacactualips;
+    private BigDecimal ptarescapacmaximaips;
+
+
     private String potenciaHp;
     private String observacion;
     private String documentofuente;
@@ -293,6 +309,7 @@ public class VwCargainicial  extends Entidad {
         this.capacActualLps = capacActualLps;
     }
 
+
     @Basic
     @Column(name = "CAPAC_MAXIMA_LPS")
     public BigDecimal  getCapacMaximaLps() {
@@ -302,6 +319,140 @@ public class VwCargainicial  extends Entidad {
     public void setCapacMaximaLps(BigDecimal  capacMaximaLps) {
         this.capacMaximaLps = capacMaximaLps;
     }
+
+
+
+
+    @Basic
+    @Column(name = "PTARESPRIMA2AREATOTAL")
+    public BigDecimal getPtaresprima2Areatotal() {
+        return ptaresprima2Areatotal;
+    }
+
+    public void setPtaresprima2Areatotal(BigDecimal ptaresprima2Areatotal) {
+        this.ptaresprima2Areatotal = ptaresprima2Areatotal;
+    }
+
+    @Basic
+    @Column(name = "PTARESSECUN2AREATOTAL")
+    public BigDecimal getPtaressecun2Areatotal() {
+        return ptaressecun2Areatotal;
+    }
+
+    public void setPtaressecun2Areatotal(BigDecimal ptaressecun2Areatotal) {
+        this.ptaressecun2Areatotal = ptaressecun2Areatotal;
+    }
+
+    @Basic
+    @Column(name = "PTARESTERCE2AREATOTAL")
+    public BigDecimal getPtaresterce2Areatotal() {
+        return ptaresterce2Areatotal;
+    }
+
+    public void setPtaresterce2Areatotal(BigDecimal ptaresterce2Areatotal) {
+        this.ptaresterce2Areatotal = ptaresterce2Areatotal;
+    }
+
+    @Basic
+    @Column(name = "PTARESPRIMA2CANTIDAD")
+    public BigDecimal getPtaresprima2Cantidad() {
+        return ptaresprima2Cantidad;
+    }
+
+    public void setPtaresprima2Cantidad(BigDecimal ptaresprima2Cantidad) {
+        this.ptaresprima2Cantidad = ptaresprima2Cantidad;
+    }
+
+    @Basic
+    @Column(name = "PTARESSECUN2CANBTIDAD")
+    public BigDecimal getPtaressecun2Canbtidad() {
+        return ptaressecun2Canbtidad;
+    }
+
+    public void setPtaressecun2Canbtidad(BigDecimal ptaressecun2Canbtidad) {
+        this.ptaressecun2Canbtidad = ptaressecun2Canbtidad;
+    }
+
+    @Basic
+    @Column(name = "PTARESTERCE2CANTIDAD")
+    public BigDecimal getPtaresterce2Cantidad() {
+        return ptaresterce2Cantidad;
+    }
+
+    public void setPtaresterce2Cantidad(BigDecimal ptaresterce2Cantidad) {
+        this.ptaresterce2Cantidad = ptaresterce2Cantidad;
+    }
+
+    @Basic
+    @Column(name = "PTARESLONTIUDMTS3")
+    public BigDecimal getPtareslontiudmts3() {
+        return ptareslontiudmts3;
+    }
+
+    public void setPtareslontiudmts3(BigDecimal ptareslontiudmts3) {
+        this.ptareslontiudmts3 = ptareslontiudmts3;
+    }
+
+    @Basic
+    @Column(name = "PTARESANCHODMTS4")
+    public BigDecimal getPtaresanchodmts4() {
+        return ptaresanchodmts4;
+    }
+
+    public void setPtaresanchodmts4(BigDecimal ptaresanchodmts4) {
+        this.ptaresanchodmts4 = ptaresanchodmts4;
+    }
+
+    @Basic
+    @Column(name = "PTARESCANTIDADUNIT5")
+    public BigDecimal getPtarescantidadunit5() {
+        return ptarescantidadunit5;
+    }
+
+    public void setPtarescantidadunit5(BigDecimal ptarescantidadunit5) {
+        this.ptarescantidadunit5 = ptarescantidadunit5;
+    }
+
+    @Basic
+    @Column(name = "PTARESDIAMETROPULG6")
+    public BigDecimal getPtaresdiametropulg6() {
+        return ptaresdiametropulg6;
+    }
+
+    public void setPtaresdiametropulg6(BigDecimal ptaresdiametropulg6) {
+        this.ptaresdiametropulg6 = ptaresdiametropulg6;
+    }
+
+    @Basic
+    @Column(name = "PTARESALTURAMTS7")
+    public BigDecimal getPtaresalturamts7() {
+        return ptaresalturamts7;
+    }
+
+    public void setPtaresalturamts7(BigDecimal ptaresalturamts7) {
+        this.ptaresalturamts7 = ptaresalturamts7;
+    }
+
+    @Basic
+    @Column(name = "PTARESCAPACACTUALIPS")
+    public BigDecimal getPtarescapacactualips() {
+        return ptarescapacactualips;
+    }
+
+    public void setPtarescapacactualips(BigDecimal ptarescapacactualips) {
+        this.ptarescapacactualips = ptarescapacactualips;
+    }
+
+    @Basic
+    @Column(name = "PTARESCAPACMAXIMAIPS")
+    public BigDecimal getPtarescapacmaximaips() {
+        return ptarescapacmaximaips;
+    }
+
+    public void setPtarescapacmaximaips(BigDecimal ptarescapacmaximaips) {
+        this.ptarescapacmaximaips = ptarescapacmaximaips;
+    }
+
 
     @Basic
     @Column(name = "ANTIGUEDAD_AOS")
