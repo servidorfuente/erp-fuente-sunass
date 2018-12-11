@@ -39,6 +39,7 @@ public class MenuPrincipalEstaticoBean {
     public static final String URL_CARGAINICIAL_ESTRUCTURA= "/vistas/sunass/gestion/cargaEstructuraLista.xhtml?fuenteid=2";
     public static final String URL_CARGAINICIAL_PLANTA= "/vistas/sunass/gestion/cargaPlantaLista.xhtml?fuenteid=3";
     public static final String URL_CARGAINICIAL_CAPTACION= "/vistas/sunass/gestion/cargaCaptacionLista.xhtml?fuenteid=7";
+    public static final String URL_CARGAINICIAL_MACROMEDICION = "/vistas/sunass/gestion/cargaMacromedicionLista.xhtml?fuenteid=8";
 
     /**
      * Obtiene la lista de Permisos , pero del tipo de objeto 'C', que son las
@@ -215,6 +216,20 @@ public class MenuPrincipalEstaticoBean {
         captacion.setUrl("" + URL_CARGAINICIAL_CAPTACION);
         captacion.setObjetoWindow("fa fa-circle-o");
         listaOpcPermisos.add(captacion);
+        
+        VwSeguridadautorizacione macromedicion = new VwSeguridadautorizacione();
+        macromedicion.setAplicacionCodigo(Constant.APLICACION_CODIGO);
+        macromedicion.setUsuario(EntityGlobal.getInstance().getUsuario());
+        macromedicion.setEstado(Constant.ACTIVO);
+        macromedicion.setTipodeObjeto(TIPOO_ARCHIVO_db);
+        
+        macromedicion.setGrupo("GRUPO010");
+        macromedicion.setConcepto("CON0007");
+        macromedicion.setConceptoPadre("CON0000");
+        macromedicion.setDescripcionSegConcepto("Macromedición");
+        macromedicion.setUrl("" + URL_CARGAINICIAL_MACROMEDICION);
+        macromedicion.setObjetoWindow("fa fa-circle-o");
+        listaOpcPermisos.add(macromedicion);
 
         VwSeguridadautorizacione estructura = new VwSeguridadautorizacione();
         estructura.setAplicacionCodigo(Constant.APLICACION_CODIGO);
