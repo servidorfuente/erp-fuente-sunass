@@ -3,17 +3,19 @@ package erp.realcoresystems.pe.model.domain;
 import javax.persistence.*;
 import java.util.Date;
 
+
 @Entity
-@Table(name = "SS_CONTROLPERIODO" )
+@Table(name = "SS_CONTROLPERIODO")
 @IdClass(SsControlperiodoPK.class)
 public class SsControlperiodo  extends Entidad{
     private String companyowner;
+    private String tipooperacion;
+    private Integer anno;
+    private Integer formularioid;
+    private Integer secuencia;
     private String sucursal;
     private String tipofrecuencia;
-    private Integer ffanno;
-    private Integer formularioid;
     private String periodo;
-    private Integer secuencia;
     private Integer mes;
     private Date fechainicio;
     private Date fechafin;
@@ -24,6 +26,8 @@ public class SsControlperiodo  extends Entidad{
     private Date creacionfecha;
     private String ultimousuario;
     private Date ultimafechamodif;
+    private Integer flagmodoformulario;
+    private Integer flagmodocargainicial;
     private Integer estadodocumento;
     private String estado;
 
@@ -37,37 +41,27 @@ public class SsControlperiodo  extends Entidad{
         this.companyowner = companyowner;
     }
 
-    @Basic
-    @Column(name = "SUCURSAL")
-    public String getSucursal() {
-        return sucursal;
+    //@Id
+    @Column(name = "TIPOOPERACION")
+    public String getTipooperacion() {
+        return tipooperacion;
     }
 
-    public void setSucursal(String sucursal) {
-        this.sucursal = sucursal;
-    }
-
-    @Id
-    @Column(name = "TIPOFRECUENCIA")
-    public String getTipofrecuencia() {
-        return tipofrecuencia;
-    }
-
-    public void setTipofrecuencia(String tipofrecuencia) {
-        this.tipofrecuencia = tipofrecuencia;
+    public void setTipooperacion(String tipooperacion) {
+        this.tipooperacion = tipooperacion;
     }
 
     @Id
-    @Column(name = "FFANNO")
-    public Integer getFfanno() {
-        return ffanno;
+    @Column(name = "ANNO")
+    public Integer getAnno() {
+        return anno;
     }
 
-    public void setFfanno(Integer ffanno) {
-        this.ffanno = ffanno;
+    public void setAnno(Integer anno) {
+        this.anno = anno;
     }
 
-    @Id
+    //@Id
     @Column(name = "FORMULARIOID")
     public Integer getFormularioid() {
         return formularioid;
@@ -78,16 +72,6 @@ public class SsControlperiodo  extends Entidad{
     }
 
     @Id
-    @Column(name = "PERIODO")
-    public String getPeriodo() {
-        return periodo;
-    }
-
-    public void setPeriodo(String periodo) {
-        this.periodo = periodo;
-    }
-
-    @Id
     @Column(name = "SECUENCIA")
     public Integer getSecuencia() {
         return secuencia;
@@ -95,6 +79,36 @@ public class SsControlperiodo  extends Entidad{
 
     public void setSecuencia(Integer secuencia) {
         this.secuencia = secuencia;
+    }
+
+    @Basic
+    @Column(name = "SUCURSAL")
+    public String getSucursal() {
+        return sucursal;
+    }
+
+    public void setSucursal(String sucursal) {
+        this.sucursal = sucursal;
+    }
+
+    @Basic
+    @Column(name = "TIPOFRECUENCIA")
+    public String getTipofrecuencia() {
+        return tipofrecuencia;
+    }
+
+    public void setTipofrecuencia(String tipofrecuencia) {
+        this.tipofrecuencia = tipofrecuencia;
+    }
+
+    @Basic
+    @Column(name = "PERIODO")
+    public String getPeriodo() {
+        return periodo;
+    }
+
+    public void setPeriodo(String periodo) {
+        this.periodo = periodo;
     }
 
     @Basic
@@ -198,6 +212,26 @@ public class SsControlperiodo  extends Entidad{
     }
 
     @Basic
+    @Column(name = "FLAGMODOFORMULARIO")
+    public Integer getFlagmodoformulario() {
+        return flagmodoformulario;
+    }
+
+    public void setFlagmodoformulario(Integer flagmodoformulario) {
+        this.flagmodoformulario = flagmodoformulario;
+    }
+
+    @Basic
+    @Column(name = "FLAGMODOCARGAINICIAL")
+    public Integer getFlagmodocargainicial() {
+        return flagmodocargainicial;
+    }
+
+    public void setFlagmodocargainicial(Integer flagmodocargainicial) {
+        this.flagmodocargainicial = flagmodocargainicial;
+    }
+
+    @Basic
     @Column(name = "ESTADODOCUMENTO")
     public Integer getEstadodocumento() {
         return estadodocumento;
@@ -224,10 +258,12 @@ public class SsControlperiodo  extends Entidad{
 
         SsControlperiodo that = (SsControlperiodo) o;
 
-        if (ffanno != that.ffanno) return false;
+        if (anno != that.anno) return false;
         if (formularioid != that.formularioid) return false;
         if (secuencia != that.secuencia) return false;
         if (companyowner != null ? !companyowner.equals(that.companyowner) : that.companyowner != null) return false;
+        if (tipooperacion != null ? !tipooperacion.equals(that.tipooperacion) : that.tipooperacion != null)
+            return false;
         if (sucursal != null ? !sucursal.equals(that.sucursal) : that.sucursal != null) return false;
         if (tipofrecuencia != null ? !tipofrecuencia.equals(that.tipofrecuencia) : that.tipofrecuencia != null)
             return false;
@@ -247,6 +283,10 @@ public class SsControlperiodo  extends Entidad{
             return false;
         if (ultimafechamodif != null ? !ultimafechamodif.equals(that.ultimafechamodif) : that.ultimafechamodif != null)
             return false;
+        if (flagmodoformulario != null ? !flagmodoformulario.equals(that.flagmodoformulario) : that.flagmodoformulario != null)
+            return false;
+        if (flagmodocargainicial != null ? !flagmodocargainicial.equals(that.flagmodocargainicial) : that.flagmodocargainicial != null)
+            return false;
         if (estadodocumento != null ? !estadodocumento.equals(that.estadodocumento) : that.estadodocumento != null)
             return false;
         if (estado != null ? !estado.equals(that.estado) : that.estado != null) return false;
@@ -257,12 +297,13 @@ public class SsControlperiodo  extends Entidad{
     @Override
     public int hashCode() {
         int result = companyowner != null ? companyowner.hashCode() : 0;
+        result = 31 * result + (tipooperacion != null ? tipooperacion.hashCode() : 0);
+        result = 31 * result + (int) (anno ^ (anno >>> 32));
+        result = 31 * result + (int) (formularioid ^ (formularioid >>> 32));
+        result = 31 * result + (int) (secuencia ^ (secuencia >>> 32));
         result = 31 * result + (sucursal != null ? sucursal.hashCode() : 0);
         result = 31 * result + (tipofrecuencia != null ? tipofrecuencia.hashCode() : 0);
-        result = 31 * result + (int) (ffanno ^ (ffanno >>> 32));
-        result = 31 * result + (int) (formularioid ^ (formularioid >>> 32));
         result = 31 * result + (periodo != null ? periodo.hashCode() : 0);
-        result = 31 * result + (int) (secuencia ^ (secuencia >>> 32));
         result = 31 * result + (mes != null ? mes.hashCode() : 0);
         result = 31 * result + (fechainicio != null ? fechainicio.hashCode() : 0);
         result = 31 * result + (fechafin != null ? fechafin.hashCode() : 0);
@@ -273,6 +314,8 @@ public class SsControlperiodo  extends Entidad{
         result = 31 * result + (creacionfecha != null ? creacionfecha.hashCode() : 0);
         result = 31 * result + (ultimousuario != null ? ultimousuario.hashCode() : 0);
         result = 31 * result + (ultimafechamodif != null ? ultimafechamodif.hashCode() : 0);
+        result = 31 * result + (flagmodoformulario != null ? flagmodoformulario.hashCode() : 0);
+        result = 31 * result + (flagmodocargainicial != null ? flagmodocargainicial.hashCode() : 0);
         result = 31 * result + (estadodocumento != null ? estadodocumento.hashCode() : 0);
         result = 31 * result + (estado != null ? estado.hashCode() : 0);
         return result;

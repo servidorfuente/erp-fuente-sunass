@@ -50,6 +50,9 @@ public class CargainicialBean extends AbstractGenericBean implements InterfaceGe
     @ManagedProperty(value="#{ssProyectoService}")
     private SsProyectoService ssProyectoService;
 
+    @ManagedProperty(value="#{ssControlperiodoService}")
+    private SsControlperiodoService ssControlperiodoService;
+
     private  List<SaTipofuente> listarFuente ;
     private  List<AcSucursal> listarSucursal ;
     private  List<SsProyecto> listarProyecto;
@@ -70,9 +73,11 @@ public class CargainicialBean extends AbstractGenericBean implements InterfaceGe
     protected List<VwCargainicial> listaDataModel;
 
     private Companyowner companiaDefault;
-
+    private SsControlperiodo ssControlperiodo;
 
     private String fuenteidLocal;
+    private boolean buttonesEstado;
+    private String mensajeEstado;
 
     @PostConstruct
     public void inicializar() {
@@ -86,6 +91,7 @@ public class CargainicialBean extends AbstractGenericBean implements InterfaceGe
         buscarPrincipal();
         maMisTipoFuente = listarMiscelaneosDetalle("","TIPOFUENTE");
         maMisSubTipoInfraestructura = listarMiscelaneosDetalle("", "SUBTIPINFR");
+        maMisDestalleEstadoDocumento = listarMiscelaneosDetalle("","ESTADODOC");
     }
     public void inicializarEntidad(){
         FacesUtil.removeIfExistsSessionMap(Utiles.COD_SESSION_LISTADO_PERSONAS);
@@ -94,7 +100,8 @@ public class CargainicialBean extends AbstractGenericBean implements InterfaceGe
         ssCargaInicialFiltro = new SsCargainicial();
         vwCargaInicialSelect = new VwCargainicial();
         vwCargaInicialFiltro = new VwCargainicial();
-        vwCargaInicialFiltro.setAnno(annoActual());
+        ssControlperiodo = new SsControlperiodo();
+        //vwCargaInicialFiltro.setAnno(annoActual());
         maMisTipoFuente = UtilesCommons.getNewList();
         maMisDestalleEstadoDocumento = UtilesCommons.getNewList();
         maMisSubTipoInfraestructura = UtilesCommons.getNewList();
@@ -137,8 +144,27 @@ public class CargainicialBean extends AbstractGenericBean implements InterfaceGe
         listarProyecto = ssProyectoService.listar(new SsProyecto(),false);
     }
     public void seleccionarSucursal() {
-        if (UtilesCommons.noEsVacio(ssCargaInicialRegistro.getCompanyowner()))
+        SsControlperiodo tempPeriodo = new SsControlperiodo();
+        if (UtilesCommons.noEsVacio(ssCargaInicialRegistro.getCompanyowner())) {
             vwCargaInicialFiltro.setCompanyowner(ssCargaInicialRegistro.getCompanyowner());
+            if (MODO_ACTUAL.equals(MODO_NEW)) {
+                tempPeriodo.setCompanyowner(ssCargaInicialRegistro.getCompanyowner());
+                tempPeriodo.setFlagmodocargainicial(1);
+                tempPeriodo.setTipooperacion("CARGAINICIAL");
+                tempPeriodo.setEstadodocumento(2);
+                ssControlperiodo = ssControlperiodoService.buscar(tempPeriodo);
+                if (ssControlperiodo!=null){
+                    ssCargaInicialRegistro.setAnno(ssControlperiodo.getAnno());
+                    mensajeEstado="AUTORIZADO CARGA INICIAL";
+                    buttonesEstado=false;
+                }else{
+                    ssCargaInicialRegistro.setAnno(null);
+                    mensajeEstado="SIN AUTORIZACION CARGA INICIAL";
+                    buttonesEstado=true;
+                }
+
+            }
+        }
         listarSucursal = UtilesCommons.getCleanList(listarSucursal);
         AcSucursal objBusc= new AcSucursal();
         objBusc.setCompanyowner(vwCargaInicialFiltro.getCompanyowner());
@@ -387,7 +413,7 @@ public class CargainicialBean extends AbstractGenericBean implements InterfaceGe
 //    			FacesUtil.adicionarMensajeWarning("Ingrese el nombre del sistema de captación.");
 //    			return false;
 //    		}
-    		if(UtilesCommons.esVacio(formulario.getSubTipoInfraestructura())) {
+    	/*	if(UtilesCommons.esVacio(formulario.getSubTipoInfraestructura())) {
     			FacesUtil.adicionarMensajeWarning("Seleccione el sub tipo de infraestructura.");
     			return false;
     		}
@@ -403,7 +429,7 @@ public class CargainicialBean extends AbstractGenericBean implements InterfaceGe
     				&& UtilesCommons.esVacio(formulario.getPotenciaHp())) {
     			FacesUtil.adicionarMensajeWarning("Debe ingresar almenos el caudal directo, bombeo o la potencia HP cuando es sub tipo de infraestructura no es superficial.");
     			return false;
-    		}
+    		}*/
     	}
     	return true;
     }
@@ -425,7 +451,9 @@ public class CargainicialBean extends AbstractGenericBean implements InterfaceGe
     @Override
     public void btnNuevo() {
         MODO_ACTUAL = MODO_NEW;
+        buttonesEstado=true;
         ssCargaInicialRegistro.setEstado("A");
+        ssCargaInicialRegistro.setEstadodocumento(3);
         //ssCargaInicialRegistro = new SsCargainicial();
         if (UtilesCommons.noEsVacio(vwCargaInicialFiltro.getCompanyowner()))
             ssCargaInicialRegistro.setCompanyowner(vwCargaInicialFiltro.getCompanyowner());
@@ -435,8 +463,8 @@ public class CargainicialBean extends AbstractGenericBean implements InterfaceGe
             ssCargaInicialRegistro.setFuenteid(vwCargaInicialFiltro.getFuenteid());
         if (UtilesCommons.noEsVacio(vwCargaInicialFiltro.getProyectoid()))
             ssCargaInicialRegistro.setProyectoid(vwCargaInicialFiltro.getProyectoid());
-        if (UtilesCommons.noEsVacio(vwCargaInicialFiltro.getAnno()))
-            ssCargaInicialRegistro.setAnno(vwCargaInicialFiltro.getAnno());
+        //if (UtilesCommons.noEsVacio(vwCargaInicialFiltro.getAnno()))
+           // ssCargaInicialRegistro.setAnno(vwCargaInicialFiltro.getAnno());
         setAtributosWindowsRegistro(MODO_ACTUAL);
     }
 
@@ -677,6 +705,50 @@ public class CargainicialBean extends AbstractGenericBean implements InterfaceGe
 
     public void setFuenteidLocal(String fuenteidLocal) {
         this.fuenteidLocal = fuenteidLocal;
+    }
+
+    public SsControlperiodoService getSsControlperiodoService() {
+        return ssControlperiodoService;
+    }
+
+    public void setSsControlperiodoService(SsControlperiodoService ssControlperiodoService) {
+        this.ssControlperiodoService = ssControlperiodoService;
+    }
+
+    public List<MaMiscelaneosdetalle> getMaMisTipoFuente() {
+        return maMisTipoFuente;
+    }
+
+    public void setMaMisTipoFuente(List<MaMiscelaneosdetalle> maMisTipoFuente) {
+        this.maMisTipoFuente = maMisTipoFuente;
+    }
+
+    public Companyowner getCompaniaDefault() {
+        return companiaDefault;
+    }
+
+    public SsControlperiodo getSsControlperiodo() {
+        return ssControlperiodo;
+    }
+
+    public void setSsControlperiodo(SsControlperiodo ssControlperiodo) {
+        this.ssControlperiodo = ssControlperiodo;
+    }
+
+    public boolean isButtonesEstado() {
+        return buttonesEstado;
+    }
+
+    public void setButtonesEstado(boolean buttonesEstado) {
+        this.buttonesEstado = buttonesEstado;
+    }
+
+    public String getMensajeEstado() {
+        return mensajeEstado;
+    }
+
+    public void setMensajeEstado(String mensajeEstado) {
+        this.mensajeEstado = mensajeEstado;
     }
 }
 

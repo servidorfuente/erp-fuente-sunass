@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Repository
-public class SsCargainicialDaoImpl extends AbstractDaoImpl<SsCargainicial, SsCargainicialPK> implements SsCargainicialDao {
+public class SsCargainicialDaoImpl extends AbstractDaoImpl<SsCargainicial, String> implements SsCargainicialDao {
 
     protected SsCargainicialDaoImpl() {
         super(SsCargainicial.class);
@@ -142,6 +142,9 @@ public class SsCargainicialDaoImpl extends AbstractDaoImpl<SsCargainicial, SsCar
             }
             if(UtilesCommons.noEsVacio(objDao.getAnno())){
                 criteria.add(Restrictions.eq("anno",objDao.getAnno()));
+            }
+            if(UtilesCommons.noEsVacio(objDao.getEstadodocumento())){
+                criteria.add(Restrictions.eq("estadodocumento",objDao.getEstadodocumento()));
             }
             if(UtilesCommons.noEsVacio(objDao.getProyectoid())){
                 criteria.add(Restrictions.eq("proyectoid",objDao.getProyectoid()));

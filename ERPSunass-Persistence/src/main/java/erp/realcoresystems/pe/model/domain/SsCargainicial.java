@@ -2,12 +2,13 @@ package erp.realcoresystems.pe.model.domain;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.sql.Time;
 import java.util.Date;
 
 @Entity
 @Table(name = "SS_CARGAINICIAL")
 @IdClass(SsCargainicialPK.class)
-public class SsCargainicial   extends Entidad{
+public class SsCargainicial  extends Entidad {
     private String companyowner;
     private String sucursal;
     private Integer proyectoid;
@@ -33,7 +34,7 @@ public class SsCargainicial   extends Entidad{
     private String potenciabombaHp;
     private String cuentaconfoculadorDFT;
     private String diametroPulg;
-    private String IntegeritudMts;
+    private String longitudMts;
     private String tipodetuberia;
     private String anchoMts;
     private String primariaAreaHaUnidad;
@@ -57,6 +58,7 @@ public class SsCargainicial   extends Entidad{
     private String subTipoInfraestructura;
     private String codSistemaCaptacion;
     private String nombreSistemaCaptacion;
+    private Integer estadodocumento;
 
     @Id
     @Column(name = "COMPANYOWNER")
@@ -68,7 +70,7 @@ public class SsCargainicial   extends Entidad{
         this.companyowner = companyowner;
     }
 
-    @Id
+    @Basic
     @Column(name = "SUCURSAL")
     public String getSucursal() {
         return sucursal;
@@ -78,7 +80,7 @@ public class SsCargainicial   extends Entidad{
         this.sucursal = sucursal;
     }
 
-    @Id
+    @Basic
     @Column(name = "PROYECTOID")
     public Integer getProyectoid() {
         return proyectoid;
@@ -88,7 +90,7 @@ public class SsCargainicial   extends Entidad{
         this.proyectoid = proyectoid;
     }
 
-    @Id
+    @Basic
     @Column(name = "FUENTEID")
     public Integer getFuenteid() {
         return fuenteid;
@@ -310,12 +312,12 @@ public class SsCargainicial   extends Entidad{
 
     @Basic
     @Column(name = "LONGITUD_MTS")
-    public String getIntegeritudMts() {
-        return IntegeritudMts;
+    public String getLongitudMts() {
+        return longitudMts;
     }
 
-    public void setIntegeritudMts(String IntegeritudMts) {
-        this.IntegeritudMts = IntegeritudMts;
+    public void setLongitudMts(String longitudMts) {
+        this.longitudMts = longitudMts;
     }
 
     @Basic
@@ -517,34 +519,45 @@ public class SsCargainicial   extends Entidad{
     public void setEstado(String estado) {
         this.estado = estado;
     }
-    
+
     @Basic
     @Column(name = "SUB_TIPO_INFRAESTRUCTURA")
     public String getSubTipoInfraestructura() {
-		return subTipoInfraestructura;
-	}
-    
+        return subTipoInfraestructura;
+    }
+
     public void setSubTipoInfraestructura(String subTipoInfraestructura) {
-		this.subTipoInfraestructura = subTipoInfraestructura;
-	}
-    
+        this.subTipoInfraestructura = subTipoInfraestructura;
+    }
+
     @Basic
     @Column(name = "COD_SISTEMA_CAPTACION")
     public String getCodSistemaCaptacion() {
-		return codSistemaCaptacion;
-	}
-    
+        return codSistemaCaptacion;
+    }
+
     public void setCodSistemaCaptacion(String codSistemaCaptacion) {
-		this.codSistemaCaptacion = codSistemaCaptacion;
-	}
-    
+        this.codSistemaCaptacion = codSistemaCaptacion;
+    }
+
     @Basic
     @Column(name = "NOMBRE_SISTEMA_CAPTACION")
     public String getNombreSistemaCaptacion() {
-		return nombreSistemaCaptacion;
-	}
-    
+        return nombreSistemaCaptacion;
+    }
+
     public void setNombreSistemaCaptacion(String nombreSistemaCaptacion) {
-		this.nombreSistemaCaptacion = nombreSistemaCaptacion;
-	}
+        this.nombreSistemaCaptacion = nombreSistemaCaptacion;
+    }
+
+    @Basic
+    @Column(name = "ESTADODOCUMENTO")
+    public Integer getEstadodocumento() {
+        return estadodocumento;
+    }
+
+    public void setEstadodocumento(Integer estadodocumento) {
+        this.estadodocumento = estadodocumento;
+    }
+
 }

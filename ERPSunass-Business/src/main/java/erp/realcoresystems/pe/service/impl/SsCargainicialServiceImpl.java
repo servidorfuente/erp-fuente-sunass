@@ -4,7 +4,9 @@ import erp.realcoresystems.pe.model.dao.SaTipofuenteDao;
 import erp.realcoresystems.pe.model.dao.SsCargainicialDao;
 import erp.realcoresystems.pe.model.domain.SaTipofuente;
 import erp.realcoresystems.pe.model.domain.SsCargainicial;
+import erp.realcoresystems.pe.model.domain.SsControlperiodo;
 import erp.realcoresystems.pe.model.domain.vista.VwCargainicial;
+import erp.realcoresystems.pe.model.domain.vista.VwControlperiodo;
 import erp.realcoresystems.pe.service.SaTipofuenteService;
 import erp.realcoresystems.pe.service.SsCargainicialService;
 import erp.realcoresystems.pe.util.Log;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service("ssCargainicialService")
@@ -68,6 +71,47 @@ public class SsCargainicialServiceImpl extends AbstractServiceImpl implements Ss
 			Log.logger.error(Log.getStackTrace(ex));
 		}
 		return 1;
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public int guardarMasivo(List<VwControlperiodo> filtroRegistro, VwControlperiodo filtro, SsCargainicial objDao) {
+		Integer retorno=0;
+		Integer retornoVal=0;
+		Integer annno= filtro.getInteger1()-1;
+		SsControlperiodo registraEnt = new SsControlperiodo();
+		SsCargainicial regsEnt = new SsCargainicial();
+		List<SsCargainicial> registraList = new ArrayList<>();
+		try {
+			if (filtro.getInt_3()==3){
+				for(VwControlperiodo obj : filtroRegistro){
+					regsEnt = new SsCargainicial();
+					regsEnt.setCompanyowner(obj.getCompanyowner());
+					regsEnt.setAnno(annno);
+					regsEnt.setEstadodocumento(4);
+					registraList = ssCargainicialDao.listar(regsEnt,false);
+					if (registraList.size()>0){
+						for(SsCargainicial objRegs : registraList){
+							objRegs.setAnno(filtro.getInteger1());
+							objRegs.setEstadodocumento(3);
+							SsCargainicial objSiguient= new SsCargainicial();
+							objSiguient = ssCargainicialDao.buscar(objRegs);
+							if (objSiguient==null){
+								objRegs.setEstado("A");
+								objRegs.setCargainicialid(null);
+								retorno = ssCargainicialDao.guardar(objRegs);
+								retorno=3;
+							}
+						}
+					}else{
+					}
+				}
+			}
+		} catch (Exception ex) {
+			rollback(ex);
+			Log.logger.error(Log.getStackTrace(ex));
+		}
+		return retorno;
 	}
 
 	@Override

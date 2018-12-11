@@ -60,10 +60,8 @@ public class VwCargainicial  extends Entidad {
     private Date  creacionfecha;
     private String ultimousuario;
     private Date  ultimafechamodif;
-    private String subTipoInfraestructura;
-    private String codSistemaCaptacion;
-    private String nombreSistemaCaptacion;
-    
+    private Integer  estadodocumento;
+
     @Id
     @Basic
     @Column(name = "CARGAINICIALID")
@@ -578,32 +576,11 @@ public class VwCargainicial  extends Entidad {
     }
 
     @Basic
-    @Column(name = "SUB_TIPO_INFRAESTRUCTURA")
-    public String getSubTipoInfraestructura() {
-		return subTipoInfraestructura;
-	}
-    
-    public void setSubTipoInfraestructura(String subTipoInfraestructura) {
-		this.subTipoInfraestructura = subTipoInfraestructura;
-	}
-    
-    @Basic
-    @Column(name = "COD_SISTEMA_CAPTACION")
-    public String getCodSistemaCaptacion() {
-		return codSistemaCaptacion;
-	}
-    
-    public void setCodSistemaCaptacion(String codSistemaCaptacion) {
-		this.codSistemaCaptacion = codSistemaCaptacion;
-	}
-    
-    @Basic
-    @Column(name = "NOMBRE_SISTEMA_CAPTACION")
-    public String getNombreSistemaCaptacion() {
-		return nombreSistemaCaptacion;
-	}
-    
-    public void setNombreSistemaCaptacion(String nombreSistemaCaptacion) {
-		this.nombreSistemaCaptacion = nombreSistemaCaptacion;
-	}
+    @Column(name = "ESTADODOCUMENTO")
+    public Integer getEstadodocumento() {
+        return estadodocumento;
+    }
+    public void setEstadodocumento(Integer estadodocumento) {
+        this.estadodocumento = estadodocumento;
+    }
 }
