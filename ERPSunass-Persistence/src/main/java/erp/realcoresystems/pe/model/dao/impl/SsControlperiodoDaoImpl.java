@@ -26,6 +26,7 @@ public class SsControlperiodoDaoImpl extends AbstractDaoImpl<SsControlperiodo, S
 		Criteria criteria = getCurrentSession().createCriteria(SsControlperiodo.class);
 		filtrarCritera(criteria, objDao);
 		setOrdenable(criteria, ORDER_ASC, objDao.getListaAtributoOrdenacion());
+		SsControlperiodo obj = (SsControlperiodo) criteria.uniqueResult();
 		return (SsControlperiodo) criteria.uniqueResult();
 	}
 
@@ -204,6 +205,9 @@ public class SsControlperiodoDaoImpl extends AbstractDaoImpl<SsControlperiodo, S
 			if(UtilesCommons.noEsVacio(objDao.getTipooperacion())){
 				criteria.add(Restrictions.eq("tipooperacion",objDao.getTipooperacion()));
 			}
+			if(UtilesCommons.noEsVacio(objDao.getInteger1())){
+				criteria.add(Restrictions.eq("anno",objDao.getInteger1()));
+			}
 			if(UtilesCommons.noEsVacio(objDao.getAnno())){
 				criteria.add(Restrictions.eq("anno",objDao.getAnno()));
 			}
@@ -215,6 +219,9 @@ public class SsControlperiodoDaoImpl extends AbstractDaoImpl<SsControlperiodo, S
 			}
 			if(UtilesCommons.noEsVacio(objDao.getFlagmodocargainicial())){
 				criteria.add(Restrictions.eq("flagmodocargainicial",objDao.getFlagmodocargainicial()));
+			}
+			if(UtilesCommons.noEsVacio(objDao.getEstadodocumento())){
+				criteria.add(Restrictions.eq("estadodocumento",objDao.getEstadodocumento()));
 			}
 			if(UtilesCommons.noEsVacio(objDao.getFormularioid())){
 				criteria.add(Restrictions.eq("formularioid",objDao.getFormularioid()));

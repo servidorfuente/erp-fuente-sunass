@@ -83,14 +83,22 @@
                                 </p:selectOneMenu>
                                 <p:outputLabel value="#{lbv.CARGAINICIAL_ANNO}" styleClass="estiloLabelForm" />
                                 <p:panelGrid layout="grid" styleClass="sinpadding ui-panelgrid-blank" id="panelAnno"
-                                             columns="3" columnClasses="ui-grid-col-5,ui-grid-col-2,ui-grid-col-5">
+                                             columns="5" columnClasses="ui-grid-col-2,ui-grid-col-1,ui-grid-col-2,ui-grid-col-1,ui-grid-col-5">
+                                    <p:column>
+                                        <p:inputText
+                                                value="#{cargainicialBean.ssCargaInicialRegistro.integer1}"
+                                        />
+                                    </p:column>
+                                    <p:column>
+                                        <p:spacer width="2"></p:spacer>
+                                    </p:column>
                                     <p:column>
                                         <p:inputText
                                                 value="#{cargainicialBean.ssCargaInicialRegistro.anno}" readonly="true"
                                         />
                                     </p:column>
                                     <p:column>
-                                        <p:spacer width="10"></p:spacer>
+                                        <p:spacer width="2"></p:spacer>
                                     </p:column>
                                     <p:column>
                                         <h:outputText value="#{cargainicialBean.mensajeEstado}"

@@ -33,9 +33,10 @@ public class SsCargainicialDaoImpl extends AbstractDaoImpl<SsCargainicial, Strin
     public SsCargainicial verificar(SsCargainicial objDao) {
         Integer anno=0;
         anno=objDao.getAnno();
+        anno = anno-1;
         SsCargainicial objOrinal = new SsCargainicial();
         objOrinal = objDao ;
-        objDao.setAnno(anno-1);
+        objDao.setAnno(anno);
         Criteria criteria = getCurrentSession().createCriteria(SsCargainicial.class);
         filtrarCritera(criteria, objDao);
         if (objDao.getFuenteid()==1){ // FUENTE DE AGUA

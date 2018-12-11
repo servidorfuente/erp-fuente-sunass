@@ -101,7 +101,8 @@ public class CargainicialBean extends AbstractGenericBean implements InterfaceGe
         vwCargaInicialSelect = new VwCargainicial();
         vwCargaInicialFiltro = new VwCargainicial();
         ssControlperiodo = new SsControlperiodo();
-        //vwCargaInicialFiltro.setAnno(annoActual());
+        ssCargaInicialRegistro.setInteger1(annoActual());
+        //vwCargaInicialFiltro.integer1(annoActual());
         maMisTipoFuente = UtilesCommons.getNewList();
         maMisDestalleEstadoDocumento = UtilesCommons.getNewList();
         maMisSubTipoInfraestructura = UtilesCommons.getNewList();
@@ -151,6 +152,7 @@ public class CargainicialBean extends AbstractGenericBean implements InterfaceGe
                 tempPeriodo.setCompanyowner(ssCargaInicialRegistro.getCompanyowner());
                 tempPeriodo.setFlagmodocargainicial(1);
                 tempPeriodo.setTipooperacion("CARGAINICIAL");
+                tempPeriodo.setInteger1(annoActual());
                 tempPeriodo.setEstadodocumento(2);
                 ssControlperiodo = ssControlperiodoService.buscar(tempPeriodo);
                 if (ssControlperiodo!=null){
@@ -363,14 +365,17 @@ public class CargainicialBean extends AbstractGenericBean implements InterfaceGe
             if(!UtilesCommons.noEsVacio(validaxFormulario.getCapacActualLps())){
                 FacesUtil.adicionarMensajeWarning("Ingrese capacidad de producción");
                 validoxFormulario = false;
+                return validoxFormulario;
             }
             if(!UtilesCommons.noEsVacio(validaxFormulario.getCaudalcaptadodirectoLps())){
                 FacesUtil.adicionarMensajeWarning("Ingrese caudal de captación");
                 validoxFormulario = false;
+                return validoxFormulario;
             }
             if(!UtilesCommons.noEsVacio(validaxFormulario.getFuenteid())) {
                 FacesUtil.adicionarMensajeWarning("Seleccione tipo de fuente");
                 validoxFormulario = false;
+                return validoxFormulario;
             }
             // FERIFICAR VALIDACION DATA
             SsCargainicial busqueda = ssCargainicialService.verificar(validaxFormulario);
