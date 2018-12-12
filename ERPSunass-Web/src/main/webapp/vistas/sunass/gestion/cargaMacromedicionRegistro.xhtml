@@ -63,7 +63,7 @@
                 <div class="ui-g-12 ui-g-nopad">
                     <div class="ui-fluid">
                         <div class="customHr">.</div>
-                        <p:outputPanel id="pnlCapRegistro">
+                        <p:outputPanel id="pnlMacRegistro">
                         
                          <p:panelGrid layout="grid" styleClass="ui-panelgrid-blank"
                                      columns="2"
@@ -95,7 +95,7 @@
 								<p:outputLabel for="itCompaniaReg" styleClass="estiloLabelForm"   value="#{lbv.CONTROLPERIODO_COMPANIA}"/>
                                 <p:selectOneMenu id="itCompaniaReg"  autoWidth="false" value="#{cargainicialBean.ssCargaInicialRegistro.companyowner}"
                                                  styleClass="required-field" >
-                                    <p:ajax event="change" process="@this" update="#{p:component('pnlCapRegistro')}" listener="#{cargainicialBean.seleccionarSucursal}"/>
+                                    <p:ajax event="change" process="@this" update="#{p:component('pnlMacRegistro')}" listener="#{cargainicialBean.seleccionarSucursal}"/>
                                     <f:selectItem itemLabel="#{lbv.lblSeleccione}" itemValue="#{null}" noSelectionOption="true"/>
                                     <f:selectItems value="#{cargainicialBean.listarCompanias}" var="item"
                                                    itemLabel="#{item.description}" itemValue="#{item.companyowner}"/>
@@ -108,66 +108,119 @@
 	                                <f:selectItems value="#{cargainicialBean.listarProyecto}" var="item"
 	                                                   itemLabel="#{item.prdescripcion}" itemValue="#{item.proyectoid}"/>
 	                        	</p:selectOneMenu>
-                                
-                              	<p:outputLabel for="itCaudalUrbano" styleClass="estiloLabelForm" value="#{lbv.CARGAINICIAL_CAUDALCAPTADOURBANO}"/>
-								<p:inputNumber id="itCaudalUrbano"
-									value="#{cargainicialBean.ssCargaInicialRegistro.caudalurbanoLps}"
-									disabled="#{cargainicialBean.ssCargaInicialRegistro.subTipoInfraestructura ne CONSTANT.CAPTACION_SUB_TIPO_INFRAESTRUCTURA_SUPERFICIAL or cargainicialBean.ssCargaInicialRegistro.subTipoInfraestructura eq null}"
-								/>
-									 
-								<p:outputLabel for="itCaudalRural" styleClass="estiloLabelForm" value="#{lbv.CARGAINICIAL_CAUDALCAPTADORURAL}"/>
-								<p:inputNumber id="itCaudalRural"
-									value="#{cargainicialBean.ssCargaInicialRegistro.caudalruralLps}"
-									disabled="#{cargainicialBean.ssCargaInicialRegistro.subTipoInfraestructura ne CONSTANT.CAPTACION_SUB_TIPO_INFRAESTRUCTURA_SUPERFICIAL or cargainicialBean.ssCargaInicialRegistro.subTipoInfraestructura eq null}"
-								/>
-                                
-                                <p:outputLabel for="itObervaciones" styleClass="estiloLabelForm" value="#{lbv.CARGAINICIAL_OBSERVACIONES}"/>
-                            	<p:inputText id="itObervaciones"
-                            		value="#{cargainicialBean.ssCargaInicialRegistro.observacion}"
-                            	/>
-                            </p:column>
-                            
-                            <p:column>
-                            
-                                <p:outputLabel for="itSucursalReg" styleClass="estiloLabelForm"  value="#{lbv.CARGAINICIAL_LOCALIDAD}"/>
-                                <p:selectOneMenu id="itSucursalReg"
-                                                 value="#{cargainicialBean.ssCargaInicialRegistro.sucursal}">
-                                    <p:ajax event="change" process="@this" update="FormCargaInicial:itProyectoReg" listener="#{cargainicialBean.seleccionarProyecto}"/>
-                                    <f:selectItem itemLabel="#{lbv.lblSeleccione}" itemValue="#{null}" noSelectionOption="true"/>
-                                    <f:selectItems value="#{cargainicialBean.listarSucursal}" var="item"
-                                                   itemLabel="#{item.descripcionlocal}" itemValue="#{item.sucursal}"/>
-                                </p:selectOneMenu>
-                                                              	
-                              	<p:outputLabel for="itSubtipoInfra" styleClass="estiloLabelForm"   value="#{lbv.CARGAINICIAL_SUBTIPOINFRAESTRUCTURA}"/>
-                                <p:selectOneMenu id="itSubtipoInfra"  autoWidth="false" value="#{cargainicialBean.ssCargaInicialRegistro.subTipoInfraestructura}"
-                                                 styleClass="required-field" >
-                                     
-                                    <p:ajax process="@this" update="#{p:component('pnlCapRegistro')}"/>
-                                    <f:selectItem itemLabel="#{lbv.lblSeleccione}" itemValue="#{null}" noSelectionOption="true"/>
-                                    <f:selectItems value="#{cargainicialBean.maMisSubTipoInfraestructura}" var="item"
-                                                   itemLabel="#{item.descripcionlocal}" itemValue="#{item.codigoelemento}"/>
-                                </p:selectOneMenu>
-                                
-                                <p:outputLabel for="itCaudalDirecto" styleClass="estiloLabelForm" value="#{lbv.CARGAINICIAL_CAUDALCAPTADODIRECTO}"/>
-								<p:inputNumber id="itCaudalDirecto"
-									value="#{cargainicialBean.ssCargaInicialRegistro.caudalcaptadodirectoLps}"
-									disabled="#{cargainicialBean.ssCargaInicialRegistro.subTipoInfraestructura eq CONSTANT.CAPTACION_SUB_TIPO_INFRAESTRUCTURA_SUPERFICIAL or cargainicialBean.ssCargaInicialRegistro.subTipoInfraestructura eq null}"
-								/>
-									 
-								<p:outputLabel for="itCaudalBombeo" styleClass="estiloLabelForm" value="#{lbv.CARGAINICIAL_CAUDALCAPTADOBOMBEO}"/>
-								<p:inputNumber id="itCaudalBombeo"
-									value="#{cargainicialBean.ssCargaInicialRegistro.caudalcaptadobombeoLps}"
-									disabled="#{cargainicialBean.ssCargaInicialRegistro.subTipoInfraestructura eq CONSTANT.CAPTACION_SUB_TIPO_INFRAESTRUCTURA_SUPERFICIAL or cargainicialBean.ssCargaInicialRegistro.subTipoInfraestructura eq null}"
-								/>
-	
-	                            <p:outputLabel for="itPotenciaHP" styleClass="estiloLabelForm" value="#{lbv.CARGAINICIAL_POTENCIAHP}"/>
-								<p:inputNumber id="itPotenciaHP"
-									value="#{cargainicialBean.ssCargaInicialRegistro.potenciaHp}"
-									disabled="#{cargainicialBean.ssCargaInicialRegistro.subTipoInfraestructura eq CONSTANT.CAPTACION_SUB_TIPO_INFRAESTRUCTURA_SUPERFICIAL or cargainicialBean.ssCargaInicialRegistro.subTipoInfraestructura eq null}"
-								/>
-								
                             </p:column>
                         </p:panelGrid>
+                        
+                        <p:panel header="Según ubicación del dispositivo de medición">
+                        	 <p:panelGrid layout="grid" styleClass="ui-panelgrid-blank"
+                                     columns="2"
+                                     columnClasses="ui-grid-col-6,ui-grid-col-6">
+                            	
+                            	<p:column>
+                            	<p:outputLabel for="itPTAP" styleClass="estiloLabelForm" value="PTAP" />
+                            	<p:inputText id="itPTAP" value=""/>
+                            	</p:column>
+                            	
+                            	<p:column>
+                            	<p:outputLabel for="itSector" styleClass="estiloLabelForm" value="Sector (pozo, reservorio, otro)" />
+                            	<p:inputText id="itSector" value=""/>
+                            	</p:column>
+                        	</p:panelGrid>
+                        </p:panel>
+                        
+                     	<p:panel header="Según ubicación en el componente del sistema de agua potable">
+                        	 <p:panelGrid layout="grid" styleClass="ui-panelgrid-blank"
+                                     columns="2"
+                                     columnClasses="ui-grid-col-6,ui-grid-col-6">
+                            	
+                            	<p:column>
+                            	<p:outputLabel for="itSalidaPTAP" styleClass="estiloLabelForm" value="Salida de la PTAP" />
+                            	<p:inputText id="itSalidaPTAP" value=""/>
+                            	
+                            	<p:outputLabel for="itPozo" styleClass="estiloLabelForm" value="Sector (pozo, reservorio, otro)" />
+                            	<p:inputText id="itPozo" value=""/>
+                            	</p:column>
+                            	
+                            	<p:column>
+                            	<p:outputLabel for="itReservorio" styleClass="estiloLabelForm" value="Reservorio" />
+                            	<p:inputText id="itReservorio" value=""/>
+                            	
+                            	<p:outputLabel for="itOtro" styleClass="estiloLabelForm" value="Sector (pozo, reservorio, otro)" />
+                            	<p:inputText id="itOtro" value=""/>
+                            	</p:column>
+                        	</p:panelGrid>
+                        </p:panel>
+                        
+                        <p:panelGrid layout="grid" styleClass="ui-panelgrid-blank"
+                                     columns="1"
+                                     columnClasses="ui-grid-col-12">
+                            	         
+                            <p:outputLabel for="itTipoElementoCaracAgua" styleClass="estiloLabelForm" value="Tipo de elemento utilizado para determinar el volumen producido" />
+                           	<p:selectOneMenu id="itTipoElementoCaracAgua"  autoWidth="false" value=""
+	                        		styleClass="required-field">
+	                            	<f:selectItem itemLabel="#{lbv.lblSeleccione}" itemValue="#{null}" noSelectionOption="true"/>
+	                                <f:selectItems value="#{cargainicialBean.maMisEleMedCaracAgua}" var="item"
+	                                                   itemLabel="#{item.descripcionlocal}" itemValue="#{item.codigoelemento}"/>
+	                        </p:selectOneMenu>
+                      	</p:panelGrid>
+                      	
+                      	<p:panel header="Solo para equipos de medición (002 - Electromagnético y 003-Ultrasónico)">
+                        	 <p:panelGrid layout="grid" styleClass="ui-panelgrid-blank"
+                                     columns="2"
+                                     columnClasses="ui-grid-col-6,ui-grid-col-6">
+                            	
+                            	<p:column>
+                            	<p:outputLabel for="itMarca" styleClass="estiloLabelForm" value="Marca" />
+                            	<p:inputText id="itMarca" value=""/>
+                            	
+                            	<p:outputLabel for="itTipoRegistro" styleClass="estiloLabelForm" value="Tipo de registro" />
+                            	<p:selectOneMenu id="itTipoRegistro"  autoWidth="false" value=""
+	                        		styleClass="required-field">
+	                            	<f:selectItem itemLabel="#{lbv.lblSeleccione}" itemValue="#{null}" noSelectionOption="true"/>
+	                                <f:selectItems value="#{cargainicialBean.maMisTipoRegistro}" var="item"
+	                                                   itemLabel="#{item.descripcionlocal}" itemValue="#{item.codigoelemento}"/>
+	                        	</p:selectOneMenu>
+	                        	
+	                        	<p:outputLabel for="itFechaInstalacion" styleClass="estiloLabelForm" value="Fecha de instalación" />
+                            	<p:inputText id="itFechaInstalacion" value=""/>
+                            	</p:column>
+                            	
+                            	<p:column>
+                            	<p:outputLabel for="itDiametro" styleClass="estiloLabelForm" value="Díametro" />
+                            	<p:inputText id="itDiametro" value=""/>
+                            	
+                            	<p:outputLabel for="itSerie" styleClass="estiloLabelForm" value="Serie" />
+                            	<p:inputText id="itSerie" value=""/>
+                            	</p:column>
+                            	
+                            	<p:outputLabel for="itEstadoVerificacion" styleClass="estiloLabelForm" value="Estado de verificación" />
+                            	<p:inputText id="itEstadoVerificacion" value=""/>
+                        	</p:panelGrid>
+                        </p:panel>
+                        
+                        <p:panelGrid layout="grid" styleClass="ui-panelgrid-blank"
+                                     columns="2"
+                                     columnClasses="ui-grid-col-6, ui-grid-col-6">
+                            	
+                           	<p:column>         
+                            <p:outputLabel for="itEstadoOperacion" styleClass="estiloLabelForm" value="Estado de operación" />
+                           	<p:selectOneMenu id="itEstadoOperacion"  autoWidth="false" value=""
+	                        		styleClass="required-field">
+	                            	<f:selectItem itemLabel="#{lbv.lblSeleccione}" itemValue="#{null}" noSelectionOption="true"/>
+	                                <f:selectItems value="#{cargainicialBean.maEstadoOperacion}" var="item"
+	                                	itemLabel="#{item.descripcionlocal}" itemValue="#{item.codigoelemento}"/>
+	                        </p:selectOneMenu>
+	                        
+	                        <p:outputLabel for="itObervaciones" styleClass="estiloLabelForm" value="Observaciones" />
+	                        <p:inputText id="itObervaciones" value="#{cargainicialBean.ssCargaInicialRegistro.observacion}"/>
+	                        </p:column>
+	                        
+	                        <p:column>
+	                        	<p:outputLabel for="itFechaUltimoMantenimiento" styleClass="estiloLabelForm" value="Estado de operación" />
+	                        	<p:inputText id="itFechaUltimoMantenimiento" value=""/>
+	                        </p:column>
+                      	</p:panelGrid>
+                        
 						</p:outputPanel>
                     </div>
                 </div>
