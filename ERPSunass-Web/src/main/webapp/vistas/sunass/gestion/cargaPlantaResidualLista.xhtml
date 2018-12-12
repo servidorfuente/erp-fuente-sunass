@@ -9,7 +9,7 @@
     <ui:define name="contentBread">
         <li class="current">
             <i class="icon-angle-right labelBreadCrumbNormal"></i>
-            <a class="labelBreadCrumbNormal" href="#{facesContext.externalContext.requestContextPath}/vistas/sunass/gestion/cargaFuentesLista.xhtml">
+            <a class="labelBreadCrumbNormal" href="#{facesContext.externalContext.requestContextPath}/vistas/sunass/gestion/cargaPlantaResidualLista.xhtml">
                 Fuentes de Agua
             </a>
         </li>
@@ -246,29 +246,55 @@
                     <p:column headerText="Localidad" >
                         <h:outputText value="#{vElement.sucursal}" />
                     </p:column>
-                    <p:column headerText="Tipo Fuente" >
-                        <h:outputText value="#{vElement.proyectoid}" />
-                    </p:column>
                     <p:column headerText="Año" >
                         <h:outputText value="#{vElement.anno}" />
                     </p:column>
-                    <p:column headerText="Nombre Planta" >
-                        <h:outputText value="#{vElement.prdescripcion}" />
+                    <p:column headerText="Area Total (Ha)" >
+                        <h:outputText value="#{vElement.ptaresprima2Areatotal}" />
+                    </p:column>
+                    <p:column headerText="Cantidad (Unid)" >
+                        <h:outputText value="#{vElement.ptaresprima2Cantidad}" />
                     </p:column>
 
-                    <p:column headerText="Tipo Fuente" >
-                        <h:outputText value="#{vElement.descripcion}" />
+                    <p:column headerText="Area Total (Ha)" >
+                        <h:outputText value="#{vElement.ptaressecun2Areatotal}" />
                     </p:column>
-                    <p:column headerText="Capacidad Prod. M3" >
-                        <h:outputText value="#{vElement.capacActualLps}" />
+                    <p:column headerText="Cantidad (Unid)" >
+                        <h:outputText value="#{vElement.ptaressecun2Canbtidad}" />
                     </p:column>
-                    <p:column headerText="Caudal Prod." >
-                        <h:outputText value="#{vElement.caudalcaptadodirectoLps}" />
+
+                    <p:column headerText="Area Total (Ha)" >
+                        <h:outputText value="#{vElement.ptaresterce2Areatotal}" />
                     </p:column>
-                    <p:column headerText="Observaciones" >
+                    <p:column headerText="Cantidad (Unid)" >
+                        <h:outputText value="#{vElement.ptaresterce2Cantidad}" />
+                    </p:column>
+
+                    <p:column headerText="Longitud (MTS)" >
+                        <h:outputText value="#{vElement.ptareslontiudmts3}" />
+                    </p:column>
+                    <p:column headerText="Ancho (MTS)" >
+                        <h:outputText value="#{vElement.ptaresanchodmts4}" />
+                    </p:column>
+                    <p:column headerText="Cantidad (Unit)" >
+                        <h:outputText value="#{vElement.ptarescantidadunit5}" />
+                    </p:column>
+                    <p:column headerText="Diametro (Pulg)" >
+                        <h:outputText value="#{vElement.ptaresdiametropulg6}" />
+                    </p:column>
+                    <p:column headerText="Altura (MTS)" >
+                        <h:outputText value="#{vElement.ptaresalturamts7}" />
+                    </p:column>
+                    <p:column headerText="Capacidad Actual(IPS)" >
+                        <h:outputText value="#{vElement.ptarescapacactualips}" />
+                    </p:column>
+                    <p:column headerText="Capacidad Máxima(IPS)" >
+                        <h:outputText value="#{vElement.ptarescapacmaximaips}" />
+                    </p:column>
+                    <p:column headerText="#{lbv.CARGAINICIAL_OBSERVACIONES}" >
                         <h:outputText value="#{vElement.observacion}" />
                     </p:column>
-                         <p:column headerText="Estado Documento" >
+                         <p:column headerText="ESTADO DOCUMENTO" >
                             <h:outputText value="#{vElement.estadodocumento eq '1' ? 'Preparación' :''
                             or vElement.estadodocumento eq '2' ? 'Vigente':''
                             or vElement.estadodocumento eq '3' ? 'Revisión':''
@@ -276,7 +302,7 @@
                             or vElement.estadodocumento eq '5' ? 'Cerrado':''
                             }"  />
                     </p:column>
-                    <p:column headerText="Estado" >
+                    <p:column headerText="#{lbv.ESTADO_CAP}" >
                         <h:outputText value="#{vElement.estado eq '1' ? label.ITEM_ACTIVO :label.ITEM_INACTIVO}"
                                       styleClass="#{vElement.estado eq '1' ? 'colTableEstadoActivo' :'colTableEstadoInactivo'}" />
                     </p:column>
@@ -286,7 +312,7 @@
             </div>
             <div id="seccionRegistro" style="display: #{cargainicialBean.visibleRegistro ?'block':'none'} ;" >
                 <p:outputPanel id="opSeccionReg" rendered="#{cargainicialBean.visibleRegistro}" >
-                    <ui:include src="/vistas/sunass/gestion/cargaFuentesRegistro.xhtml"></ui:include>
+                    <ui:include src="/vistas/sunass/gestion/cargaPlantaResidualRegistro.xhtml"></ui:include>
 
                 </p:outputPanel>
             </div>

@@ -9,7 +9,7 @@
     <ui:define name="contentBread">
         <li class="current">
             <i class="icon-angle-right labelBreadCrumbNormal"></i>
-            <a class="labelBreadCrumbNormal" href="#{facesContext.externalContext.requestContextPath}/vistas/sunass/gestion/controlFormularioLista.xhtml">
+            <a class="labelBreadCrumbNormal" href="#{facesContext.externalContext.requestContextPath}/vistas/sunass/OtrosFormularios/controlFormularioLista.xhtml">
                 #{label.PERFIL_PERFIL}
             </a>
         </li>
@@ -266,7 +266,7 @@
             </div>
             <div id="seccionRegistro" style="display: #{controlFormularioBean.visibleRegistro ?'block':'none'} ;" >
                 <p:outputPanel id="opSeccionReg" rendered="#{controlFormularioBean.visibleRegistro}" >
-                    <ui:include src="/vistas/sunass/gestion/controlFormularioRegistro.xhtml"></ui:include>
+                    <ui:include src="/vistas/sunass/OtrosFormularios/controlFormularioRegistro.xhtml/sunass/OtrosFormularios/controlFormularioRegistro.xhtml"></ui:include>
 
                 </p:outputPanel>
             </div>

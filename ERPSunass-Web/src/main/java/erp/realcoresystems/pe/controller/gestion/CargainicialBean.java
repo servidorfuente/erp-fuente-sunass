@@ -69,6 +69,10 @@ public class CargainicialBean extends AbstractGenericBean implements InterfaceGe
     private List<MaMiscelaneosdetalle> maMisDestalleEstadoDocumento;
     private List<MaMiscelaneosdetalle> maMisSubTipoInfraestructura;
 
+    private List<MaMiscelaneosdetalle> maMisTIPOESTFIS;
+    private List<MaMiscelaneosdetalle> maMisSUBTIPINFR;
+
+
     protected LazyDataModel<VwCargainicial> dataModel;
     protected List<VwCargainicial> listaDataModel;
 
@@ -92,6 +96,9 @@ public class CargainicialBean extends AbstractGenericBean implements InterfaceGe
         maMisTipoFuente = listarMiscelaneosDetalle("","TIPOFUENTE");
         maMisSubTipoInfraestructura = listarMiscelaneosDetalle("", "SUBTIPINFR");
         maMisDestalleEstadoDocumento = listarMiscelaneosDetalle("","ESTADODOC");
+        maMisTIPOESTFIS = listarMiscelaneosDetalle("","TIPOESTFIS");
+        maMisSUBTIPINFR = listarMiscelaneosDetalle("","SUBTIPINFR");
+
     }
     public void inicializarEntidad(){
         FacesUtil.removeIfExistsSessionMap(Utiles.COD_SESSION_LISTADO_PERSONAS);
@@ -754,6 +761,22 @@ public class CargainicialBean extends AbstractGenericBean implements InterfaceGe
 
     public void setMensajeEstado(String mensajeEstado) {
         this.mensajeEstado = mensajeEstado;
+    }
+
+    public List<MaMiscelaneosdetalle> getMaMisTIPOESTFIS() {
+        return maMisTIPOESTFIS;
+    }
+
+    public void setMaMisTIPOESTFIS(List<MaMiscelaneosdetalle> maMisTIPOESTFIS) {
+        this.maMisTIPOESTFIS = maMisTIPOESTFIS;
+    }
+
+    public List<MaMiscelaneosdetalle> getMaMisSUBTIPINFR() {
+        return maMisSUBTIPINFR;
+    }
+
+    public void setMaMisSUBTIPINFR(List<MaMiscelaneosdetalle> maMisSUBTIPINFR) {
+        this.maMisSUBTIPINFR = maMisSUBTIPINFR;
     }
 }
 

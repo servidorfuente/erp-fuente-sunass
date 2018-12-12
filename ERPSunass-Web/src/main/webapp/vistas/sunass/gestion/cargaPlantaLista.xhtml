@@ -240,29 +240,42 @@
                     <p:column headerText="Nº" >
                         <h:outputText value="#{index + 1}" />
                     </p:column>
-                    <p:column headerText="#{lbv.CONTROLPERIODO_EPS}" >
+                    <p:column headerText="EPS" >
                         <h:outputText value="#{vElement.companyowner}" />
                     </p:column>
-                    <p:column headerText="#{lbv.CONTROLPERIODO_SUCURSAL}" >
+                    <p:column headerText="Localidad" >
                         <h:outputText value="#{vElement.sucursal}" />
                     </p:column>
-                    <p:column headerText="#{lbv.CONTROLPERIODO_CODIGOFUENTE}" >
-                        <h:outputText value="#{vElement.proyectoid}" />
-                    </p:column>
-                    <p:column headerText="#{lbv.CONTROLPERIODO_NOMBREFUENTE}" >
+                    <p:column headerText="Nombre Planta" >
                         <h:outputText value="#{vElement.prdescripcion}" />
                     </p:column>
-                    <p:column headerText="#{lbv.CARGAINICIAL_TIPOFUENTES}" >
-                        <h:outputText value="#{vElement.fuenteid}" />
+
+                    <p:column headerText="SubTipo Infraest." >
+                        <h:outputText value="#{vElement.subTipoInfraestructura}" />
                     </p:column>
-                    <p:column headerText="#{lbv.CARGAINICIAL_TIPOFUENTENOMBRE}" >
-                        <h:outputText value="#{vElement.descripcion}" />
+                    <p:column headerText="Estado Físico" >
+                        <h:outputText value="#{vElement.estadofisico}" />
                     </p:column>
-                    <p:column headerText="#{lbv.CARGAINICIAL_CAPACIDADPRODUC}" >
+                    <p:column headerText="Antiguidad" >
+                        <h:outputText value="#{vElement.antiguedadAos}" />
+                    </p:column>
+                    <p:column headerText="Cap. Actual" >
                         <h:outputText value="#{vElement.capacActualLps}" />
                     </p:column>
-                    <p:column headerText="#{lbv.CARGAINICIAL_CAUDALCAPTACION}" >
-                        <h:outputText value="#{vElement.caudalcaptadodirectoLps}" />
+                    <p:column headerText="Cap. Maxima" >
+                        <h:outputText value="#{vElement.capacMaximaLps}" />
+                    </p:column>
+                    <p:column headerText="Foculador" >
+                        <h:outputText value="#{vElement.ptaresterce2Areatotal}" />
+                    </p:column>
+                    <p:column headerText="Decantador" >
+                        <h:outputText value="#{vElement.ptareslontiudmts3}" />
+                    </p:column>
+                    <p:column headerText="Filtros" >
+                        <h:outputText value="#{vElement.ptaresanchodmts4}" />
+                    </p:column>
+                    <p:column headerText="Tipo Filtración" >
+                        <h:outputText value="#{vElement.tipodetuberia}" />
                     </p:column>
                     <p:column headerText="#{lbv.CARGAINICIAL_OBSERVACIONES}" >
                         <h:outputText value="#{vElement.observacion}" />

@@ -240,35 +240,37 @@
                     <p:column headerText="Nº" >
                         <h:outputText value="#{index + 1}" />
                     </p:column>
-                    <p:column headerText="EPS" >
+                    <p:column headerText="#{lbv.CONTROLPERIODO_EPS}" >
                         <h:outputText value="#{vElement.companyowner}" />
                     </p:column>
-                    <p:column headerText="Localidad" >
+                    <p:column headerText="#{lbv.CONTROLPERIODO_SUCURSAL}" >
                         <h:outputText value="#{vElement.sucursal}" />
                     </p:column>
-                    <p:column headerText="Tipo Fuente" >
+                    <p:column headerText="#{lbv.CONTROLPERIODO_CODIGOFUENTE}" >
                         <h:outputText value="#{vElement.proyectoid}" />
                     </p:column>
-                    <p:column headerText="Año" >
+                    <p:column headerText="#{lbv.CARGAINICIAL_ANNO}" >
                         <h:outputText value="#{vElement.anno}" />
                     </p:column>
-                    <p:column headerText="Nombre Planta" >
+                    <p:column headerText="#{lbv.CONTROLPERIODO_NOMBREFUENTE}" >
                         <h:outputText value="#{vElement.prdescripcion}" />
                     </p:column>
-
-                    <p:column headerText="Tipo Fuente" >
+                    <p:column headerText="#{lbv.CARGAINICIAL_TIPOFUENTES}" >
+                        <h:outputText value="#{vElement.fuenteid}" />
+                    </p:column>
+                    <p:column headerText="#{lbv.CARGAINICIAL_TIPOFUENTENOMBRE}" >
                         <h:outputText value="#{vElement.descripcion}" />
                     </p:column>
-                    <p:column headerText="Capacidad Prod. M3" >
+                    <p:column headerText="#{lbv.CARGAINICIAL_CAPACIDADPRODUC}" >
                         <h:outputText value="#{vElement.capacActualLps}" />
                     </p:column>
-                    <p:column headerText="Caudal Prod." >
+                    <p:column headerText="#{lbv.CARGAINICIAL_CAUDALCAPTACION}" >
                         <h:outputText value="#{vElement.caudalcaptadodirectoLps}" />
                     </p:column>
-                    <p:column headerText="Observaciones" >
+                    <p:column headerText="#{lbv.CARGAINICIAL_OBSERVACIONES}" >
                         <h:outputText value="#{vElement.observacion}" />
                     </p:column>
-                         <p:column headerText="Estado Documento" >
+                         <p:column headerText="ESTADO DOCUMENTO" >
                             <h:outputText value="#{vElement.estadodocumento eq '1' ? 'Preparación' :''
                             or vElement.estadodocumento eq '2' ? 'Vigente':''
                             or vElement.estadodocumento eq '3' ? 'Revisión':''
@@ -276,7 +278,7 @@
                             or vElement.estadodocumento eq '5' ? 'Cerrado':''
                             }"  />
                     </p:column>
-                    <p:column headerText="Estado" >
+                    <p:column headerText="#{lbv.ESTADO_CAP}" >
                         <h:outputText value="#{vElement.estado eq '1' ? label.ITEM_ACTIVO :label.ITEM_INACTIVO}"
                                       styleClass="#{vElement.estado eq '1' ? 'colTableEstadoActivo' :'colTableEstadoInactivo'}" />
                     </p:column>

@@ -18,6 +18,7 @@
                                          icon="fa fa-save"  styleClass="btn-primary"
                                          rendered="#{cargainicialBean.btnGuardarVisible}"
                                          actionListener="#{cargainicialBean.btnGuardar}"
+                                         disabled="#{cargainicialBean.buttonesEstado}"
                                          update="@form, FormHeader"
                                          title="#{mensaje.MSJ_INFO_TIP_GUARDAR_MAIN}"
                         >
@@ -104,22 +105,21 @@
                                                       styleClass="#{cargainicialBean.buttonesEstado eq false ? 'colTableEstadoActivo' :'colTableEstadoInactivo'}" />
                                     </p:column>
                                 </p:panelGrid>
-
-
+                                <p:outputLabel value="PRIMARIA 2/"  class="estiloLabelForm"  />
                                 <p:panelGrid layout="grid" styleClass="sinpadding ui-panelgrid-blank"
                                              columns="3" columnClasses="ui-grid-col-6,ui-grid-col-1, ui-grid-col-6">
                                     <p:column>
-                                        <p:outputLabel value="Antiguedad (Años)" />
+                                        <p:outputLabel value="Area Total (Ha)" />
                                         <p:inputNumber
-                                                value="#{cargainicialBean.ssCargaInicialRegistro.antiguedadAos}"
+                                                value="#{cargainicialBean.ssCargaInicialRegistro.ptaresprima2Areatotal}"
                                                 readonly="#{cargainicialBean.componentesReadonly}" decimalPlaces="2"  decimalSeparator="." thousandSeparator=","
                                         />
                                     </p:column>
                                     <p:column></p:column>
                                     <p:column>
-                                        <p:outputLabel value="Capacidad Actual" />
+                                        <p:outputLabel value="Cantidad (Unid)" />
                                         <p:inputNumber
-                                                value="#{cargainicialBean.ssCargaInicialRegistro.capacActualLps}"
+                                                value="#{cargainicialBean.ssCargaInicialRegistro.ptaresprima2Cantidad}"
                                                 readonly="#{cargainicialBean.componentesReadonly}" decimalPlaces="2"  decimalSeparator="." thousandSeparator=","
                                         />
                                     </p:column>
@@ -127,39 +127,53 @@
                                 <p:panelGrid layout="grid" styleClass="sinpadding ui-panelgrid-blank"
                                              columns="3" columnClasses="ui-grid-col-6,ui-grid-col-1, ui-grid-col-6">
                                     <p:column>
-                                        <p:outputLabel value="Decantador 3" />
+                                        <p:outputLabel value="Longitud  (MTS)  3/"   class="estiloLabelForm" />
                                         <p:inputNumber
-                                                value="#{cargainicialBean.ssCargaInicialRegistro.ptareslontiudmts3}"
+                                                value="#{cargainicialBean.ssCargaInicialRegistro.ptaresterce2Areatotal}"
                                                 readonly="#{cargainicialBean.componentesReadonly}" decimalPlaces="2"  decimalSeparator="." thousandSeparator=","
                                         />
                                     </p:column>
                                     <p:column></p:column>
                                     <p:column>
-                                        <p:outputLabel value="Filtros 3" />
+                                        <p:outputLabel value="Ancho  (MTS) /4"  class="estiloLabelForm"  />
                                         <p:inputNumber
-                                                value="#{cargainicialBean.ssCargaInicialRegistro.ptaresanchodmts4}"
+                                                value="#{cargainicialBean.ssCargaInicialRegistro.ptaresterce2Cantidad}"
                                                 readonly="#{cargainicialBean.componentesReadonly}" decimalPlaces="2"  decimalSeparator="." thousandSeparator=","
                                         />
                                     </p:column>
                                 </p:panelGrid>
-                                <p:outputLabel value="Tipo de Filtración" />
-                                <p:inputNumber
-                                        value="#{cargainicialBean.ssCargaInicialRegistro.tipodetuberia}"
-                                        readonly="#{cargainicialBean.componentesReadonly}" decimalPlaces="2"  decimalSeparator="." thousandSeparator=","
-                                />
-                                <p:outputLabel value="Observaciones" styleClass="estiloLabelForm" />
-                                <p:inputTextarea
-                                        value="#{cargainicialBean.ssCargaInicialRegistro.observacion}"
-                                />
+                                <p:panelGrid layout="grid" styleClass="sinpadding ui-panelgrid-blank"
+                                             columns="3" columnClasses="ui-grid-col-6,ui-grid-col-1, ui-grid-col-6">
+                                    <p:column>
+                                        <p:outputLabel value="Cantidad  (Unit) /5"  class="estiloLabelForm"  />
+                                        <p:inputNumber
+                                                value="#{cargainicialBean.ssCargaInicialRegistro.ptarescantidadunit5}"
+                                                readonly="#{cargainicialBean.componentesReadonly}" decimalPlaces="2"  decimalSeparator="." thousandSeparator=","
+                                        />
+                                    </p:column>
+                                    <p:column></p:column>
+                                    <p:column>
+                                        <p:outputLabel value="Diametro (Pulg)  /6"  class="estiloLabelForm"  />
+                                        <p:inputNumber
+                                                value="#{cargainicialBean.ssCargaInicialRegistro.ptaresdiametropulg6}"
+                                                readonly="#{cargainicialBean.componentesReadonly}" decimalPlaces="2"  decimalSeparator="." thousandSeparator=","
+                                        />
+                                    </p:column>
+                                </p:panelGrid>
 
-
-
+                                <h:outputText value="Estado" class="estiloLabelForm" />
+                                <p:selectOneMenu autoWidth="false" value="#{cargainicialBean.ssCargaInicialRegistro.estado}">
+                                    <f:selectItem itemLabel="#{label.lblTodos}" noSelectionOption="true" />
+                                    <f:selectItem itemLabel="#{label.ITEM_ACTIVO}" itemValue="#{constant.INT_ACTIVO}" />
+                                    <f:selectItem itemLabel="#{label.ITEM_INACTIVO}" itemValue="#{constant.INT_INACTIVO}" />
+                                </p:selectOneMenu>
                             </p:column>
                             <p:column>
                                 <p:outputLabel for="itCompaniaReg" styleClass="estiloLabelForm"   value="#{lbv.CONTROLPERIODO_COMPANIA}"/>
                                 <p:selectOneMenu id="itCompaniaReg"  autoWidth="false" value="#{cargainicialBean.ssCargaInicialRegistro.companyowner}"
                                                  styleClass="required-field" >
-                                    <p:ajax event="change" process="@this" update="FormCargaInicial:cmdSucursalReg" listener="#{cargainicialBean.seleccionarSucursal}"/>
+                                    <p:ajax event="change" process="@this" update="FormCargaInicial:cmdSucursalReg FormCargaInicial:btnGuardar FormCargaInicial:panelAnno" listener="#{cargainicialBean.seleccionarSucursal}"/>
+
                                     <f:selectItem itemLabel="#{lbv.lblSeleccione}" itemValue="#{null}" noSelectionOption="true"/>
                                     <f:selectItems value="#{cargainicialBean.listarCompanias}" var="item"
                                                    itemLabel="#{item.description}" itemValue="#{item.companyowner}"/>
@@ -171,70 +185,104 @@
                                     <f:selectItems value="#{cargainicialBean.listarProyecto}" var="item"
                                                    itemLabel="#{item.prdescripcion}" itemValue="#{item.proyectoid}"/>
                                 </p:selectOneMenu>
-                                <p:outputLabel for="itTipoInfraStruc" styleClass="estiloLabelForm"   value="Subtipo Infraestructura"/>
-                                <p:selectOneMenu id="itTipoInfraStruc"  autoWidth="false" value="#{cargainicialBean.ssCargaInicialRegistro.subTipoInfraestructura}"
+
+                                <p:outputLabel for="itTipoFuentereal" styleClass="estiloLabelForm"   value="#{lbv.CARGAINICIAL_TIPOFUENTEREAL}"/>
+                                <p:selectOneMenu id="itTipoFuentereal"  autoWidth="false" value="#{cargainicialBean.ssCargaInicialRegistro.futipofuente}"
                                                  styleClass="required-field" >
-                                    <f:selectItem itemLabel="#{lbv.CONTROLPERIODO_SELECCIONE}" noSelectionOption="true" />
-                                    <f:selectItems value="#{cargainicialBean.maMisSUBTIPINFR}" var="item"
+                                    <f:selectItem itemLabel="#{lbv.lblSeleccione}" itemValue="#{null}" noSelectionOption="true"/>
+                                    <f:selectItems value="#{cargainicialBean.maMisTipoFuente}" var="item"
                                                    itemLabel="#{item.descripcionlocal}" itemValue="#{item.codigoelemento}"/>
                                 </p:selectOneMenu>
 
-                                <p:outputLabel for="itTipoFuentereal" styleClass="estiloLabelForm"   value="Estado Fisico"/>
-                                <p:selectOneMenu id="itTipoFuentereal"  autoWidth="false" value="#{cargainicialBean.ssCargaInicialRegistro.estadofisico}"
-                                                 styleClass="required-field" >
-                                    <f:selectItem itemLabel="#{lbv.CONTROLPERIODO_SELECCIONE}" noSelectionOption="true" />
-                                    <f:selectItems value="#{cargainicialBean.maMisTIPOESTFIS}" var="item"
-                                                   itemLabel="#{item.descripcionlocal}" itemValue="#{item.codigoelemento}"/>
-                                </p:selectOneMenu>
+                                <p:outputLabel value="SECUNDARIA 2/"   class="estiloLabelForm" />
                                 <p:panelGrid layout="grid" styleClass="sinpadding ui-panelgrid-blank"
                                              columns="3" columnClasses="ui-grid-col-6,ui-grid-col-1, ui-grid-col-6">
                                     <p:column>
-                                        <p:outputLabel value="Capacidad Maxima" />
+                                        <p:outputLabel value="Area Total (Ha)"  class="estiloLabelForm"  />
                                         <p:inputNumber
-                                                value="#{cargainicialBean.ssCargaInicialRegistro.capacMaximaLps}"
+                                                value="#{cargainicialBean.ssCargaInicialRegistro.ptaressecun2Areatotal}"
                                                 readonly="#{cargainicialBean.componentesReadonly}" decimalPlaces="2"  decimalSeparator="." thousandSeparator=","
                                         />
                                     </p:column>
                                     <p:column></p:column>
                                     <p:column>
-                                        <p:outputLabel value="Foculador" />
+                                        <p:outputLabel value="Cantidad (Unid.)"  class="estiloLabelForm"  />
+                                        <p:inputNumber
+                                                value="#{cargainicialBean.ssCargaInicialRegistro.ptaressecun2Canbtidad}"
+                                                readonly="#{cargainicialBean.componentesReadonly}" decimalPlaces="2"  decimalSeparator="." thousandSeparator=","
+                                        />
+                                    </p:column>
+                                </p:panelGrid>
+
+                                <p:outputLabel value="TERCERA 2/" styleClass="estiloLabelForm" />
+                                <p:panelGrid layout="grid" styleClass="sinpadding ui-panelgrid-blank"
+                                             columns="3" columnClasses="ui-grid-col-6,ui-grid-col-1, ui-grid-col-6">
+                                    <p:column>
+                                        <p:outputLabel value="Area Total(Ha)" styleClass="estiloLabelForm" />
                                         <p:inputNumber
                                                 value="#{cargainicialBean.ssCargaInicialRegistro.ptaresterce2Areatotal}"
                                                 readonly="#{cargainicialBean.componentesReadonly}" decimalPlaces="2"  decimalSeparator="." thousandSeparator=","
                                         />
                                     </p:column>
+                                    <p:column></p:column>
+                                    <p:column>
+                                        <p:outputLabel value="Cantidad(Unid)" styleClass="estiloLabelForm" />
+                                        <p:inputNumber
+                                                value="#{cargainicialBean.ssCargaInicialRegistro.ptaresterce2Cantidad}"
+                                                readonly="#{cargainicialBean.componentesReadonly}" decimalPlaces="2"  decimalSeparator="." thousandSeparator=","
+                                        />
+                                    </p:column>
                                 </p:panelGrid>
+
                                 <p:panelGrid layout="grid" styleClass="sinpadding ui-panelgrid-blank"
                                              columns="3" columnClasses="ui-grid-col-6,ui-grid-col-1, ui-grid-col-6">
                                     <p:column>
-                                        <p:outputLabel value="Decantador 3" />
+                                        <p:outputLabel value="Altura  (MTS) 7/" styleClass="estiloLabelForm" />
                                         <p:inputNumber
-                                                value="#{cargainicialBean.ssCargaInicialRegistro.ptareslontiudmts3}"
+                                                value="#{cargainicialBean.ssCargaInicialRegistro.ptaresalturamts7}"
                                                 readonly="#{cargainicialBean.componentesReadonly}" decimalPlaces="2"  decimalSeparator="." thousandSeparator=","
                                         />
                                     </p:column>
                                     <p:column></p:column>
                                     <p:column>
-                                        <p:outputLabel value="Filtros 3" />
+                                        <p:outputLabel value="Capacidad Actual(IPS)" styleClass="estiloLabelForm" />
                                         <p:inputNumber
-                                                value="#{cargainicialBean.ssCargaInicialRegistro.ptaresanchodmts4}"
+                                                value="#{cargainicialBean.ssCargaInicialRegistro.ptarescapacactualips}"
                                                 readonly="#{cargainicialBean.componentesReadonly}" decimalPlaces="2"  decimalSeparator="." thousandSeparator=","
                                         />
                                     </p:column>
                                 </p:panelGrid>
+
+                                <p:panelGrid layout="grid" styleClass="sinpadding ui-panelgrid-blank"
+                                             columns="3" columnClasses="ui-grid-col-6,ui-grid-col-1, ui-grid-col-6">
+                                    <p:column>
+                                        <p:outputLabel value="Capacidad Maxima(IPS)" styleClass="estiloLabelForm" />
+                                        <p:inputNumber
+                                                value="#{cargainicialBean.ssCargaInicialRegistro.primariaAreaHaUnidad}"
+                                                readonly="#{cargainicialBean.componentesReadonly}" decimalPlaces="2"  decimalSeparator="." thousandSeparator=","
+                                        />
+                                    </p:column>
+                                    <p:column>
+
+                                    </p:column>
+                                    <p:column>
+
+                                    </p:column>
+                                </p:panelGrid>
+
+
+
+
+                                <p:outputLabel value="Observaciones" styleClass="estiloLabelForm" />
+                                <p:inputTextarea
+                                        value="#{cargainicialBean.ssCargaInicialRegistro.observacion}"
+                                />
                                 <h:outputText value="Estado Documento" class="estiloLabelForm" />
                                 <p:selectOneMenu autoWidth="false" value="#{cargainicialBean.ssCargaInicialRegistro.estadodocumento}">
                                     <f:selectItem itemLabel="#{lbv.lblSeleccione}" itemValue="#{null}" noSelectionOption="true"/>
                                     <f:selectItems value="#{cargainicialBean.maMisDestalleEstadoDocumento}" var="item"
                                                    itemLabel="#{item.descripcionlocal}" itemValue="#{item.codigoelemento}"/>
                                 </p:selectOneMenu>
-                                <h:outputText value="Estado" class="estiloLabelForm" />
-                                <p:selectOneMenu autoWidth="false" value="#{cargainicialBean.ssCargaInicialRegistro.estado}">
-                                    <f:selectItem itemLabel="#{label.lblTodos}" noSelectionOption="true" />
-                                    <f:selectItem itemLabel="#{label.ITEM_ACTIVO}" itemValue="#{constant.INT_ACTIVO}" />
-                                    <f:selectItem itemLabel="#{label.ITEM_INACTIVO}" itemValue="#{constant.INT_INACTIVO}" />
-                                </p:selectOneMenu>
-
 
                             </p:column>
 
