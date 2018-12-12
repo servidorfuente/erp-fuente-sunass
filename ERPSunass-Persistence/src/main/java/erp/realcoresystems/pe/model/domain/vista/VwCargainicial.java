@@ -77,6 +77,7 @@ public class VwCargainicial  extends Entidad {
     private String ultimousuario;
     private Date  ultimafechamodif;
     private Integer  estadodocumento;
+    private String  subTipoInfraestructura;
 
     @Id
     @Basic
@@ -734,4 +735,17 @@ public class VwCargainicial  extends Entidad {
     public void setEstadodocumento(Integer estadodocumento) {
         this.estadodocumento = estadodocumento;
     }
+
+    @Basic
+    @Column(name = "SUB_TIPO_INFRAESTRUCTURA")
+
+    public String getSubTipoInfraestructura() {
+        return subTipoInfraestructura;
+    }
+
+    public void setSubTipoInfraestructura(String subTipoInfraestructura) {
+        this.subTipoInfraestructura = subTipoInfraestructura;
+    }
+
+
 }
