@@ -74,6 +74,22 @@ public class SsCargainicial  extends Entidad {
     private String codSistemaCaptacion;
     private String nombreSistemaCaptacion;
     private Integer estadodocumento;
+    
+    private String ptap;
+    private String sectorPozoReservorio;
+    private String ptapSalida;
+    private String componentePozo;
+    private String componenteReservorio;
+    private String componenteOtro;
+    private String tipoElementoMedicionAgua;
+    private String equipoMedicionMarca;
+    private String equipoMedicionDiametro;
+    private String equipoMedicionTipoRegistro;
+    private String equipoMedicionSerie;
+    private String equipoMedicionFechaInstalacion;
+    private String equipoMedicionEstadoVerificacion;
+    private String estadoOperacion;
+    private String fechaUltimoMantenimiento;
 
     @Id
     @Column(name = "COMPANYOWNER")
@@ -705,4 +721,156 @@ public class SsCargainicial  extends Entidad {
         this.estadodocumento = estadodocumento;
     }
 
+    @Basic
+    @Column(name = "PTAP")
+	public String getPtap() {
+		return ptap;
+	}
+
+	public void setPtap(String ptap) {
+		this.ptap = ptap;
+	}
+
+	@Basic
+	@Column(name = "SECTOR_POZO_RESERVORIO")
+	public String getSectorPozoReservorio() {
+		return sectorPozoReservorio;
+	}
+
+	public void setSectorPozoReservorio(String sectorPozoReservorio) {
+		this.sectorPozoReservorio = sectorPozoReservorio;
+	}
+
+	@Basic
+	@Column(name = "PTAP_SALIDA")
+	public String getPtapSalida() {
+		return ptapSalida;
+	}
+
+	public void setPtapSalida(String ptapSalida) {
+		this.ptapSalida = ptapSalida;
+	}
+
+	@Basic
+	@Column(name = "COMPONENTE_POZO")
+	public String getComponentePozo() {
+		return componentePozo;
+	}
+	
+	public void setComponentePozo(String componentePozo) {
+		this.componentePozo = componentePozo;
+	}
+
+	@Basic
+	@Column(name = "COMPONENTE_RESERVORIO")
+	public String getComponenteReservorio() {
+		return componenteReservorio;
+	}
+
+	public void setComponenteReservorio(String componenteReservorio) {
+		this.componenteReservorio = componenteReservorio;
+	}
+	
+	@Basic
+	@Column(name = "COMPONENTE_OTRO")
+	public String getComponenteOtro() {
+		return componenteOtro;
+	}
+
+	public void setComponenteOtro(String componenteOtro) {
+		this.componenteOtro = componenteOtro;
+	}
+
+	@Basic
+	@Column(name = "TIPO_ELEMENTO_MEDICION_AGUA")
+	public String getTipoElementoMedicionAgua() {
+		return tipoElementoMedicionAgua;
+	}
+
+	public void setTipoElementoMedicionAgua(String tipoElementoMedicionAgua) {
+		this.tipoElementoMedicionAgua = tipoElementoMedicionAgua;
+	}
+
+	@Basic
+	@Column(name = "EQUIPO_MEDICION_MARCA")
+	public String getEquipoMedicionMarca() {
+		return equipoMedicionMarca;
+	}
+
+	public void setEquipoMedicionMarca(String equipoMedicionMarca) {
+		this.equipoMedicionMarca = equipoMedicionMarca;
+	}
+
+	@Basic
+	@Column(name = "EQUIPO_MEDICION_DIAMETRO")
+	public String getEquipoMedicionDiametro() {
+		return equipoMedicionDiametro;
+	}
+
+	public void setEquipoMedicionDiametro(String equipoMedicionDiametro) {
+		this.equipoMedicionDiametro = equipoMedicionDiametro;
+	}
+
+	@Basic
+	@Column(name = "EQUIPO_MEDICION_TIPO_REGISTRO")
+	public String getEquipoMedicionTipoRegistro() {
+		return equipoMedicionTipoRegistro;
+	}
+
+	public void setEquipoMedicionTipoRegistro(String equipoMedicionTipoRegistro) {
+		this.equipoMedicionTipoRegistro = equipoMedicionTipoRegistro;
+	}
+
+	@Basic
+	@Column(name = "EQUIPO_MEDICION_SERIE")
+	public String getEquipoMedicionSerie() {
+		return equipoMedicionSerie;
+	}
+
+	public void setEquipoMedicionSerie(String equipoMedicionSerie) {
+		this.equipoMedicionSerie = equipoMedicionSerie;
+	}
+
+	@Basic
+	@Column(name = "EQUIPO_MEDICION_FECHA_INSTAL")
+	public String getEquipoMedicionFechaInstalacion() {
+		return equipoMedicionFechaInstalacion;
+	}
+
+	public void setEquipoMedicionFechaInstalacion(String equipoMedicionFechaInstalacion) {
+		this.equipoMedicionFechaInstalacion = equipoMedicionFechaInstalacion;
+	}
+
+	@Basic
+	@Column(name = "EQUIPO_MEDICION_ESTADO_VERIFI")
+	public String getEquipoMedicionEstadoVerificacion() {
+		return equipoMedicionEstadoVerificacion;
+	}
+
+	public void setEquipoMedicionEstadoVerificacion(String equipoMedicionEstadoVerificacion) {
+		this.equipoMedicionEstadoVerificacion = equipoMedicionEstadoVerificacion;
+	}
+
+	@Basic
+	@Column(name = "ESTADO_OPERACION")
+	public String getEstadoOperacion() {
+		return estadoOperacion;
+	}
+
+	public void setEstadoOperacion(String estadoOperacion) {
+		this.estadoOperacion = estadoOperacion;
+	}
+
+	@Basic
+	@Column(name = "FECHA_ULTIMO_MANTENIMIENTO")
+	public String getFechaUltimoMantenimiento() {
+		return fechaUltimoMantenimiento;
+	}
+
+	public void setFechaUltimoMantenimiento(String fechaUltimoMantenimiento) {
+		this.fechaUltimoMantenimiento = fechaUltimoMantenimiento;
+	}
+
+    
+    
 }

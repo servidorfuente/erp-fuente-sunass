@@ -72,6 +72,10 @@ public class CargainicialBean extends AbstractGenericBean implements InterfaceGe
     private List<MaMiscelaneosdetalle> maMisTIPOESTFIS;
     private List<MaMiscelaneosdetalle> maMisSUBTIPINFR;
 
+    
+    private List<MaMiscelaneosdetalle> maMisEleMedCaracAgua;
+    private List<MaMiscelaneosdetalle> maMisTipoRegistro;
+    private List<MaMiscelaneosdetalle> maEstadoOperacion;
 
     protected LazyDataModel<VwCargainicial> dataModel;
     protected List<VwCargainicial> listaDataModel;
@@ -98,7 +102,9 @@ public class CargainicialBean extends AbstractGenericBean implements InterfaceGe
         maMisDestalleEstadoDocumento = listarMiscelaneosDetalle("","ESTADODOC");
         maMisTIPOESTFIS = listarMiscelaneosDetalle("","TIPOESTFIS");
         maMisSUBTIPINFR = listarMiscelaneosDetalle("","SUBTIPINFR");
-
+        maMisEleMedCaracAgua = listarMiscelaneosDetalle("", "TIPELEMEDA");
+        maMisTipoRegistro = listarMiscelaneosDetalle("", "TIPOREGIST");
+        maEstadoOperacion = listarMiscelaneosDetalle("", "ESTAOPERA");
     }
     public void inicializarEntidad(){
         FacesUtil.removeIfExistsSessionMap(Utiles.COD_SESSION_LISTADO_PERSONAS);
@@ -778,5 +784,25 @@ public class CargainicialBean extends AbstractGenericBean implements InterfaceGe
     public void setMaMisSUBTIPINFR(List<MaMiscelaneosdetalle> maMisSUBTIPINFR) {
         this.maMisSUBTIPINFR = maMisSUBTIPINFR;
     }
+	public List<MaMiscelaneosdetalle> getMaMisEleMedCaracAgua() {
+		return maMisEleMedCaracAgua;
+	}
+	public void setMaMisEleMedCaracAgua(List<MaMiscelaneosdetalle> maMisEleMedCaracAgua) {
+		this.maMisEleMedCaracAgua = maMisEleMedCaracAgua;
+	}
+	public List<MaMiscelaneosdetalle> getMaMisTipoRegistro() {
+		return maMisTipoRegistro;
+	}
+	public void setMaMisTipoRegistro(List<MaMiscelaneosdetalle> maMisTipoRegistro) {
+		this.maMisTipoRegistro = maMisTipoRegistro;
+	}
+	public List<MaMiscelaneosdetalle> getMaEstadoOperacion() {
+		return maEstadoOperacion;
+	}
+	public void setMaEstadoOperacion(List<MaMiscelaneosdetalle> maEstadoOperacion) {
+		this.maEstadoOperacion = maEstadoOperacion;
+	}
+    
+    
 }
 
