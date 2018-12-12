@@ -9,7 +9,7 @@
     <ui:define name="contentBread">
         <li class="current">
             <i class="icon-angle-right labelBreadCrumbNormal"></i>
-            <a class="labelBreadCrumbNormal" href="#{facesContext.externalContext.requestContextPath}/vistas/sunass/gestion/cargaFuentesLista.xhtml">
+            <a class="labelBreadCrumbNormal" href="#{facesContext.externalContext.requestContextPath}/vistas/sunass/gestion/cargaCicloFacturaLista.xhtml">
                 Fuentes de Agua
             </a>
         </li>
@@ -288,8 +288,7 @@
             </div>
             <div id="seccionRegistro" style="display: #{cargainicialBean.visibleRegistro ?'block':'none'} ;" >
                 <p:outputPanel id="opSeccionReg" rendered="#{cargainicialBean.visibleRegistro}" >
-                    <ui:include src="/vistas/sunass/gestion/cargaFuentesRegistro.xhtml"></ui:include>
-
+                    <ui:include src="/vistas/sunass/gestion/cargaCicloFacturaRegistro.xhtml"></ui:include>
                 </p:outputPanel>
             </div>
         </h:form>
