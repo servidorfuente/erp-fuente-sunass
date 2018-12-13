@@ -105,17 +105,54 @@
                                                       styleClass="#{cargainicialBean.buttonesEstado eq false ? 'colTableEstadoActivo' :'colTableEstadoInactivo'}" />
                                     </p:column>
                                 </p:panelGrid>
+                                 <!--fila A  01 -->
+                                <p:outputLabel value="Localidades beneficiados" />
+                                <p:panelGrid layout="grid" styleClass="sinpadding ui-panelgrid-blank"
+                                             columns="3" columnClasses="ui-grid-col-6,ui-grid-col-1, ui-grid-col-6">
+                                    <p:column>
+                                        <p:outputLabel value="Instrumento Ambiental" />
+                                        <p:selectOneMenu autoWidth="false" value="#{cargainicialBean.ssCargaInicialRegistro.observacion}">
+                                            <f:selectItem itemLabel="#{label.lblTodos}" noSelectionOption="true" />
+                                            <f:selectItem itemLabel="PAMA" itemValue="PAMA" />
+                                            <f:selectItem itemLabel="EIA" itemValue="EIA" />
+                                            <f:selectItem itemLabel="Ninguna" itemValue="Ninguna" />
+                                        </p:selectOneMenu>
+                                    </p:column>
+                                    <p:column></p:column>
+                                    <p:column>
+                                        <p:outputLabel value="N° de Resolucción" />
+                                        <p:inputText
+                                                value="#{cargainicialBean.ssCargaInicialRegistro.primariaAreaHaUnidad}"
+                                                readonly="#{cargainicialBean.componentesReadonly}"
+                                        />
+                                    </p:column>
+                                </p:panelGrid>
+                                <!--fila A  02 -->
+                                <p:outputLabel value="Valor de diseño" />
+                                <p:panelGrid layout="grid" styleClass="sinpadding ui-panelgrid-blank"
+                                             columns="3" columnClasses="ui-grid-col-6,ui-grid-col-1, ui-grid-col-6">
+                                    <p:column>
+                                        <p:outputLabel value="Caudal (Qmaxd)" />
+                                        <p:inputText
+                                                value="#{cargainicialBean.ssCargaInicialRegistro.observacion}"
+                                                readonly="#{cargainicialBean.componentesReadonly}"
+                                        />
+                                    </p:column>
+                                    <p:column></p:column>
+                                    <p:column>
+                                        <p:outputLabel value="Carga DBOS max,d" />
+                                        <p:inputText
+                                                value="#{cargainicialBean.ssCargaInicialRegistro.observacion}"
+                                                readonly="#{cargainicialBean.componentesReadonly}"
+                                        />
+                                    </p:column>
+                                </p:panelGrid>
 
-                                <p:outputLabel value="#{lbv.CARGAINICIAL_CAPACIDAD}" styleClass="estiloLabelForm" />
-                                <p:inputText
-                                        value="#{cargainicialBean.ssCargaInicialRegistro.capacActualLps}"
+
+                                <p:outputLabel value="Observaciones" styleClass="estiloLabelForm" />
+                                <p:inputTextarea
+                                        value="#{cargainicialBean.ssCargaInicialRegistro.observacion}"
                                 />
-                                <h:outputText value="Estado" class="estiloLabelForm" />
-                                <p:selectOneMenu autoWidth="false" value="#{cargainicialBean.ssCargaInicialRegistro.estado}">
-                                    <f:selectItem itemLabel="#{label.lblTodos}" noSelectionOption="true" />
-                                    <f:selectItem itemLabel="#{label.ITEM_ACTIVO}" itemValue="#{constant.INT_ACTIVO}" />
-                                    <f:selectItem itemLabel="#{label.ITEM_INACTIVO}" itemValue="#{constant.INT_INACTIVO}" />
-                                </p:selectOneMenu>
                             </p:column>
                             <p:column>
                                 <p:outputLabel for="itCompaniaReg" styleClass="estiloLabelForm"   value="#{lbv.CONTROLPERIODO_COMPANIA}"/>
@@ -135,26 +172,67 @@
                                                    itemLabel="#{item.prdescripcion}" itemValue="#{item.proyectoid}"/>
                                 </p:selectOneMenu>
 
-                                <p:outputLabel for="itTipoFuentereal" styleClass="estiloLabelForm"   value="Nombre Fuente"/>
+                                <p:outputLabel for="itTipoFuentereal" styleClass="estiloLabelForm"   value="#{lbv.CARGAINICIAL_TIPOFUENTEREAL}"/>
                                 <p:selectOneMenu id="itTipoFuentereal"  autoWidth="false" value="#{cargainicialBean.ssCargaInicialRegistro.futipofuente}"
                                                  styleClass="required-field" >
                                     <f:selectItem itemLabel="#{lbv.lblSeleccione}" itemValue="#{null}" noSelectionOption="true"/>
                                     <f:selectItems value="#{cargainicialBean.maMisTipoFuente}" var="item"
                                                    itemLabel="#{item.descripcionlocal}" itemValue="#{item.codigoelemento}"/>
                                 </p:selectOneMenu>
-                                <p:outputLabel value="#{lbv.CARGAINICIAL_CAUDAL}" styleClass="estiloLabelForm" />
+
+                                <!--fila B  01 -->
+                                <p:outputLabel value="Localidades beneficiados" styleClass="estiloLabelForm" />
                                 <p:inputText
-                                        value="#{cargainicialBean.ssCargaInicialRegistro.caudalcaptadodirectoLps}"
+                                        value="#{cargainicialBean.ssCargaInicialRegistro.primariaAreaHaUnidad}"
+                                        readonly="#{cargainicialBean.componentesReadonly}"
                                 />
-                                <p:outputLabel value="Observaciones" styleClass="estiloLabelForm" />
-                                <p:inputTextarea
-                                        value="#{cargainicialBean.ssCargaInicialRegistro.observacion}"
-                                />
+                                <!--fila B  02 -->
+                                <p:outputLabel value="Disposición final" />
+                                <p:panelGrid layout="grid" styleClass="sinpadding ui-panelgrid-blank"
+                                             columns="3" columnClasses="ui-grid-col-6,ui-grid-col-1, ui-grid-col-6">
+                                    <p:column>
+                                        <p:outputLabel value="Vertimiento" />
+                                        <p:selectOneMenu autoWidth="false" value="#{cargainicialBean.ssCargaInicialRegistro.observacion}">
+                                            <f:selectItem itemLabel="#{label.lblTodos}" noSelectionOption="true" />
+                                            <f:selectItem itemLabel="Rio/Arroyo" itemValue="Rio/Arroyo" />
+                                            <f:selectItem itemLabel="Lago/Laguna" itemValue="Lago/Laguna" />
+                                            <f:selectItem itemLabel="Mar" itemValue="Mar" />
+                                            <f:selectItem itemLabel="Canal de regadío" itemValue="Canal de regadío" />
+                                            <f:selectItem itemLabel="Canal de drenaje" itemValue="Canal de drenaje" />
+                                            <f:selectItem itemLabel="Quebrada seca" itemValue="Quebrada seca" />
+                                            <f:selectItem itemLabel="Campos Aledaños" itemValue="Campos Aledaños" />
+                                            <f:selectItem itemLabel="Otros" itemValue="Otros" />
+                                        </p:selectOneMenu>
+                                    </p:column>
+                                    <p:column></p:column>
+                                    <p:column>
+                                        <p:outputLabel value="Reuso" />
+                                        <p:selectOneMenu autoWidth="false" value="#{cargainicialBean.ssCargaInicialRegistro.observacion}">
+                                            <f:selectItem itemLabel="#{label.lblTodos}" noSelectionOption="true" />
+                                            <f:selectItem itemLabel="Tallo alto" itemValue="Tallo alto" />
+                                            <f:selectItem itemLabel="Tallo bajo" itemValue="Tallo bajo" />
+                                            <f:selectItem itemLabel="Tallo bajo/Alto" itemValue="Tallo bajo/Alto" />
+                                            <f:selectItem itemLabel="Areas verdes" itemValue="Areas verdes" />
+                                            <f:selectItem itemLabel="Ninguna" itemValue="Ninguna" />
+                                        </p:selectOneMenu>
+                                    </p:column>
+                                </p:panelGrid>
+
+
+
+
                                 <h:outputText value="Estado Documento" class="estiloLabelForm" />
                                 <p:selectOneMenu autoWidth="false" value="#{cargainicialBean.ssCargaInicialRegistro.estadodocumento}">
                                     <f:selectItem itemLabel="#{lbv.lblSeleccione}" itemValue="#{null}" noSelectionOption="true"/>
                                     <f:selectItems value="#{cargainicialBean.maMisDestalleEstadoDocumento}" var="item"
                                                    itemLabel="#{item.descripcionlocal}" itemValue="#{item.codigoelemento}"/>
+                                </p:selectOneMenu>
+
+                                <h:outputText value="Estado" class="estiloLabelForm" />
+                                <p:selectOneMenu autoWidth="false" value="#{cargainicialBean.ssCargaInicialRegistro.estado}">
+                                    <f:selectItem itemLabel="#{label.lblTodos}" noSelectionOption="true" />
+                                    <f:selectItem itemLabel="#{label.ITEM_ACTIVO}" itemValue="#{constant.INT_ACTIVO}" />
+                                    <f:selectItem itemLabel="#{label.ITEM_INACTIVO}" itemValue="#{constant.INT_INACTIVO}" />
                                 </p:selectOneMenu>
 
                             </p:column>

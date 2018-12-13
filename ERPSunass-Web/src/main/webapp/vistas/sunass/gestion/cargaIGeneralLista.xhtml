@@ -9,8 +9,8 @@
     <ui:define name="contentBread">
         <li class="current">
             <i class="icon-angle-right labelBreadCrumbNormal"></i>
-            <a class="labelBreadCrumbNormal" href="#{facesContext.externalContext.requestContextPath}/vistas/sunass/gestion/cargaCicloFacturaLista.xhtml">
-                Ciclo de Facturación
+            <a class="labelBreadCrumbNormal" href="#{facesContext.externalContext.requestContextPath}/vistas/sunass/gestion/cargaIGeneralLista.xhtml">
+                Información sobre Infraestructura General
             </a>
         </li>
 
@@ -246,33 +246,29 @@
                     <p:column headerText="Localidad" >
                         <h:outputText value="#{vElement.sucursal}" />
                     </p:column>
-
+                    <p:column headerText="Tipo Fuente" >
+                        <h:outputText value="#{vElement.proyectoid}" />
+                    </p:column>
                     <p:column headerText="Año" >
                         <h:outputText value="#{vElement.anno}" />
                     </p:column>
-                    <p:column headerText="Nombre Fuente" >
+                    <p:column headerText="Nombre Planta" >
                         <h:outputText value="#{vElement.prdescripcion}" />
                     </p:column>
 
                     <p:column headerText="Tipo Fuente" >
                         <h:outputText value="#{vElement.descripcion}" />
                     </p:column>
-                    <p:column headerText="Toma lectura Del" >
-                        <h:outputText value="#{vElement.ptaresprima2Areatotal}" />
+                    <p:column headerText="Capacidad Prod. M3" >
+                        <h:outputText value="#{vElement.capacActualLps}" />
                     </p:column>
-                    <p:column headerText="Toma lectura Al" >
-                        <h:outputText value="#{vElement.ptaressecun2Areatotal}" />
+                    <p:column headerText="Caudal Prod." >
+                        <h:outputText value="#{vElement.caudalcaptadodirectoLps}" />
                     </p:column>
-                    <p:column headerText="Fecha Facturación" >
-                        <h:outputText value="#{vElement.fuusaldecaptacoin}" />
-                    </p:column>
-                    <p:column headerText="Fecha último pago" >
-                        <h:outputText value="#{vElement.antiguedadAos}" />
-                    </p:column>
-                    <p:column headerText="#{lbv.CARGAINICIAL_OBSERVACIONES}" >
+                    <p:column headerText="Observaciones" >
                         <h:outputText value="#{vElement.observacion}" />
                     </p:column>
-                         <p:column headerText="ESTADO DOCUMENTO" >
+                         <p:column headerText="Estado Documento" >
                             <h:outputText value="#{vElement.estadodocumento eq '1' ? 'Preparación' :''
                             or vElement.estadodocumento eq '2' ? 'Vigente':''
                             or vElement.estadodocumento eq '3' ? 'Revisión':''
@@ -280,7 +276,7 @@
                             or vElement.estadodocumento eq '5' ? 'Cerrado':''
                             }"  />
                     </p:column>
-                    <p:column headerText="#{lbv.ESTADO_CAP}" >
+                    <p:column headerText="Estado" >
                         <h:outputText value="#{vElement.estado eq '1' ? label.ITEM_ACTIVO :label.ITEM_INACTIVO}"
                                       styleClass="#{vElement.estado eq '1' ? 'colTableEstadoActivo' :'colTableEstadoInactivo'}" />
                     </p:column>
@@ -290,7 +286,8 @@
             </div>
             <div id="seccionRegistro" style="display: #{cargainicialBean.visibleRegistro ?'block':'none'} ;" >
                 <p:outputPanel id="opSeccionReg" rendered="#{cargainicialBean.visibleRegistro}" >
-                    <ui:include src="/vistas/sunass/gestion/cargaCicloFacturaRegistro.xhtml"></ui:include>
+                    <ui:include src="/vistas/sunass/gestion/cargaIGeneralRegistro.xhtml"></ui:include>
+
                 </p:outputPanel>
             </div>
         </h:form>

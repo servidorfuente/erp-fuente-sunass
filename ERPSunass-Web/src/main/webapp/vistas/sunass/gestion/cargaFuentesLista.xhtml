@@ -141,7 +141,7 @@
                                         <f:selectItems value="#{cargainicialBean.listarFuente}" var="item"
                                                        itemLabel="#{item.descripcion}" itemValue="#{item.fuenteid}"/>
                                     </p:selectOneMenu>
-                                    <p:outputLabel for="itProyecto" styleClass="estiloLabelForm"   value="#{lbv.CARGAINICIAL_PROYECTO}"/>
+                                    <p:outputLabel for="itProyecto" styleClass="estiloLabelForm"   value="Nombre Fuente"/>
                                     <p:selectOneMenu id="itProyecto"  autoWidth="false" value="#{cargainicialBean.vwCargaInicialFiltro.proyectoid}"
                                                      styleClass="required-field" >
                                         <f:selectItem itemLabel="#{lbv.lblSeleccione}" itemValue="#{null}" noSelectionOption="true"/>
