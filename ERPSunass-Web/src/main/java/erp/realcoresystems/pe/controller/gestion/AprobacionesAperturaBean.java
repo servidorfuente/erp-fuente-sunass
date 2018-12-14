@@ -111,7 +111,8 @@ public class AprobacionesAperturaBean extends AbstractGenericBean implements Int
         ssControlperiodoFiltro = new SsControlperiodo();
         vwControlperiodoSelect = new VwControlperiodo();
         vwControlperiodoFiltro = new VwControlperiodo();
-        vwControlperiodoFiltro.setAnno(annoActual());
+        vwControlperiodoFiltro.setAnno(EntityGlobal.getInstance().getPeriodoAnnoActual());
+        vwControlperiodoFiltro.setInteger1(EntityGlobal.getInstance().getPeriodoAnnoActual());
         maMisTipoFuente = UtilesCommons.getNewList();
         maMisDestalleEstadoDocumento = UtilesCommons.getNewList();
         maMisSubTipoInfraestructura = UtilesCommons.getNewList();
@@ -147,6 +148,10 @@ public class AprobacionesAperturaBean extends AbstractGenericBean implements Int
         cargarSucursal();
         cargarListaFuente();
         vwControlperiodoFiltro.setString1("000000");
+        if (EntityGlobal.getInstance().getPeriodoAnnoActual()!=null) {
+            vwControlperiodoFiltro.setInt_1(1);
+            vwControlperiodoFiltro.setInt_2(1);
+        }
 
         // cargarListaProyectos();
     }

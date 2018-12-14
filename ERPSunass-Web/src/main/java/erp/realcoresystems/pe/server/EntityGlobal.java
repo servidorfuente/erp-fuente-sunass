@@ -9,7 +9,16 @@ import java.util.*;
 public  class EntityGlobal implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	
+
+
+	// SUNASS
+
+	private Integer periodoAnnoActual;
+	private Integer wordFlowNumero;
+	private Integer estadoNumero;
+	private String  companiaafiliada;
+	private String  nombreEtapa;
+
 	
 	//ADICIONAL PARA INTERNACIONALIZACION	
 	private Locale localeConfigActual;
@@ -1064,5 +1073,47 @@ public  class EntityGlobal implements Serializable{
 		this.modalidadEstudioDesc = modalidadEstudioDesc;
 	}
 
+	public static long getSerialVersionUID() {
+		return serialVersionUID;
+	}
 
+	public Integer getPeriodoAnnoActual() {
+		return periodoAnnoActual;
+	}
+
+	public void setPeriodoAnnoActual(Integer periodoAnnoActual) {
+		this.periodoAnnoActual = periodoAnnoActual;
+	}
+
+	public Integer getWordFlowNumero() {
+		return wordFlowNumero;
+	}
+
+	public void setWordFlowNumero(Integer wordFlowNumero) {
+		this.wordFlowNumero = wordFlowNumero;
+	}
+
+	public Integer getEstadoNumero() {
+		return estadoNumero;
+	}
+
+	public void setEstadoNumero(Integer estadoNumero) {
+		this.estadoNumero = estadoNumero;
+	}
+
+	public String getCompaniaafiliada() {
+		return companiaafiliada;
+	}
+
+	public void setCompaniaafiliada(String companiaafiliada) {
+		this.companiaafiliada = companiaafiliada;
+	}
+
+	public String getNombreEtapa() {
+		return nombreEtapa;
+	}
+
+	public void setNombreEtapa(String nombreEtapa) {
+		this.nombreEtapa = nombreEtapa;
+	}
 }

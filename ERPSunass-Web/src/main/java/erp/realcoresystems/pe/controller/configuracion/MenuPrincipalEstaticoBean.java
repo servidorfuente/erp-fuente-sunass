@@ -39,7 +39,7 @@ public class MenuPrincipalEstaticoBean {
     public static final String URL_CARGAINICIAL_ESTRUCTURA= "/vistas/sunass/gestion/cargaEstructuraLista.xhtml?fuenteid=2";
     public static final String URL_CARGAINICIAL_PLANTA= "/vistas/sunass/gestion/cargaPlantaLista.xhtml?fuenteid=3";
     public static final String URL_CARGAINICIAL_PLANTARESID= "/vistas/sunass/gestion/cargaPlantaResidualLista.xhtml?fuenteid=4";
-    public static final String URL_CARGAINICIAL_INFESTGENERAL= "/vistas/sunass/gestion/cargaInfraestructuraGeneLista.xhtml?fuenteid=5";
+    public static final String URL_CARGAINICIAL_INFESTGENERAL= "/vistas/sunass/gestion/cargaIGeneralLista.xhtml?fuenteid=5";
     public static final String URL_CARGAINICIAL_CICLOFACTURA= "/vistas/sunass/gestion/cargaCicloFacturaLista.xhtml?fuenteid=6";
     public static final String URL_CARGAINICIAL_CAPTACION= "/vistas/sunass/gestion/cargaCaptacionLista.xhtml?fuenteid=7";
     public static final String URL_CARGAINICIAL_MACROMEDICION = "/vistas/sunass/gestion/cargaMacromedicionLista.xhtml?fuenteid=8";
@@ -296,7 +296,7 @@ public class MenuPrincipalEstaticoBean {
         cicloFactura.setGrupo("GRUPO010");
         cicloFactura.setConcepto("CON0003");
         cicloFactura.setConceptoPadre("CON0000");
-        cicloFactura.setDescripcionSegConcepto("Estruc. Almacenamiento");
+        cicloFactura.setDescripcionSegConcepto("Ciclo Facturación");
         cicloFactura.setUrl("" + URL_CARGAINICIAL_CICLOFACTURA);
         cicloFactura.setObjetoWindow("fa fa-circle-o");
         listaOpcPermisos.add(cicloFactura);

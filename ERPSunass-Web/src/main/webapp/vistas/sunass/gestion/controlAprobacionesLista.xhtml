@@ -77,6 +77,7 @@
                                                          actionListener="#{aprobacionesAperturaBean.btnAperturar}"
                                                          rendered="true" styleClass="btn-primary"
                                                          icon="fa fa-meh-o fa-lg"
+                                                         disabled="#{aprobacionesAperturaBean.vwControlperiodoFiltro.int_1 eq '1'? false : true }"
                                                          title="#{mensaje.MSJ_INFO_TIP_NUEVO_MAIN}"
                                         >
 
@@ -89,6 +90,7 @@
                                                          actionListener="#{aprobacionesAperturaBean.btnModificar}"
                                                          styleClass="btn-primary"
                                                          icon="fa fa-thumbs-o-down"
+                                                         disabled="#{aprobacionesAperturaBean.vwControlperiodoFiltro.int_1 eq '2'? false : true }"
                                                          title="#{mensaje.MSJ_INFO_TIP_MODIFICAR_MAIN}"
                                         >
                                         </p:commandButton>
