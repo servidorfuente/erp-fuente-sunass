@@ -6,6 +6,8 @@
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
                 
     <p:importConstants type="erp.realcoresystems.pe.model.util.Constant" var="CONSTANT"/>
+    
+    <ui:param name="registro" value="#{cargainicialBean.ssCargaInicialRegistro}" />
 
     <p:panel  id="ControlTipoCambioReg"  style="width:auto;" >
         <div class="row" align="center">
@@ -78,13 +80,6 @@
 	                                                   itemLabel="#{item.descripcion}" itemValue="#{item.fuenteid}"/>
 	                           	</p:selectOneMenu>
                            	</p:column>
-                           	
-                        	<p:column>
-	                        	<p:outputLabel for="itAnno" styleClass="estiloLabelForm" value="#{lbv.CARGAINICIAL_ANNO}"/>
-								<p:inputText id="itAnno"
-								 	value="#{cargainicialBean.ssCargaInicialRegistro.anno}"
-								/>        
-							</p:column>       
                         </p:panelGrid>
                         
                         <p:panelGrid layout="grid" styleClass="ui-panelgrid-blank"
@@ -100,8 +95,8 @@
                                     <f:selectItems value="#{cargainicialBean.listarCompanias}" var="item"
                                                    itemLabel="#{item.description}" itemValue="#{item.companyowner}"/>
                                 </p:selectOneMenu>
-								
-								<p:outputLabel for="itProyectoReg" styleClass="estiloLabelForm"   value="#{lbv.CARGAINICIAL_PROYECTO}" />
+                                
+                                <p:outputLabel for="itProyectoReg" styleClass="estiloLabelForm"   value="#{lbv.CARGAINICIAL_PROYECTO}" />
 	                        	<p:selectOneMenu id="itProyectoReg"  autoWidth="false" value="#{cargainicialBean.ssCargaInicialRegistro.proyectoid}"
 	                                                 styleClass="required-field">
 	                            	<f:selectItem itemLabel="#{lbv.lblSeleccione}" itemValue="#{null}" noSelectionOption="true"/>
@@ -109,8 +104,27 @@
 	                                                   itemLabel="#{item.prdescripcion}" itemValue="#{item.proyectoid}"/>
 	                        	</p:selectOneMenu>
                             </p:column>
+                            
+                            <p:column>
+                            	<p:outputLabel for="itSucursalReg" styleClass="estiloLabelForm"  value="#{lbv.CARGAINICIAL_LOCALIDAD}"/>
+                                <p:selectOneMenu id="itSucursalReg"
+                                                 value="#{cargainicialBean.ssCargaInicialRegistro.sucursal}">
+                                    <p:ajax event="change" process="@this" update="#{p:component('pnlMacRegistro')}" listener="#{cargainicialBean.seleccionarProyecto}"/>
+                                    <f:selectItem itemLabel="#{lbv.lblSeleccione}" itemValue="#{null}" noSelectionOption="true"/>
+                                    <f:selectItems value="#{cargainicialBean.listarSucursal}" var="item"
+                                                   itemLabel="#{item.descripcionlocal}" itemValue="#{item.sucursal}"/>
+                                </p:selectOneMenu>
+                                
+	                        	<p:outputLabel for="itAnno" styleClass="estiloLabelForm" value="#{lbv.CARGAINICIAL_ANNO}"/>
+								<p:inputText id="itAnno"
+								 	value="#{cargainicialBean.ssCargaInicialRegistro.anno}"
+								>
+									<p:ajax event="blur" process="@this"/>	
+								</p:inputText>        
+                            </p:column>
                         </p:panelGrid>
                         
+                        <br/>
                         <p:panel header="Según ubicación del dispositivo de medición">
                         	 <p:panelGrid layout="grid" styleClass="ui-panelgrid-blank"
                                      columns="2"
@@ -118,16 +132,17 @@
                             	
                             	<p:column>
                             	<p:outputLabel for="itPTAP" styleClass="estiloLabelForm" value="PTAP" />
-                            	<p:inputText id="itPTAP" value=""/>
+                            	<p:inputText id="itPTAP" value="#{registro.ptap}"/>
                             	</p:column>
                             	
                             	<p:column>
                             	<p:outputLabel for="itSector" styleClass="estiloLabelForm" value="Sector (pozo, reservorio, otro)" />
-                            	<p:inputText id="itSector" value=""/>
+                            	<p:inputText id="itSector" value="#{registro.sectorPozoReservorio}"/>
                             	</p:column>
                         	</p:panelGrid>
                         </p:panel>
                         
+                        <br/>
                      	<p:panel header="Según ubicación en el componente del sistema de agua potable">
                         	 <p:panelGrid layout="grid" styleClass="ui-panelgrid-blank"
                                      columns="2"
@@ -135,28 +150,29 @@
                             	
                             	<p:column>
                             	<p:outputLabel for="itSalidaPTAP" styleClass="estiloLabelForm" value="Salida de la PTAP" />
-                            	<p:inputText id="itSalidaPTAP" value=""/>
+                            	<p:inputText id="itSalidaPTAP" value="#{registro.ptapSalida}"/>
                             	
                             	<p:outputLabel for="itPozo" styleClass="estiloLabelForm" value="Sector (pozo, reservorio, otro)" />
-                            	<p:inputText id="itPozo" value=""/>
+                            	<p:inputText id="itPozo" value="#{registro.componentePozo}"/>
                             	</p:column>
                             	
                             	<p:column>
                             	<p:outputLabel for="itReservorio" styleClass="estiloLabelForm" value="Reservorio" />
-                            	<p:inputText id="itReservorio" value=""/>
+                            	<p:inputText id="itReservorio" value="#{registro.componenteReservorio}"/>
                             	
-                            	<p:outputLabel for="itOtro" styleClass="estiloLabelForm" value="Sector (pozo, reservorio, otro)" />
-                            	<p:inputText id="itOtro" value=""/>
+                            	<p:outputLabel for="itOtro" styleClass="estiloLabelForm" value="Otro (especificar)" />
+                            	<p:inputText id="itOtro" value="#{registro.componenteOtro}"/>
                             	</p:column>
                         	</p:panelGrid>
                         </p:panel>
                         
+                        <br/>
                         <p:panelGrid layout="grid" styleClass="ui-panelgrid-blank"
                                      columns="1"
                                      columnClasses="ui-grid-col-12">
                             	         
                             <p:outputLabel for="itTipoElementoCaracAgua" styleClass="estiloLabelForm" value="Tipo de elemento utilizado para determinar el volumen producido" />
-                           	<p:selectOneMenu id="itTipoElementoCaracAgua"  autoWidth="false" value=""
+                           	<p:selectOneMenu id="itTipoElementoCaracAgua"  autoWidth="false" value="#{registro.tipoElementoMedicionAgua}"
 	                        		styleClass="required-field">
 	                            	<f:selectItem itemLabel="#{lbv.lblSeleccione}" itemValue="#{null}" noSelectionOption="true"/>
 	                                <f:selectItems value="#{cargainicialBean.maMisEleMedCaracAgua}" var="item"
@@ -164,47 +180,51 @@
 	                        </p:selectOneMenu>
                       	</p:panelGrid>
                       	
+                      	<br/>
                       	<p:panel header="Solo para equipos de medición (002 - Electromagnético y 003-Ultrasónico)">
                         	 <p:panelGrid layout="grid" styleClass="ui-panelgrid-blank"
                                      columns="2"
                                      columnClasses="ui-grid-col-6,ui-grid-col-6">
                             	
                             	<p:column>
-                            	<p:outputLabel for="itMarca" styleClass="estiloLabelForm" value="Marca" />
-                            	<p:inputText id="itMarca" value=""/>
-                            	
-                            	<p:outputLabel for="itTipoRegistro" styleClass="estiloLabelForm" value="Tipo de registro" />
-                            	<p:selectOneMenu id="itTipoRegistro"  autoWidth="false" value=""
-	                        		styleClass="required-field">
-	                            	<f:selectItem itemLabel="#{lbv.lblSeleccione}" itemValue="#{null}" noSelectionOption="true"/>
-	                                <f:selectItems value="#{cargainicialBean.maMisTipoRegistro}" var="item"
-	                                                   itemLabel="#{item.descripcionlocal}" itemValue="#{item.codigoelemento}"/>
-	                        	</p:selectOneMenu>
-	                        	
-	                        	<p:outputLabel for="itFechaInstalacion" styleClass="estiloLabelForm" value="Fecha de instalación" />
-                            	<p:inputText id="itFechaInstalacion" value=""/>
+	                            	<p:outputLabel for="itMarca" styleClass="estiloLabelForm" value="Marca" />
+	                            	<p:inputText id="itMarca" value="#{registro.equipoMedicionMarca}"/>
+	                            	
+	                            	<p:outputLabel for="itTipoRegistro" styleClass="estiloLabelForm" value="Tipo de registro" />
+	                            	<p:selectOneMenu id="itTipoRegistro"  autoWidth="false" value="#{registro.equipoMedicionTipoRegistro}"
+		                        		styleClass="required-field">
+		                            	<f:selectItem itemLabel="#{lbv.lblSeleccione}" itemValue="#{null}" noSelectionOption="true"/>
+		                                <f:selectItems value="#{cargainicialBean.maMisTipoRegistro}" var="item"
+		                                                   itemLabel="#{item.descripcionlocal}" itemValue="#{item.codigoelemento}"/>
+		                        	</p:selectOneMenu>
+		                        	
+		                        	<p:outputLabel for="itFechaInstalacion" styleClass="estiloLabelForm" value="Fecha de instalación" />
+	                            	<p:inputText id="itFechaInstalacion" value="#{registro.equipoMedicionFechaInstalacion}"/>
                             	</p:column>
                             	
                             	<p:column>
-                            	<p:outputLabel for="itDiametro" styleClass="estiloLabelForm" value="Díametro" />
-                            	<p:inputText id="itDiametro" value=""/>
-                            	
-                            	<p:outputLabel for="itSerie" styleClass="estiloLabelForm" value="Serie" />
-                            	<p:inputText id="itSerie" value=""/>
+	                            	<p:outputLabel for="itDiametro" styleClass="estiloLabelForm" value="Díametro" />
+	                            	<p:inputText id="itDiametro" value="#{registro.equipoMedicionDiametro}"/>
+	                            	
+	                            	<p:outputLabel for="itSerie" styleClass="estiloLabelForm" value="Serie" />
+	                            	<p:inputText id="itSerie" value="#{registro.equipoMedicionSerie}"/>
+	                            	
+	                            	<p:outputLabel for="itEstadoVerificacion" styleClass="estiloLabelForm" value="Estado de verificación" />
+                            		<p:inputText id="itEstadoVerificacion" value="#{registro.equipoMedicionEstadoVerificacion}"/>
                             	</p:column>
                             	
-                            	<p:outputLabel for="itEstadoVerificacion" styleClass="estiloLabelForm" value="Estado de verificación" />
-                            	<p:inputText id="itEstadoVerificacion" value=""/>
+                            	
                         	</p:panelGrid>
                         </p:panel>
                         
+                        <br/>
                         <p:panelGrid layout="grid" styleClass="ui-panelgrid-blank"
                                      columns="2"
                                      columnClasses="ui-grid-col-6, ui-grid-col-6">
                             	
                            	<p:column>         
                             <p:outputLabel for="itEstadoOperacion" styleClass="estiloLabelForm" value="Estado de operación" />
-                           	<p:selectOneMenu id="itEstadoOperacion"  autoWidth="false" value=""
+                           	<p:selectOneMenu id="itEstadoOperacion"  autoWidth="false" value="#{registro.estadoOperacion}"
 	                        		styleClass="required-field">
 	                            	<f:selectItem itemLabel="#{lbv.lblSeleccione}" itemValue="#{null}" noSelectionOption="true"/>
 	                                <f:selectItems value="#{cargainicialBean.maEstadoOperacion}" var="item"
@@ -217,7 +237,7 @@
 	                        
 	                        <p:column>
 	                        	<p:outputLabel for="itFechaUltimoMantenimiento" styleClass="estiloLabelForm" value="Estado de operación" />
-	                        	<p:inputText id="itFechaUltimoMantenimiento" value=""/>
+	                        	<p:inputText id="itFechaUltimoMantenimiento" value="#{registro.fechaUltimoMantenimiento}"/>
 	                        </p:column>
                       	</p:panelGrid>
                         
