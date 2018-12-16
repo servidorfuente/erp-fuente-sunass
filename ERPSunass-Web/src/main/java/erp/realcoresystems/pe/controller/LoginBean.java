@@ -124,7 +124,7 @@ public class LoginBean implements Serializable{
 	 * Iniciar Valores de las Variables Principales del Login
 	 */
 	public void inicializarVariables(){
-		email="ADMIN";
+		email="10102020";
 		clave=null;
 		listaCompanyowner = new ArrayList<>();
 		claveAuxiliar = null;
