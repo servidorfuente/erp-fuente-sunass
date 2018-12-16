@@ -44,6 +44,11 @@ public class MenuPrincipalEstaticoBean {
     public static final String URL_CARGAINICIAL_CAPTACION= "/vistas/sunass/gestion/cargaCaptacionLista.xhtml?fuenteid=7";
     public static final String URL_CARGAINICIAL_MACROMEDICION = "/vistas/sunass/gestion/cargaMacromedicionLista.xhtml?fuenteid=8";
 
+
+
+    public static final String URL_FORMULARIO_SSFORMCAL11C = "/vistas/sunass/formularios/ssFormcal11CLista.xhtml";
+
+
     /**
      * Obtiene la lista de Permisos , pero del tipo de objeto 'C', que son las
      * carpetas agrupadoras
@@ -186,6 +191,21 @@ public class MenuPrincipalEstaticoBean {
         objPermisos01.setUrl("" + URL_CONTROL_PERIODO);
         objPermisos01.setObjetoWindow("fa fa-circle-o");
         listaOpcPermisos.add(objPermisos01);
+
+        VwSeguridadautorizacione objPermisosFormC11 = new VwSeguridadautorizacione();
+        objPermisosFormC11.setAplicacionCodigo(Constant.APLICACION_CODIGO);
+        objPermisosFormC11.setUsuario(EntityGlobal.getInstance().getUsuario());
+        objPermisosFormC11.setEstado(Constant.ACTIVO);
+        objPermisosFormC11.setTipodeObjeto(TIPOO_ARCHIVO_db);
+
+        objPermisosFormC11.setGrupo("GRUPO011");
+        objPermisosFormC11.setConcepto("CON0031");
+        objPermisosFormC11.setConceptoPadre("CON0000");
+        objPermisosFormC11.setDescripcionSegConcepto("FORMULARIO CAL11D");
+        objPermisosFormC11.setUrl("" + URL_FORMULARIO_SSFORMCAL11C);
+        objPermisosFormC11.setObjetoWindow("fa fa-circle-o");
+        listaOpcPermisos.add(objPermisosFormC11);
+
 
 
 
