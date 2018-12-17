@@ -108,9 +108,7 @@
 											<p:inputText id="itApePaterno" value="#{saPersonaBean.registro.apellidopaterno}" 
 											disabled="#{saPersonaBean.componentesReadonly}" maxlength="60"
 											style="text-transform:uppercase"
-											styleClass="#{ ( saPersonaBean.registro.tipodocumento eq constant.DOCUMENTO_DNI or
-															saPersonaBean.registro.tipodocumento eq constant.DOCUMENTO_CARNET_EXTRANJERIA or
-															saPersonaBean.registro.tipodocumento eq constant.DOCUMENTO_PASAPORTE)  ? 'required-field':''}" 
+
 											rendered="#{!(saPersonaBean.registro.tipopersona eq constant.PERSONA_JURIDICA) }">
 												<p:ajax event="keyup" process="@this" listener="#{saPersonaBean.setearNombreCompleto}" update="FormularioPersona:tabView:opRazonSocial"/>
 											</p:inputText>								
@@ -119,7 +117,6 @@
 										 	<h:outputText value="#{label.PERSONA_APELLIDO_MATERNO}" styleClass="estiloLabelForm" rendered="#{!(saPersonaBean.registro.tipopersona eq constant.PERSONA_JURIDICA)}"/>
 											<p:inputText id="itApeMaterno" value="#{saPersonaBean.registro.apellidomaterno}" 
 											disabled="#{saPersonaBean.componentesReadonly}" maxlength="60"
-											style="text-transform:uppercase" styleClass="#{ (saPersonaBean.registro.tipodocumento eq constant.DOCUMENTO_DNI)  ? 'required-field':''}" 
 											rendered="#{!(saPersonaBean.registro.tipopersona eq constant.PERSONA_JURIDICA)}">
 												<p:ajax event="keyup" process="@this" listener="#{saPersonaBean.setearNombreCompleto}" update="FormularioPersona:tabView:opRazonSocial"/>
 											</p:inputText>
