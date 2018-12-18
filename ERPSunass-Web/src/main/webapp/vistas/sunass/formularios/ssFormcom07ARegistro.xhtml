@@ -135,22 +135,29 @@
             <p:fieldset legend="Información Referencial"   toggleable="true" toggleSpeed="500" >
                 <p:panelGrid layout="grid" styleClass="ui-panelgrid-blank"
                              columns="3"
-                             columnClasses="ui-grid-col-4,ui-grid-col-4,ui-grid-col-4">
+                             columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2">
                     <p:column></p:column>
                     <p:column>
-                        <h:outputText value="Estado Documento" class="estiloLabelForm" />
-                        <p:selectOneMenu autoWidth="false" value="#{ssFormcom07ABean.ssFormcom07ARegistro.ccatetar}">
-                            <f:selectItem itemLabel="#{lbv.lblSeleccione}" itemValue="#{null}" noSelectionOption="true"/>
-                            <f:selectItems value="#{ssFormcom07ABean.maMiscelaneosdellTipoCategoriaTar}" var="item"
-                                           itemLabel="#{item.descripcionlocal}" itemValue="#{item.codigoelemento}"/>
-                        </p:selectOneMenu>
+                        <p:panelGrid layout="grid" styleClass="ui-panelgrid-blank"
+                                     columns="2"
+                                     columnClasses="ui-grid-col-6,ui-grid-col-6">
+                            <h:outputText value="Categoría Tarifaria aprobada" class="estiloLabelForm" />
+                            <p:selectOneMenu autoWidth="false" value="#{ssFormcom07ABean.ssFormcom07ARegistro.ccatetar}">
+                                <f:selectItem itemLabel="#{lbv.lblSeleccione}" itemValue="#{null}" noSelectionOption="true"/>
+                                <f:selectItems value="#{ssFormcom07ABean.maMiscelaneosdellTipoCategoriaTar}" var="item"
+                                               itemLabel="#{item.descripcionlocal}" itemValue="#{item.codigoelemento}"/>
+                            </p:selectOneMenu>
 
-                        <h:outputText value="Estado Documento" class="estiloLabelForm" />
-                        <p:selectOneMenu autoWidth="false" value="#{ssFormcom07ABean.ssFormcom07ARegistro.cresEstadodocumento}">
-                            <f:selectItem itemLabel="#{lbv.lblSeleccione}" itemValue="#{null}" noSelectionOption="true"/>
-                            <f:selectItems value="#{ssFormcom07ABean.maMisDestalleEstadoDocumento}" var="item"
-                                           itemLabel="#{item.descripcionlocal}" itemValue="#{item.codigoelemento}"/>
-                        </p:selectOneMenu>
+                            <h:outputText value="Correlativo del Rango de consumo de la Categoría Tarifaria Aprobada" class="estiloLabelForm" />
+                            <p:selectOneMenu autoWidth="false" value="#{ssFormcom07ABean.ssFormcom07ARegistro.cingRango}">
+                                <f:selectItem itemLabel="#{lbv.lblSeleccione}" itemValue="#{null}" noSelectionOption="true"/>
+                                <f:selectItem itemLabel="01" itemValue="01" noSelectionOption="true"/>
+                                <f:selectItem itemLabel="02" itemValue="02" noSelectionOption="true"/>
+                                <f:selectItem itemLabel="03" itemValue="03" noSelectionOption="true"/>
+                                <f:selectItem itemLabel="04" itemValue="04" noSelectionOption="true"/>
+
+                            </p:selectOneMenu>
+                        </p:panelGrid>
                     </p:column>
                     <p:column></p:column>
 

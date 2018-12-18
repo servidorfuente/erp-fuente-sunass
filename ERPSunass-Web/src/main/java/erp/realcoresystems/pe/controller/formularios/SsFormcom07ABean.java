@@ -155,6 +155,7 @@ public class SsFormcom07ABean extends AbstractGenericBean implements InterfaceGe
     public void btnVer() {
         if (ssFormcom07ARegistro != null) {
             MODO_ACTUAL = MODO_VIEW;
+            ssFormcom07ARegistro = ssFormcom07AService.buscar(ssFormcom07ASeleccion);
             setAtributosWindowsRegistro(MODO_VIEW);
         } else {
             FacesUtil.mensajeWarningPropiedades("MSJ_WARN_elementoNoSelecc");
@@ -165,6 +166,7 @@ public class SsFormcom07ABean extends AbstractGenericBean implements InterfaceGe
     public void btnEliminar() {
         if (ssFormcom07ARegistro != null) {
             MODO_ACTUAL = MODO_DELETE;
+            ssFormcom07ARegistro = ssFormcom07AService.buscar(ssFormcom07ASeleccion);
             setAtributosWindowsRegistro(MODO_ACTUAL);
         } else {
             FacesUtil.adicionarMensajeWarning(FacesUtil.getMSJProperty("MSJ_WARN_elementoNoSelecc"));

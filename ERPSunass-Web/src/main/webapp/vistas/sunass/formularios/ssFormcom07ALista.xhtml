@@ -263,8 +263,8 @@
                             }"  />
                     </p:column>
                     <p:column headerText="Estado" >
-                        <h:outputText value="#{vElement.cresEstado eq 'A' ? label.ITEM_ACTIVO :label.ITEM_INACTIVO}"
-                                      styleClass="#{vElement.cresEstado eq 'A' ? 'colTableEstadoActivo' :'colTableEstadoInactivo'}" />
+                        <h:outputText value="#{vElement.cresEstado eq '1' ? label.ITEM_ACTIVO :label.ITEM_INACTIVO}"
+                                      styleClass="#{vElement.cresEstado eq '1' ? 'colTableEstadoActivo' :'colTableEstadoInactivo'}" />
                     </p:column>
 
                 </p:dataTable>
