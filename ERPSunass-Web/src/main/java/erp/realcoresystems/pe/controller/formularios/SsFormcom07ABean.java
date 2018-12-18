@@ -20,6 +20,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -87,16 +88,44 @@ public class SsFormcom07ABean extends AbstractGenericBean implements InterfaceGe
     @Override
     public void btnGuardar() {
 
+        int result = 0;
+        String onSuccesMsg = "";
+        if(esValidoFormulario(ssFormcom07ARegistro)){
+            transformarEntidad();
+            if (MODO_ACTUAL.equals(MODO_NEW)) {
+                result = ssFormcom07AService.guardar(ssFormcom07ARegistro);
+                onSuccesMsg = FacesUtil.getMSJProperty("MSJ_INFO_saveCorrecto");
+            }else if (MODO_ACTUAL.equals(MODO_UPDATE)) {
+                result = ssFormcom07AService.actualizar(ssFormcom07ARegistro);
+                onSuccesMsg = FacesUtil.getMSJProperty("MSJ_INFO_saveCorrecto");
+            }else if (MODO_ACTUAL.equals(MODO_DELETE)) {
+                result = ssFormcom07AService.eliminar(ssFormcom07ARegistro);
+                onSuccesMsg = FacesUtil.getMSJProperty("MSJ_INFO_saveCorrecto");
+            }
+
+            if(result>0){
+                btnCancelar();
+                btnBuscar();
+                FacesUtil.adicionarMensajeInfo(onSuccesMsg);
+            }else{
+                FacesUtil.adicionarMensajeError(FacesUtil.getMSJProperty("MSJ_ERROR_noSaveCorrecto"));
+            }
+        }
     }
+
 
     @Override
     public void btnAceptar() {
-
+        visibleRegistro = false;
+        ssFormcom07ARegistro = new SsFormcom07A();
+        ssFormcom07ASeleccion = new SsFormcom07A();
     }
 
     @Override
     public void btnCancelar() {
-
+        visibleRegistro = false;
+        ssFormcom07ARegistro = new SsFormcom07A();
+        ssFormcom07ASeleccion = new SsFormcom07A();
     }
 
     @Override
@@ -113,17 +142,33 @@ public class SsFormcom07ABean extends AbstractGenericBean implements InterfaceGe
 
     @Override
     public void btnModificar() {
-
+        if (ssFormcom07ASeleccion != null) {
+            ssFormcom07ARegistro = ssFormcom07AService.buscar(ssFormcom07ASeleccion);
+            MODO_ACTUAL = MODO_UPDATE;
+            setAtributosWindowsRegistro(MODO_ACTUAL);
+        }else{
+            FacesUtil.mensajeWarningPropiedades("MSJ_WARN_elementoNoSelecc");
+        }
     }
 
     @Override
     public void btnVer() {
-
+        if (ssFormcom07ARegistro != null) {
+            MODO_ACTUAL = MODO_VIEW;
+            setAtributosWindowsRegistro(MODO_VIEW);
+        } else {
+            FacesUtil.mensajeWarningPropiedades("MSJ_WARN_elementoNoSelecc");
+        }
     }
 
     @Override
     public void btnEliminar() {
-
+        if (ssFormcom07ARegistro != null) {
+            MODO_ACTUAL = MODO_DELETE;
+            setAtributosWindowsRegistro(MODO_ACTUAL);
+        } else {
+            FacesUtil.adicionarMensajeWarning(FacesUtil.getMSJProperty("MSJ_WARN_elementoNoSelecc"));
+        }
     }
 
     @Override
@@ -208,6 +253,36 @@ public class SsFormcom07ABean extends AbstractGenericBean implements InterfaceGe
         };
         return dataModel;
     }
+
+    public boolean esValidoFormulario( SsFormcom07A objSave) {
+        boolean validoFormulario = true;
+
+        if (!UtilesCommons.noEsVacio(ssFormcom07ARegistro.getCompanyowner())) {
+            FacesUtil.adicionarMensajeWarning("Seleccione  EPS.");
+            //FacesUtil.adicionarMensajeWarning(FacesUtil.getMSJProperty("Seleccione  EPS."));
+            validoFormulario = false;
+        }
+        if (!UtilesCommons.noEsVacio(ssFormcom07ARegistro.getSucursal())) {
+            FacesUtil.adicionarMensajeWarning("Seleccione Localidad");
+            //FacesUtil.adicionarMensajeWarning(FacesUtil.getMSJProperty("Seleccione Localidad"));
+            validoFormulario = false;
+        }
+
+        SsFormcom07A busqueda = ssFormcom07AService.buscar(ssFormcom07ARegistro);
+        if (busqueda != null && MODO_ACTUAL.equals(MODO_NEW)) {
+            FacesUtil.adicionarMensajeWarning(FacesUtil.getMSJProperty("MSJ_WARN_EXISTEREGISTRO"));
+            validoFormulario = false;
+        }
+        return validoFormulario;
+    }
+
+    public void transformarEntidad(){
+        ssFormcom07ARegistro.setUsuarioCreacionGlobal(getUSUARIO_ACTUAL().toUpperCase());
+        ssFormcom07ARegistro.setUltimousuario(getUSUARIO_ACTUAL().toUpperCase());
+        ssFormcom07ARegistro.setCreacionfecha(new Date());
+        ssFormcom07ARegistro.setUltimafechamodif(new Date());
+    }
+
 
     public void setOrderListadoGeneric(Entidad entidadFiltro, String sortField, SortOrder sortOrder){
         /**Order FACES*/

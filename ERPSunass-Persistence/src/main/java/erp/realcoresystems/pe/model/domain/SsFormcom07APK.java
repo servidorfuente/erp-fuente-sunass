@@ -9,9 +9,9 @@ public class SsFormcom07APK implements Serializable {
     private String companyowner;
     private String sucursal;
     private String tipofrecuencia;
-    private long ffanno;
+    private Integer ffanno;
     private String periodo;
-    private long secuencia;
+    private Integer secuencia;
 
     @Column(name = "COMPANYOWNER")
     @Id
@@ -45,11 +45,11 @@ public class SsFormcom07APK implements Serializable {
 
     @Column(name = "FFANNO")
     @Id
-    public long getFfanno() {
+    public Integer getFfanno() {
         return ffanno;
     }
 
-    public void setFfanno(long ffanno) {
+    public void setFfanno(Integer ffanno) {
         this.ffanno = ffanno;
     }
 
@@ -65,11 +65,11 @@ public class SsFormcom07APK implements Serializable {
 
     @Column(name = "SECUENCIA")
     @Id
-    public long getSecuencia() {
+    public Integer getSecuencia() {
         return secuencia;
     }
 
-    public void setSecuencia(long secuencia) {
+    public void setSecuencia(Integer secuencia) {
         this.secuencia = secuencia;
     }
 

@@ -57,7 +57,7 @@ public class SsFormcom07ADaoImpl extends AbstractDaoImpl<SsFormcom07A, SsFormcom
         if(result!=null){
             valorMax = Integer.parseInt(result.toString());
         }
-        objSsFormcom07A.setSecuencia(valorMax+1);
+        objSsFormcom07A.setSecuencia(valorMax + 1);
         save(objSsFormcom07A);
         return 1;
     }

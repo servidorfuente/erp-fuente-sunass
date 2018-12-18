@@ -2,6 +2,7 @@ package erp.realcoresystems.pe.model.domain;
 
 import javax.persistence.*;
 import java.sql.Time;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -11,7 +12,7 @@ public class SsFormcom07A extends Entidad{
     private String companyowner;
     private String sucursal;
     private String tipofrecuencia;
-    private long ffanno;
+    private Integer ffanno;
     private String periodo;
     private Integer secuencia;
     private Long mes;
@@ -29,9 +30,9 @@ public class SsFormcom07A extends Entidad{
     private Long ningAguProm;
     private Long ningAlcan;
     private String creacionusuario;
-    private Time creacionfecha;
+    private Date creacionfecha;
     private String ultimousuario;
-    private Time ultimafechamodif;
+    private Date ultimafechamodif;
     private Integer cresEstadodocumento;
     private String cresEstado;
 
@@ -67,11 +68,11 @@ public class SsFormcom07A extends Entidad{
 
     @Id
     @Column(name = "FFANNO")
-    public long getFfanno() {
+    public Integer getFfanno() {
         return ffanno;
     }
 
-    public void setFfanno(long ffanno) {
+    public void setFfanno(Integer ffanno) {
         this.ffanno = ffanno;
     }
 
@@ -247,11 +248,11 @@ public class SsFormcom07A extends Entidad{
 
     @Basic
     @Column(name = "CREACIONFECHA")
-    public Time getCreacionfecha() {
+    public Date getCreacionfecha() {
         return creacionfecha;
     }
 
-    public void setCreacionfecha(Time creacionfecha) {
+    public void setCreacionfecha(Date creacionfecha) {
         this.creacionfecha = creacionfecha;
     }
 
@@ -267,11 +268,11 @@ public class SsFormcom07A extends Entidad{
 
     @Basic
     @Column(name = "ULTIMAFECHAMODIF")
-    public Time getUltimafechamodif() {
+    public Date getUltimafechamodif() {
         return ultimafechamodif;
     }
 
-    public void setUltimafechamodif(Time ultimafechamodif) {
+    public void setUltimafechamodif(Date ultimafechamodif) {
         this.ultimafechamodif = ultimafechamodif;
     }
 
