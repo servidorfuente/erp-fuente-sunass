@@ -47,6 +47,7 @@ public class MenuPrincipalEstaticoBean {
 
 
     public static final String URL_FORMULARIO_SSFORMCAL11C = "/vistas/sunass/formularios/ssFormcal11CLista.xhtml";
+    public static final String URL_FORMULARIO_SSFORMCOM07A = "/vistas/sunass/formularios/ssFormcom07ALista.xhtml";
 
 
     /**
@@ -205,6 +206,20 @@ public class MenuPrincipalEstaticoBean {
         objPermisosFormC11.setUrl("" + URL_FORMULARIO_SSFORMCAL11C);
         objPermisosFormC11.setObjetoWindow("fa fa-circle-o");
         listaOpcPermisos.add(objPermisosFormC11);
+
+        VwSeguridadautorizacione objPermisosFormC07A = new VwSeguridadautorizacione();
+        objPermisosFormC07A.setAplicacionCodigo(Constant.APLICACION_CODIGO);
+        objPermisosFormC07A.setUsuario(EntityGlobal.getInstance().getUsuario());
+        objPermisosFormC07A.setEstado(Constant.ACTIVO);
+        objPermisosFormC07A.setTipodeObjeto(TIPOO_ARCHIVO_db);
+
+        objPermisosFormC07A.setGrupo("GRUPO011");
+        objPermisosFormC07A.setConcepto("CON0031");
+        objPermisosFormC07A.setConceptoPadre("CON0000");
+        objPermisosFormC07A.setDescripcionSegConcepto("FORMULARIO COM07A");
+        objPermisosFormC07A.setUrl("" + URL_FORMULARIO_SSFORMCOM07A);
+        objPermisosFormC07A.setObjetoWindow("fa fa-circle-o");
+        listaOpcPermisos.add(objPermisosFormC07A);
 
 
 
