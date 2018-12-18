@@ -32,7 +32,7 @@ public class SsFormcom07A extends Entidad{
     private Time creacionfecha;
     private String ultimousuario;
     private Time ultimafechamodif;
-    private Long cresEstadodocumento;
+    private Integer cresEstadodocumento;
     private String cresEstado;
 
     @Id
@@ -277,11 +277,11 @@ public class SsFormcom07A extends Entidad{
 
     @Basic
     @Column(name = "CRES_ESTADODOCUMENTO")
-    public Long getCresEstadodocumento() {
+    public Integer getCresEstadodocumento() {
         return cresEstadodocumento;
     }
 
-    public void setCresEstadodocumento(Long cresEstadodocumento) {
+    public void setCresEstadodocumento(Integer cresEstadodocumento) {
         this.cresEstadodocumento = cresEstadodocumento;
     }
 

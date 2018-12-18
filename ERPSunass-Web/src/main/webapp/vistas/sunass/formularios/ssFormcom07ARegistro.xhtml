@@ -1,12 +1,228 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html
-        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-    <title>Title</title>
-</head>
-<body>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
 
-</body>
-</html>
+    <p:panel  id="ControlTipoCambioReg"  style="width:auto;" >
+        <div class="row" align="center">
+            <div class="ui-g-12 ui-g-nopad">
+                <div class="ui-fluid">
+                    <p:panelGrid layout="grid" styleClass="ui-panelgrid-blank"
+                                 columns="3" columnClasses="ui-grid-col-8,ui-grid-col-2,ui-grid-col-2">
+
+                        <p:spacer width="10"></p:spacer>
+                        <p:spacer  rendered="#{ssFormcom07ABean.btnAceptarVisible}" width="10"></p:spacer>
+                        <p:commandButton id="btnGuardar" value="Guardar"
+                                         icon="fa fa-save"  styleClass="btn-primary"
+                                         rendered="#{ssFormcom07ABean.btnGuardarVisible}"
+                                         actionListener="#{ssFormcom07ABean.btnGuardar}"
+                                         disabled="#{ssFormcom07ABean.buttonesEstado}"
+                                         update="@form, FormHeader"
+                                         title="#{mensaje.MSJ_INFO_TIP_GUARDAR_MAIN}"
+                        >
+                        </p:commandButton>
+                        <p:commandButton id="btnEliminarReg" value="Eliminar"
+                                         icon="fa fa-trash-o"
+                                         styleClass="btn-primary"
+                                         update="@form, FormHeader"
+                                         rendered="#{ssFormcom07ABean.btnGuardarEliminarVisible}"
+                                         actionListener="#{ssFormcom07ABean.btnGuardar}"
+                                         title="#{mensaje.MSJ_INFO_TIP_ELIMINARCOMP_MAIN}"
+                        >
+                        </p:commandButton>
+                        <p:commandButton id="btnCancelar" value="Cancelar"
+                                         styleClass="btn-primary"
+                                         icon="fa fa-times-circle-o"
+                                         immediate="true"
+                                         update="@form, FormHeader"
+                                         rendered="#{ssFormcom07ABean.btnCancelarVisible}"
+                                         actionListener="#{ssFormcom07ABean.btnCancelar}"
+                                         title="#{mensaje.MSJ_INFO_TIP_CANCELAR_MAIN}"
+                        >
+                        </p:commandButton>
+
+                        <p:commandButton id="btnAceptarReg" value="Aceptar"
+                                         styleClass="btn-primary"
+                                         icon="fa fa-check-circle-o"
+                                         immediate="true"
+                                         update="@form, FormHeader"
+                                         rendered="#{ssFormcom07ABean.btnAceptarVisible}"
+                                         actionListener="#{ssFormcom07ABean.btnAceptar}"
+                                         title="#{mensaje.MSJ_INFO_TIP_ACEPTAR_MAIN}"
+                        />
+                    </p:panelGrid>
+                </div>
+            </div>
+        </div>
+        <div class="customHr">.</div>
+        <p:fieldset legend="Información General" toggleSpeed="500" toggleable="true" >
+            <div class="ui-g">
+                <div class="ui-g-12 ui-g-nopad">
+                    <div class="ui-fluid">
+                        <div class="customHr">.</div>
+                        <p:panelGrid layout="grid" styleClass="ui-panelgrid-blank"
+                                     columns="2"
+                                     columnClasses="ui-grid-col-6,ui-grid-col-6">
+                            <p:column>
+                                <p:outputLabel for="itCompaniaReg"  class="estiloLabelForm"    value="#{lbv.CONTROLPERIODO_COMPANIA}"/>
+                                <p:selectOneMenu id="itCompaniaReg"  autoWidth="false" value="#{ssFormcom07ABean.ssFormcom07ARegistro.companyowner}"
+                                                 styleClass="required-field" >
+                                    <p:ajax event="change" process="@this" update="FormCargaInicial:cmdSucursalReg FormCargaInicial:btnGuardar " listener="#{ssFormcom07ABean.seleccionarSucursal}"/>
+
+                                    <f:selectItem itemLabel="#{lbv.lblSeleccione}" itemValue="#{null}" noSelectionOption="true"/>
+                                    <f:selectItems value="#{ssFormcom07ABean.listarCompanias}" var="item"
+                                                   itemLabel="#{item.description}" itemValue="#{item.companyowner}"/>
+                                </p:selectOneMenu>
+
+                                <p:outputLabel for="cmdSucursalReg"  class="estiloLabelForm"    value="#{lbv.CARGAINICIAL_LOCALIDAD}"/>
+                                <p:selectOneMenu id="cmdSucursalReg"
+                                                 styleClass="required-field" value="#{ssFormcom07ABean.ssFormcom07ARegistro.sucursal}">
+                                    <p:ajax event="change" process="@this" update="FormCargaInicial" />
+                                    <f:selectItem itemLabel="#{lbv.lblSeleccione}" itemValue="#{null}" noSelectionOption="true"/>
+                                    <f:selectItems value="#{ssFormcom07ABean.listarSucursal}" var="item"
+                                                   itemLabel="#{item.descripcionlocal}" itemValue="#{item.sucursal}"/>
+                                </p:selectOneMenu>
+                                <p:outputLabel value="Año activo" class="estiloLabelForm" />
+                                <p:inputText
+                                        value="#{ssFormcom07ABean.ssFormcom07AFiltro.ffanno}" readonly="true"  styleClass="required-field"
+                                />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="Tipo periodo" class="estiloLabelForm" />
+                                <p:selectOneMenu autoWidth="false"  styleClass="required-field"
+                                                 value="#{ssFormcom07ABean.ssFormcom07ARegistro.tipofrecuencia}">
+                                    <p:ajax event="change" process="@this" update="FormCargaInicial:cmbPeriodo FormCargaInicial:btnGuardar " listener="#{ssFormcom07ABean.seleccionarPeriodoRegistro}"/>
+                                    <f:selectItem itemLabel="#{lbv.lblSeleccione}" itemValue="#{null}" noSelectionOption="true"/>
+                                    <f:selectItems value="#{ssFormcom07ABean.maMiscelaneosdellTipoFecuencia}" var="item"
+                                                   itemLabel="#{item.descripcionlocal}" itemValue="#{item.codigoelemento}"/>
+                                </p:selectOneMenu>
+                                <h:outputText value="Periodo" class="estiloLabelForm" />
+                                <p:selectOneMenu autoWidth="false"  styleClass="required-field"
+                                                 value="#{ssFormcom07ABean.ssFormcom07ARegistro.periodo}" id="cmbPeriodo">
+                                    <f:selectItem itemLabel="#{lbv.lblSeleccione}" itemValue="#{null}" noSelectionOption="true"/>
+                                    <f:selectItems value="#{ssFormcom07ABean.maMiscelaneosdellTipoFecuenciaHijo}" var="item"
+                                                   itemLabel="#{item.descripcionlocal}" itemValue="#{item.codigoelemento}"/>
+                                </p:selectOneMenu>
+
+                                <h:outputText value="Estado" class="estiloLabelForm" />
+                                <p:selectOneMenu autoWidth="false" value="#{ssFormcom07ABean.ssFormcom07ARegistro.cresEstado}">
+                                    <f:selectItem itemLabel="#{label.lblTodos}" noSelectionOption="true" />
+                                    <f:selectItem itemLabel="#{label.ITEM_ACTIVO}" itemValue="#{constant.INT_ACTIVO}" />
+                                    <f:selectItem itemLabel="#{label.ITEM_INACTIVO}" itemValue="#{constant.INT_INACTIVO}" />
+                                </p:selectOneMenu>
+
+                                <h:outputText value="Estado Documento" class="estiloLabelForm" />
+                                <p:selectOneMenu autoWidth="false" value="#{ssFormcom07ABean.ssFormcom07ARegistro.cresEstadodocumento}">
+                                    <f:selectItem itemLabel="#{lbv.lblSeleccione}" itemValue="#{null}" noSelectionOption="true"/>
+                                    <f:selectItems value="#{ssFormcom07ABean.maMisDestalleEstadoDocumento}" var="item"
+                                                   itemLabel="#{item.descripcionlocal}" itemValue="#{item.codigoelemento}"/>
+                                </p:selectOneMenu>
+
+                            </p:column>
+
+                        </p:panelGrid>
+
+                    </div>
+                </div>
+            </div>
+
+        </p:fieldset>
+
+        <div class="row" style="padding-left:15px;" >
+            <p:spacer height="20" ></p:spacer>
+            <p:fieldset legend="Información Referencial"   toggleable="true" toggleSpeed="500" >
+                <p:panelGrid layout="grid" styleClass="ui-panelgrid-blank"
+                             columns="3"
+                             columnClasses="ui-grid-col-4,ui-grid-col-4,ui-grid-col-4">
+                    <p:column></p:column>
+                    <p:column>
+                        <h:outputText value="Estado Documento" class="estiloLabelForm" />
+                        <p:selectOneMenu autoWidth="false" value="#{ssFormcom07ABean.ssFormcom07ARegistro.ccatetar}">
+                            <f:selectItem itemLabel="#{lbv.lblSeleccione}" itemValue="#{null}" noSelectionOption="true"/>
+                            <f:selectItems value="#{ssFormcom07ABean.maMiscelaneosdellTipoCategoriaTar}" var="item"
+                                           itemLabel="#{item.descripcionlocal}" itemValue="#{item.codigoelemento}"/>
+                        </p:selectOneMenu>
+
+                        <h:outputText value="Estado Documento" class="estiloLabelForm" />
+                        <p:selectOneMenu autoWidth="false" value="#{ssFormcom07ABean.ssFormcom07ARegistro.cresEstadodocumento}">
+                            <f:selectItem itemLabel="#{lbv.lblSeleccione}" itemValue="#{null}" noSelectionOption="true"/>
+                            <f:selectItems value="#{ssFormcom07ABean.maMisDestalleEstadoDocumento}" var="item"
+                                           itemLabel="#{item.descripcionlocal}" itemValue="#{item.codigoelemento}"/>
+                        </p:selectOneMenu>
+                    </p:column>
+                    <p:column></p:column>
+
+                </p:panelGrid>
+                <br/>
+                <p:panelGrid layout="grid" styleClass="ui-panelgrid-blank"
+                             columns="2"
+                             columnClasses="ui-grid-col-6,ui-grid-col-6">
+                    <p:column>
+                        <p:fieldset legend="SOLO DE AGUA POTABLE YA ALCANTARILLADO">
+                            <p:panelGrid layout="grid" styleClass="ui-panelgrid-blank"
+                                         columns="2"
+                                         columnClasses="ui-grid-col-6,ui-grid-col-6">
+                                <p:outputLabel value="Ingresos por conexiones con medidor leído(Solo de agua potable ya alcantarillado)" class="estiloLabelForm" />
+                                <p:inputText value="#{ssFormcom07ABean.ssFormcom07ARegistro.ningAgualcLec}"  styleClass="required-field"/>
+
+                                <p:outputLabel value="Ingresos por conexiones por asiganción de consumo(Solo de agua potable ya alcantarillado)" class="estiloLabelForm" />
+                                <p:inputText value="#{ssFormcom07ABean.ssFormcom07ARegistro.ningAgualcAsig}"  styleClass="required-field"/>
+
+                                <p:outputLabel value="Ingresos por conexiones por promedio de consumo(Solo de agua potable ya alcantarillado)" class="estiloLabelForm" />
+                                <p:inputText value="#{ssFormcom07ABean.ssFormcom07ARegistro.ningAgualcProm}"  styleClass="required-field"/>
+
+                            </p:panelGrid>
+                        </p:fieldset>
+
+                        <p:fieldset legend="SOLO ALCANTARILLADO">
+                            <p:panelGrid layout="grid" styleClass="ui-panelgrid-blank"
+                                         columns="2"
+                                         columnClasses="ui-grid-col-6,ui-grid-col-6">
+                                <p:outputLabel value="Ingresos por alcantarillado S/. (Solo alcantarillado)" class="estiloLabelForm" />
+                                <p:inputText value="#{ssFormcom07ABean.ssFormcom07ARegistro.ningAlcan}"  styleClass="required-field"/>
+
+                            </p:panelGrid>
+                        </p:fieldset>
+                    </p:column>
+                    <p:column>
+                        <p:fieldset legend="SOLO DE AGUA POTABLE">
+                            <p:panelGrid layout="grid" styleClass="ui-panelgrid-blank"
+                                         columns="2"
+                                         columnClasses="ui-grid-col-6,ui-grid-col-6">
+                                <p:outputLabel value="Ingresos de conexiones con medidor leído(Solo de agua potable)" class="estiloLabelForm" />
+                                <p:inputText value="#{ssFormcom07ABean.ssFormcom07ARegistro.ningAguLec}"  styleClass="required-field"/>
+
+                                <p:outputLabel value="Ingresos de conexiones por asiganción de consumo(Solo de agua potable)" class="estiloLabelForm" />
+                                <p:inputText value="#{ssFormcom07ABean.ssFormcom07ARegistro.ningAguAsig}"  styleClass="required-field"/>
+
+                                <p:outputLabel value="Ingresos de conexiones por promedio de consumo(Solo de agua potable)" class="estiloLabelForm" />
+                                <p:inputText value="#{ssFormcom07ABean.ssFormcom07ARegistro.ningAguProm}"  styleClass="required-field"/>
+
+                            </p:panelGrid>
+                        </p:fieldset>
+
+                    </p:column>
+
+                </p:panelGrid>
+                <div  align="left" >
+                    <h:panelGrid columns="1" cellpadding="0" cellspacing="0" >
+                        <h:outputText value="#{ssFormcom07ABean.ssFormcom07ARegistro.ultimousuario}"
+                                      style="font-style: italic" />
+                        <h:outputText value="#{ssFormcom07ABean.ssFormcom07ARegistro.ultimafechamodif}" style="font-style: italic">
+                            <f:convertDateTime pattern="#{label.PATTERN_DATETIME}" locale="#{lbv.LOCALE}"/>
+                        </h:outputText>
+                    </h:panelGrid>
+
+                </div>
+            </p:fieldset>
+
+        </div>
+    </p:panel>
+
+    <script type="text/javascript">
+
+    </script>
+
+</ui:composition>

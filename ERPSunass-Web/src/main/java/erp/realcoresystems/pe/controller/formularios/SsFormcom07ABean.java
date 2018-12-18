@@ -47,6 +47,7 @@ public class SsFormcom07ABean extends AbstractGenericBean implements InterfaceGe
     private List<MaMiscelaneosdetalle> maMisSubTipoInfraestructura;
     private List<MaMiscelaneosdetalle> maMiscelaneosdellTipoFecuencia;
     private List<MaMiscelaneosdetalle> maMiscelaneosdellTipoFecuenciaHijo;
+    private List<MaMiscelaneosdetalle> maMiscelaneosdellTipoCategoriaTar;
 
     private LazyDataModel<SsFormcom07A> dataModel;
     private List<SsFormcom07A> listaDataModel;
@@ -100,7 +101,14 @@ public class SsFormcom07ABean extends AbstractGenericBean implements InterfaceGe
 
     @Override
     public void btnNuevo() {
-
+        MODO_ACTUAL = MODO_NEW;
+        ssFormcom07ARegistro.setCresEstado("A");
+        ssFormcom07ARegistro.setCresEstadodocumento(2);
+        if (UtilesCommons.noEsVacio(ssFormcom07AFiltro.getCompanyowner()))
+            ssFormcom07ARegistro.setCompanyowner(ssFormcom07AFiltro.getCompanyowner());
+        if (UtilesCommons.noEsVacio(ssFormcom07AFiltro.getSucursal()))
+            ssFormcom07ARegistro.setSucursal(ssFormcom07AFiltro.getSucursal());
+        setAtributosWindowsRegistro(MODO_ACTUAL);
     }
 
     @Override
@@ -149,6 +157,7 @@ public class SsFormcom07ABean extends AbstractGenericBean implements InterfaceGe
         maMiscelaneosdellTipoFecuencia = listarMiscelaneosDetalle("","TIPOFRECUE");
         maMisSubTipoInfraestructura = listarMiscelaneosDetalle("", "SUBTIPINFR");
         maMiscelaneosdellTipoFecuenciaHijo = listarMiscelaneosDetalle("", "MENSUAL");
+        maMiscelaneosdellTipoCategoriaTar = listarMiscelaneosDetalle("", "TIPCATETAR");
         
         buscarPrincipal();
     }
@@ -395,5 +404,13 @@ public class SsFormcom07ABean extends AbstractGenericBean implements InterfaceGe
 
     public void setMensajeEstado(String mensajeEstado) {
         this.mensajeEstado = mensajeEstado;
+    }
+
+    public List<MaMiscelaneosdetalle> getMaMiscelaneosdellTipoCategoriaTar() {
+        return maMiscelaneosdellTipoCategoriaTar;
+    }
+
+    public void setMaMiscelaneosdellTipoCategoriaTar(List<MaMiscelaneosdetalle> maMiscelaneosdellTipoCategoriaTar) {
+        this.maMiscelaneosdellTipoCategoriaTar = maMiscelaneosdellTipoCategoriaTar;
     }
 }
